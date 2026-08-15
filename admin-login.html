@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Acceso Administrador</title>
+
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+
+            margin: 0;
+
+            font-family: Arial, sans-serif;
+
+            background: #f5f5f5;
+
+            display: flex;
+
+            justify-content: center;
+
+            align-items: center;
+
+            min-height: 100vh;
+
+        }
+
+
+        .login {
+
+            width: 90%;
+
+            max-width: 350px;
+
+            background: white;
+
+            padding: 25px;
+
+            border-radius: 15px;
+
+            box-shadow:
+                0 5px 20px rgba(0,0,0,0.2);
+
+            text-align: center;
+
+        }
+
+
+        .login h1 {
+
+            margin-top: 0;
+
+            color: #28a745;
+
+            font-size: 25px;
+
+        }
+
+
+        .login p {
+
+            color: #666;
+
+            font-size: 14px;
+
+        }
+
+
+        .campo {
+
+            text-align: left;
+
+            margin-top: 15px;
+
+        }
+
+
+        .campo label {
+
+            display: block;
+
+            font-weight: bold;
+
+            margin-bottom: 6px;
+
+        }
+
+
+        .campo input {
+
+            width: 100%;
+
+            padding: 11px;
+
+            border: 1px solid #ccc;
+
+            border-radius: 7px;
+
+            font-size: 15px;
+
+            outline: none;
+
+        }
+
+
+        .campo input:focus {
+
+            border-color: #28a745;
+
+        }
+
+
+        .mostrar {
+
+            text-align: left;
+
+            margin-top: 8px;
+
+            font-size: 13px;
+
+        }
+
+
+        .boton {
+
+            width: 100%;
+
+            margin-top: 18px;
+
+            padding: 12px;
+
+            border: none;
+
+            border-radius: 7px;
+
+            background: #28a745;
+
+            color: white;
+
+            font-size: 15px;
+
+            font-weight: bold;
+
+            cursor: pointer;
+
+        }
+
+
+        .boton:hover {
+
+            opacity: 0.85;
+
+        }
+
+
+        .volver {
+
+            width: 100%;
+
+            margin-top: 10px;
+
+            padding: 10px;
+
+            border: none;
+
+            border-radius: 7px;
+
+            background: #dc3545;
+
+            color: white;
+
+            cursor: pointer;
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <div class="login">
+
+
+        <h1>
+            🔐 ADMINISTRADOR
+        </h1>
+
+
+        <p>
+            Ingresa tus datos para continuar
+        </p>
+
+
+        <!-- USUARIO -->
+
+        <div class="campo">
+
+            <label>
+                Usuario
+            </label>
+
+            <input
+                type="text"
+                id="usuario"
+                placeholder="Usuario">
+
+        </div>
+
+
+        <!-- CONTRASEÑA -->
+
+        <div class="campo">
+
+            <label>
+                Contraseña
+            </label>
+
+            <input
+                type="password"
+                id="contrasena"
+                placeholder="Contraseña">
+
+        </div>
+
+
+        <!-- MOSTRAR CONTRASEÑA -->
+
+        <div class="mostrar">
+
+            <input
+                type="checkbox"
+                id="mostrarPassword"
+                onclick="mostrarContrasena()">
+
+            Mostrar contraseña
+
+        </div>
+
+
+        <!-- INGRESAR -->
+
+        <button
+            class="boton"
+            onclick="iniciarSesion()">
+
+            INGRESAR
+
+        </button>
+
+
+        <!-- VOLVER -->
+
+        <button
+            class="volver"
+            onclick="volverTienda()">
+
+            VOLVER A LA TIENDA
+
+        </button>
+
+
+    </div>
+
+
+    <script>
+
+
+        /* =========================
+           INICIAR SESIÓN
+        ========================== */
+
+        function iniciarSesion() {
+
+
+            const usuario =
+                document
+                    .getElementById("usuario")
+                    .value
+                    .trim();
+
+
+            const contrasena =
+                document
+                    .getElementById("contrasena")
+                    .value;
+
+
+            /*
+             * Si nunca se cambiaron los datos,
+             * se utilizan:
+             *
+             * usuario: ronal
+             * contraseña: 7194
+             */
+
+            const usuarioGuardado =
+                localStorage.getItem(
+                    "usuarioAdmin"
+                ) || "ronal";
+
+
+            const contrasenaGuardada =
+                localStorage.getItem(
+                    "contrasenaAdmin"
+                ) || "7194";
+
+
+            /* COMPROBAR */
+
+            if (
+                usuario === usuarioGuardado &&
+                contrasena === contrasenaGuardada
+            ) {
+
+
+                /*
+                 * Guardamos una sesión
+                 */
+
+                sessionStorage.setItem(
+                    "sesionAdmin",
+                    "activa"
+                );
+
+
+                /*
+                 * Entrar al administrador
+                 */
+
+                window.location.href =
+                    "admin.html";
+
+
+            } else {
+
+
+                alert(
+                    "Usuario o contraseña incorrectos."
+                );
+
+            }
+
+        }
+
+
+        /* =========================
+           MOSTRAR CONTRASEÑA
+        ========================== */
+
+        function mostrarContrasena() {
+
+
+            const campo =
+                document.getElementById(
+                    "contrasena"
+                );
+
+
+            const check =
+                document.getElementById(
+                    "mostrarPassword"
+                );
+
+
+            if (check.checked) {
+
+                campo.type = "text";
+
+            } else {
+
+                campo.type = "password";
+
+            }
+
+        }
+
+
+        /* =========================
+           VOLVER A LA TIENDA
+        ========================== */
+
+        function volverTienda() {
+
+            window.location.href =
+                "index.html";
+
+        }
+
+
+        /* =========================
+           ENTER PARA INGRESAR
+        ========================== */
+
+        document
+            .getElementById("contrasena")
+            .addEventListener(
+                "keydown",
+                function(event) {
+
+                    if (event.key === "Enter") {
+
+                        iniciarSesion();
+
+                    }
+
+                }
+            );
+
+
+    </script>
+
+
+</body>
+
+</html>

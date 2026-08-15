@@ -1,0 +1,1243 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Administrador</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f5f5f5;
+        }
+
+        header {
+            background: #28a745;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 28px;
+        }
+
+        header p {
+            margin: 8px 0 0;
+        }
+
+        .menu {
+            position: relative;
+            display: inline-block;
+            margin: 20px;
+        }
+
+        .boton-menu {
+            background: #28a745;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .contenido-menu {
+            display: none;
+            position: absolute;
+            background: white;
+            min-width: 220px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            border-radius: 8px;
+            overflow: hidden;
+            z-index: 20;
+        }
+
+        .contenido-menu button {
+            width: 100%;
+            padding: 14px;
+            border: none;
+            background: white;
+            text-align: left;
+            cursor: pointer;
+            font-size: 15px;
+        }
+
+        .contenido-menu button:hover {
+            background: #f0f0f0;
+        }
+
+        .mostrar {
+            display: block;
+        }
+
+        .panel {
+            width: 100%;
+            margin: 20px auto;
+            padding: 10px 20px;
+        }
+
+        /* =========================
+           5 PRODUCTOS POR FILA
+        ========================== */
+
+        #productosAdmin {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 18px;
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        .producto-admin {
+            background: white;
+            padding: 12px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            text-align: center;
+            min-width: 0;
+        }
+
+        .producto-admin img {
+            width: 100%;
+            height: 180px;
+            object-fit: contain;
+            background: #eee;
+            border-radius: 8px;
+        }
+
+        .producto-admin h3 {
+            margin: 10px 0;
+            font-size: 17px;
+        }
+
+        .producto-admin p {
+            margin: 6px 0;
+            font-size: 14px;
+        }
+
+        .boton-editar {
+            background: #28a745;
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 7px;
+            cursor: pointer;
+            margin-top: 8px;
+        }
+
+        .boton-eliminar {
+            background: #dc3545;
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 7px;
+            cursor: pointer;
+            margin-top: 8px;
+        }
+
+        .ventana {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            justify-content: center;
+            align-items: center;
+            z-index: 100;
+        }
+
+        .ventana-contenido {
+            background: white;
+            width: 90%;
+            max-width: 330px;
+            max-height: 90vh;
+            overflow-y: auto;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+            text-align: center;
+        }
+
+        .ventana-contenido h2 {
+            font-size: 20px;
+            margin: 5px 0 15px;
+        }
+
+        .campo {
+            text-align: left;
+            margin-top: 10px;
+        }
+
+        .campo label {
+            display: block;
+            font-size: 13px;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .campo input {
+            width: 100%;
+            padding: 9px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 13px;
+        }
+
+        #vistaPrevia {
+            display: none;
+            margin-top: 10px;
+        }
+
+        #imagenPreview {
+            width: 100%;
+            height: 180px;
+            object-fit: contain;
+            background: #eee;
+            border-radius: 8px;
+        }
+
+        .guardar {
+            width: 100%;
+            margin-top: 12px;
+            padding: 10px;
+            border: none;
+            border-radius: 7px;
+            background: #28a745;
+            color: white;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .cerrar {
+            margin-top: 10px;
+            padding: 9px 20px;
+            border: none;
+            border-radius: 7px;
+            background: #dc3545;
+            color: white;
+            font-size: 13px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .opcion-config {
+            width: 100%;
+            padding: 9px;
+            margin: 5px 0;
+            border: none;
+            border-radius: 6px;
+            background: #f0f0f0;
+            font-size: 13px;
+            cursor: pointer;
+            text-align: left;
+        }
+
+        .color-seccion {
+            display: none;
+            margin-top: 10px;
+            padding: 10px;
+            background: #f7f7f7;
+            border-radius: 8px;
+        }
+
+        .color-seccion input[type="color"] {
+            width: 100%;
+            height: 45px;
+            border: none;
+            padding: 0;
+        }
+
+        /* =========================
+           TABLET
+        ========================== */
+
+        @media (max-width: 1000px) {
+
+            #productosAdmin {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+        }
+
+        /* =========================
+           CELULAR
+        ========================== */
+
+        @media (max-width: 650px) {
+
+            #productosAdmin {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 12px;
+            }
+
+            .panel {
+                padding: 10px;
+            }
+
+            .producto-admin {
+                padding: 8px;
+            }
+
+            .producto-admin img {
+                height: 150px;
+            }
+
+            .producto-admin h3 {
+                font-size: 15px;
+            }
+
+            .producto-admin p {
+                font-size: 13px;
+            }
+
+            .boton-editar,
+            .boton-eliminar {
+                width: 100%;
+                padding: 7px 4px;
+                font-size: 12px;
+            }
+
+        }
+
+        @media (max-width: 400px) {
+
+            #productosAdmin {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 8px;
+            }
+
+            .producto-admin img {
+                height: 130px;
+            }
+
+        }
+
+    </style>
+</head>
+
+<body>
+
+<header id="encabezadoAdmin">
+
+    <h1>ADMINISTRADOR</h1>
+
+    <p>Panel de administración de la tienda</p>
+
+</header>
+
+<div class="menu">
+
+    <button
+        id="botonMenu"
+        class="boton-menu"
+        onclick="abrirMenu()">
+
+        ☰ MENÚ
+
+    </button>
+
+    <div id="menuOpciones" class="contenido-menu">
+
+        <button onclick="configuracion()">
+            ⚙️ Configuración
+        </button>
+
+        <button onclick="subirImagen()">
+            📸 Subir imagen
+        </button>
+
+        <button onclick="salirAdministrador()">
+            🚪 Salir
+        </button>
+
+    </div>
+
+</div>
+
+<main class="panel">
+
+    <div id="productosAdmin"></div>
+
+</main>
+
+
+<!-- SUBIR PRODUCTO -->
+
+<div id="ventanaSubirImagen" class="ventana">
+
+    <div class="ventana-contenido">
+
+        <h2>📸 SUBIR IMAGEN</h2>
+
+        <div class="campo">
+
+            <label>Imagen del producto</label>
+
+            <input
+                type="file"
+                id="imagenProducto"
+                accept="image/*"
+                onchange="mostrarVistaPrevia()">
+
+        </div>
+
+        <div id="vistaPrevia">
+
+            <img id="imagenPreview" src="" alt="Vista previa">
+
+        </div>
+
+        <div class="campo">
+
+            <label>Color</label>
+
+            <input
+                type="text"
+                id="colorProducto"
+                placeholder="Ejemplo: Rojo">
+
+        </div>
+
+        <div class="campo">
+
+            <label>Talla</label>
+
+            <input
+                type="text"
+                id="tallaProducto"
+                placeholder="Ejemplo: M">
+
+        </div>
+
+        <div class="campo">
+
+            <label>Precio</label>
+
+            <input
+                type="number"
+                id="precioProducto"
+                placeholder="Ejemplo: 35"
+                step="0.01">
+
+        </div>
+
+        <button
+            class="guardar"
+            onclick="publicarProducto()">
+
+            🟢 PUBLICAR
+
+        </button>
+
+        <button
+            class="cerrar"
+            onclick="cerrarSubirImagen()">
+
+            CERRAR
+
+        </button>
+
+    </div>
+
+</div>
+
+
+<!-- CONFIGURACION -->
+
+<div id="ventanaConfiguracion" class="ventana">
+
+    <div class="ventana-contenido">
+
+        <h2>⚙️ CONFIGURACIÓN</h2>
+
+        <button
+            class="opcion-config"
+            onclick="mostrarColorAdmin()">
+
+            🎨 Cambiar color del administrador
+
+        </button>
+
+        <div id="colorAdmin" class="color-seccion">
+
+            <h3>🎨 COLOR ADMINISTRADOR</h3>
+
+            <input
+                type="color"
+                id="selectorColorAdmin"
+                value="#28a745">
+
+            <button
+                class="guardar"
+                onclick="guardarColorAdmin()">
+
+                💾 GUARDAR COLOR
+
+            </button>
+
+            <button
+                class="cerrar"
+                onclick="cerrarColorAdmin()">
+
+                CERRAR
+
+            </button>
+
+        </div>
+
+        <button
+            class="opcion-config"
+            onclick="mostrarColorCliente()">
+
+            🛍️ Cambiar color del cliente
+
+        </button>
+
+        <div id="colorCliente" class="color-seccion">
+
+            <h3>🛍️ COLOR DE LA TIENDA</h3>
+
+            <input
+                type="color"
+                id="selectorColorCliente"
+                value="#ec4a0a">
+
+            <button
+                class="guardar"
+                onclick="guardarColorCliente()">
+
+                💾 GUARDAR COLOR
+
+            </button>
+
+            <button
+                class="cerrar"
+                onclick="cerrarColorCliente()">
+
+                CERRAR
+
+            </button>
+
+        </div>
+
+        <button
+            class="opcion-config"
+            onclick="mostrarCredenciales()">
+
+            🔐 Cambiar usuario y contraseña
+
+        </button>
+
+        <button
+            class="opcion-config"
+            onclick="alert('Aquí configuraremos el dibujito del cliente.')">
+
+            🖼️ Agregar dibujito a la página del cliente
+
+        </button>
+
+        <button
+            class="cerrar"
+            onclick="volverMenu()">
+
+            ↩️ ATRÁS
+
+        </button>
+
+    </div>
+
+</div>
+
+
+<!-- CREDENCIALES -->
+
+<div id="ventanaCredenciales" class="ventana">
+
+    <div class="ventana-contenido">
+
+        <h2>🔐 CAMBIAR ACCESO</h2>
+
+        <div class="campo">
+
+            <label>Usuario</label>
+
+            <input type="text" id="nuevoUsuario">
+
+        </div>
+
+        <div class="campo">
+
+            <label>Contraseña</label>
+
+            <input type="password" id="nuevaContrasena">
+
+        </div>
+
+        <button
+            class="guardar"
+            onclick="guardarCredenciales()">
+
+            💾 GUARDAR
+
+        </button>
+
+        <button
+            class="cerrar"
+            onclick="cerrarCredenciales()">
+
+            CERRAR
+
+        </button>
+
+    </div>
+
+</div>
+
+
+<script>
+
+function abrirMenu() {
+
+    document
+        .getElementById("menuOpciones")
+        .classList.toggle("mostrar");
+
+}
+
+
+function configuracion() {
+
+    document
+        .getElementById("ventanaConfiguracion")
+        .style.display = "flex";
+
+    document
+        .getElementById("menuOpciones")
+        .classList.remove("mostrar");
+
+}
+
+
+function mostrarColorAdmin() {
+
+    const seccion =
+        document.getElementById("colorAdmin");
+
+    seccion.style.display =
+        seccion.style.display === "block"
+        ? "none"
+        : "block";
+
+}
+
+
+function guardarColorAdmin() {
+
+    const color =
+        document
+            .getElementById("selectorColorAdmin")
+            .value;
+
+    localStorage.setItem(
+        "colorAdministrador",
+        color
+    );
+
+    document
+        .getElementById("encabezadoAdmin")
+        .style.backgroundColor = color;
+
+    document
+        .getElementById("botonMenu")
+        .style.backgroundColor = color;
+
+    alert("Color del administrador guardado.");
+
+}
+
+
+function cerrarColorAdmin() {
+
+    document
+        .getElementById("colorAdmin")
+        .style.display = "none";
+
+}
+
+
+function mostrarColorCliente() {
+
+    const seccion =
+        document.getElementById("colorCliente");
+
+    seccion.style.display =
+        seccion.style.display === "block"
+        ? "none"
+        : "block";
+
+    const color =
+        localStorage.getItem("colorCliente");
+
+    if (color) {
+
+        document
+            .getElementById("selectorColorCliente")
+            .value = color;
+
+    }
+
+}
+
+
+function guardarColorCliente() {
+
+    const color =
+        document
+            .getElementById("selectorColorCliente")
+            .value;
+
+    localStorage.setItem(
+        "colorCliente",
+        color
+    );
+
+    alert("Color de la tienda guardado.");
+
+}
+
+
+function cerrarColorCliente() {
+
+    document
+        .getElementById("colorCliente")
+        .style.display = "none";
+
+}
+
+
+function mostrarCredenciales() {
+
+    document
+        .getElementById("ventanaCredenciales")
+        .style.display = "flex";
+
+    document
+        .getElementById("nuevoUsuario")
+        .value =
+        localStorage.getItem("usuarioAdmin") || "ronal";
+
+    document
+        .getElementById("nuevaContrasena")
+        .value =
+        localStorage.getItem("contrasenaAdmin") || "7194";
+
+}
+
+
+function guardarCredenciales() {
+
+    const usuario =
+        document
+            .getElementById("nuevoUsuario")
+            .value
+            .trim();
+
+    const contrasena =
+        document
+            .getElementById("nuevaContrasena")
+            .value;
+
+    if (!usuario || !contrasena) {
+
+        alert("Completa todos los campos.");
+
+        return;
+
+    }
+
+    localStorage.setItem(
+        "usuarioAdmin",
+        usuario
+    );
+
+    localStorage.setItem(
+        "contrasenaAdmin",
+        contrasena
+    );
+
+    alert("Usuario y contraseña cambiados.");
+
+    cerrarCredenciales();
+
+}
+
+
+function cerrarCredenciales() {
+
+    document
+        .getElementById("ventanaCredenciales")
+        .style.display = "none";
+
+}
+
+
+function volverMenu() {
+
+    document
+        .getElementById("ventanaConfiguracion")
+        .style.display = "none";
+
+    document
+        .getElementById("colorAdmin")
+        .style.display = "none";
+
+    document
+        .getElementById("colorCliente")
+        .style.display = "none";
+
+}
+
+
+function subirImagen() {
+
+    const productos =
+        JSON.parse(
+            localStorage.getItem("productos")
+        ) || [];
+
+    /* LÍMITE DE 100 */
+
+    if (productos.length >= 100) {
+
+        alert(
+            "Has llegado al límite de 100 productos."
+        );
+
+        return;
+
+    }
+
+    document
+        .getElementById("ventanaSubirImagen")
+        .style.display = "flex";
+
+    limpiarFormulario();
+
+}
+
+
+function mostrarVistaPrevia() {
+
+    const archivo =
+        document
+            .getElementById("imagenProducto")
+            .files[0];
+
+    if (!archivo) return;
+
+    const lector = new FileReader();
+
+    lector.onload = function(event) {
+
+        document
+            .getElementById("imagenPreview")
+            .src = event.target.result;
+
+        document
+            .getElementById("vistaPrevia")
+            .style.display = "block";
+
+    };
+
+    lector.readAsDataURL(archivo);
+
+}
+
+
+function publicarProducto() {
+
+    const archivo =
+        document
+            .getElementById("imagenProducto")
+            .files[0];
+
+    const color =
+        document
+            .getElementById("colorProducto")
+            .value
+            .trim();
+
+    const talla =
+        document
+            .getElementById("tallaProducto")
+            .value
+            .trim();
+
+    const precio =
+        document
+            .getElementById("precioProducto")
+            .value
+            .trim();
+
+    const productos =
+        JSON.parse(
+            localStorage.getItem("productos")
+        ) || [];
+
+
+    /* COMPROBAR LÍMITE */
+
+    if (
+        window.productoEditando === null &&
+        productos.length >= 100
+    ) {
+
+        alert(
+            "Has llegado al límite de 100 productos."
+        );
+
+        return;
+
+    }
+
+
+    if (!archivo && window.productoEditando === null) {
+
+        alert("Selecciona una imagen.");
+
+        return;
+
+    }
+
+    if (!color) {
+
+        alert("Escribe el color.");
+
+        return;
+
+    }
+
+    if (!talla) {
+
+        alert("Escribe la talla.");
+
+        return;
+
+    }
+
+    if (!precio) {
+
+        alert("Escribe el precio.");
+
+        return;
+
+    }
+
+
+    function guardarProducto(imagen) {
+
+        if (window.productoEditando !== null) {
+
+            productos[window.productoEditando].color = color;
+            productos[window.productoEditando].talla = talla;
+            productos[window.productoEditando].precio = precio;
+
+            if (imagen) {
+
+                productos[window.productoEditando].imagen =
+                    imagen;
+
+            }
+
+            alert("Producto actualizado.");
+
+        } else {
+
+            productos.push({
+
+                id: Date.now(),
+
+                nombre: "Producto",
+
+                imagen: imagen,
+
+                color: color,
+
+                talla: talla,
+
+                precio: precio
+
+            });
+
+            alert(
+                "¡Producto publicado correctamente!"
+            );
+
+        }
+
+        localStorage.setItem(
+            "productos",
+            JSON.stringify(productos)
+        );
+
+        cerrarSubirImagen();
+
+        mostrarProductosAdmin();
+
+    }
+
+
+    if (archivo) {
+
+        const lector = new FileReader();
+
+        lector.onload = function(event) {
+
+            guardarProducto(
+                event.target.result
+            );
+
+        };
+
+        lector.readAsDataURL(archivo);
+
+    } else {
+
+        guardarProducto(null);
+
+    }
+
+}
+
+
+function mostrarProductosAdmin() {
+
+    const contenedor =
+        document.getElementById("productosAdmin");
+
+    contenedor.innerHTML = "";
+
+    const productos =
+        JSON.parse(
+            localStorage.getItem("productos")
+        ) || [];
+
+
+    productos.forEach(function(producto, indice) {
+
+        const tarjeta =
+            document.createElement("div");
+
+        tarjeta.className = "producto-admin";
+
+        tarjeta.innerHTML = `
+
+            <img
+                src="${producto.imagen}"
+                alt="Producto">
+
+            <h3>
+                ${producto.nombre}
+            </h3>
+
+            <p>
+                Precio: S/ ${producto.precio}
+            </p>
+
+            <p>
+                Color: ${producto.color}
+            </p>
+
+            <p>
+                Talla: ${producto.talla}
+            </p>
+
+            <button
+                class="boton-editar"
+                onclick="editarProducto(${indice})">
+
+                ✏️ EDITAR
+
+            </button>
+
+            <button
+                class="boton-eliminar"
+                onclick="eliminarProducto(${indice})">
+
+                🗑️ ELIMINAR
+
+            </button>
+
+        `;
+
+        contenedor.appendChild(tarjeta);
+
+    });
+
+}
+
+
+function editarProducto(indice) {
+
+    const productos =
+        JSON.parse(
+            localStorage.getItem("productos")
+        ) || [];
+
+    const producto =
+        productos[indice];
+
+    if (!producto) return;
+
+    document
+        .getElementById("ventanaSubirImagen")
+        .style.display = "flex";
+
+    document
+        .getElementById("colorProducto")
+        .value = producto.color;
+
+    document
+        .getElementById("tallaProducto")
+        .value = producto.talla;
+
+    document
+        .getElementById("precioProducto")
+        .value = producto.precio;
+
+    document
+        .getElementById("imagenPreview")
+        .src = producto.imagen;
+
+    document
+        .getElementById("vistaPrevia")
+        .style.display = "block";
+
+    window.productoEditando = indice;
+
+}
+
+
+function eliminarProducto(indice) {
+
+    if (!confirm("¿Quieres eliminar este producto?")) {
+
+        return;
+
+    }
+
+    const productos =
+        JSON.parse(
+            localStorage.getItem("productos")
+        ) || [];
+
+    productos.splice(indice, 1);
+
+    localStorage.setItem(
+        "productos",
+        JSON.stringify(productos)
+    );
+
+    mostrarProductosAdmin();
+
+}
+
+
+function cerrarSubirImagen() {
+
+    document
+        .getElementById("ventanaSubirImagen")
+        .style.display = "none";
+
+    limpiarFormulario();
+
+}
+
+
+function limpiarFormulario() {
+
+    document
+        .getElementById("imagenProducto")
+        .value = "";
+
+    document
+        .getElementById("colorProducto")
+        .value = "";
+
+    document
+        .getElementById("tallaProducto")
+        .value = "";
+
+    document
+        .getElementById("precioProducto")
+        .value = "";
+
+    document
+        .getElementById("imagenPreview")
+        .src = "";
+
+    document
+        .getElementById("vistaPrevia")
+        .style.display = "none";
+
+    window.productoEditando = null;
+
+}
+
+
+function salirAdministrador() {
+
+    sessionStorage.removeItem("sesionAdmin");
+
+    window.location.href = "index.html";
+
+}
+
+
+function cargarColorAdmin() {
+
+    const color =
+        localStorage.getItem(
+            "colorAdministrador"
+        );
+
+    if (!color) return;
+
+    document
+        .getElementById("encabezadoAdmin")
+        .style.backgroundColor = color;
+
+    document
+        .getElementById("botonMenu")
+        .style.backgroundColor = color;
+
+    document
+        .getElementById("selectorColorAdmin")
+        .value = color;
+
+}
+
+
+window.productoEditando = null;
+
+cargarColorAdmin();
+
+mostrarProductosAdmin();
+
+</script>
+
+</body>
+</html>

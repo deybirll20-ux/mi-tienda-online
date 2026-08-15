@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Mi Tienda Online</title>
+
+    <link rel="stylesheet" href="estilos.css">
+
+</head>
+
+<body>
+
+<header>
+
+    <h1> BIENVENIDOS A MI TIENDA</h1>
+
+    <p> COMPRA FÁCIL, LUCE INCREÍBLE </p>
+
+    <a
+        href="admin-login.html"
+        class="btn-admin">
+
+        ADMIN
+
+    </a>
+
+</header>
+
+<main>
+
+    <h2>Productos</h2>
+
+    <div id="productos"></div>
+
+</main>
+
+<footer>
+
+    <p>© 2026 Mi Tienda Online</p>
+
+</footer>
+
+<script src="script.js"></script>
+
+<script>
+
+function mostrarProductos() {
+
+    const contenedor =
+        document.getElementById("productos");
+
+    contenedor.innerHTML = "";
+
+    const productos =
+        JSON.parse(
+            localStorage.getItem("productos")
+        ) || [];
+
+
+    if (productos.length === 0) {
+
+        contenedor.innerHTML = `
+
+            <p class="sin-productos">
+
+                No hay productos disponibles.
+
+            </p>
+
+        `;
+
+        return;
+
+    }
+
+
+    /* MOSTRAR COMO MÁXIMO 100 */
+
+    productos
+        .slice(0, 100)
+        .forEach(function(producto) {
+
+        const tarjeta =
+            document.createElement("div");
+
+        tarjeta.className = "producto";
+
+        tarjeta.innerHTML = `
+
+            <div class="imagen-producto">
+
+                <img
+                    src="${producto.imagen}"
+                    alt="Producto">
+
+            </div>
+
+            <h3>
+                ${producto.nombre}
+            </h3>
+
+            <p>
+                Precio:
+                S/ ${producto.precio}
+            </p>
+
+            <div class="opciones">
+
+                <label>Talla:</label>
+
+                <span>
+                    ${producto.talla}
+                </span>
+
+                <label>Color:</label>
+
+                <span>
+                    ${producto.color}
+                </span>
+
+            </div>
+
+            <button
+                onclick="
+                    pedirProducto(
+                        '${producto.nombre}',
+                        '${producto.precio}',
+                        '${producto.color}',
+                        '${producto.talla}'
+                    )
+                ">
+
+                PEDIR
+
+            </button>
+
+        `;
+
+        contenedor.appendChild(tarjeta);
+
+    });
+
+}
+
+
+function aplicarColorCliente() {
+
+    const color =
+        localStorage.getItem("colorCliente");
+
+    if (!color) return;
+
+    document.documentElement
+        .style
+        .setProperty(
+            "--color-tienda",
+            color
+        );
+
+}
+
+
+aplicarColorCliente();
+
+mostrarProductos();
+
+</script>
+
+</body>
+</html>
