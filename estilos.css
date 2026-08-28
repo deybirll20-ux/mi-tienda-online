@@ -1,224 +1,130 @@
+/* =====================================================
+   CONFIGURACIÓN GENERAL
+===================================================== */
+
 * {
     box-sizing: border-box;
-    margin: 0;
-    padding: 0;
 }
 
-:root {
-    --color-tienda: #ec4a0a;
+html,
+body {
+    margin: 0;
+    padding: 0;
+    min-height: 100%;
 }
 
 body {
     font-family: Arial, sans-serif;
-    background: #f4f1f8;
-    color: #333;
+    background: #f5f5f5;
+    color: #222;
 }
 
-header {
-    background: var(--color-tienda);
-    color: white;
-    text-align: center;
-    padding: 30px 15px;
+
+/* =====================================================
+   ENCABEZADO CLIENTE
+===================================================== */
+
+.encabezado-cliente {
+
     position: relative;
-}
-
-header h1 {
-    font-size: 32px;
-    margin-bottom: 8px;
-}
-
-header p {
-    font-size: 16px;
-}
-
-main {
-    width: 100%;
-    margin: 30px auto;
-    padding: 0 20px;
-}
-
-main h2 {
-    text-align: center;
-    margin-bottom: 25px;
-    color: #020003;
-}
-
-
-/* =========================
-   PRODUCTOS
-========================= */
-
-#productos {
-
-    display: grid;
-
-    grid-template-columns:
-        repeat(5, minmax(0, 1fr));
-
-    gap: 20px;
 
     width: 100%;
+    min-height: 130px;
 
-}
-
-
-/* =========================
-   TARJETA
-========================= */
-
-.producto {
-
-    background: white;
-
-    width: 100%;
-
-    padding: 15px;
-
-    border-radius: 15px;
-
-    text-align: center;
-
-    box-shadow:
-        0 4px 12px rgba(0,0,0,0.15);
-
-}
-
-
-/* =========================
-   IMAGEN
-========================= */
-
-.imagen-producto {
-
-    width: 100%;
-
-    height: 220px;
-
-    background: #eee;
+    background: #ec4a0a;
+    color: white;
 
     display: flex;
 
+    justify-content: center;
     align-items: center;
 
-    justify-content: center;
-
-    border-radius: 10px;
-
-    margin-bottom: 15px;
-
-    overflow: hidden;
-
-}
-
-.imagen-producto img {
-
-    width: 100%;
-
-    height: 100%;
-
-    object-fit: contain;
-
+    padding: 15px;
 }
 
 
-/* =========================
-   TEXTO
-========================= */
+/* =====================================================
+   TÍTULO CENTRAL
+===================================================== */
 
-.producto h3 {
+.titulo-tienda {
 
-    color: #010002;
-
-    margin-bottom: 10px;
-
-    font-size: 18px;
-
+    text-align: center;
 }
 
-.producto p {
+.titulo-tienda h1 {
 
-    margin-bottom: 15px;
+    margin: 0;
 
-    font-size: 16px;
-
-}
-
-
-/* =========================
-   OPCIONES
-========================= */
-
-.opciones {
-
-    margin: 12px 0;
-
-    text-align: left;
-
-}
-
-.opciones label {
-
-    display: block;
-
-    margin-top: 8px;
-
-    margin-bottom: 4px;
+    font-size: 36px;
 
     font-weight: bold;
-
 }
 
-.opciones span {
+.titulo-tienda p {
 
-    display: block;
-
-    background: #f5f5f5;
-
-    padding: 7px;
-
-    border-radius: 5px;
-
-}
-
-
-/* =========================
-   BOTON PEDIR
-========================= */
-
-button {
-
-    background: var(--color-tienda);
-
-    color: white;
-
-    border: none;
-
-    padding: 12px 25px;
-
-    border-radius: 8px;
-
-    cursor: pointer;
+    margin: 8px 0 0;
 
     font-size: 16px;
 
-}
-
-button:hover {
-
-    background: #218838;
-
+    font-weight: bold;
 }
 
 
-/* =========================
-   ADMIN
-========================= */
+/* =====================================================
+   ❤️ CALIFICACIÓN
+===================================================== */
 
-.btn-admin {
+#btnCalificar {
 
     position: absolute;
 
-    right: 20px;
+    left: 35px;
+
+    top: 50%;
+
+    transform: translateY(-50%);
+
+    background: none !important;
+
+    border: none !important;
+
+    outline: none;
+
+    box-shadow: none;
+
+    padding: 0;
+
+    margin: 0;
+
+    font-size: 30px;
+
+    line-height: 1;
+
+    cursor: pointer;
+
+    appearance: none;
+}
+
+#btnCalificar:hover {
+
+    background: none !important;
+
+    transform:
+        translateY(-50%)
+        scale(1.15);
+}
+
+
+/* =====================================================
+   🟢 ADMIN
+===================================================== */
+
+#btnAdmin {
+
+    position: absolute;
+
+    right: 35px;
 
     top: 50%;
 
@@ -228,192 +134,777 @@ button:hover {
 
     color: white;
 
-    padding: 10px 20px;
+    border: none;
 
     border-radius: 8px;
 
-    text-decoration: none;
+    padding: 12px 22px;
+
+    font-size: 15px;
 
     font-weight: bold;
 
+    cursor: pointer;
 }
 
-.btn-admin:hover {
+#btnAdmin:hover {
 
-    background: #218838;
-
+    opacity: 0.9;
 }
 
 
-/* =========================
-   FOOTER
-========================= */
+/* =====================================================
+   ZONA CENTRAL DE PRODUCTOS
+   CLIENTE MÁS ALEJADO
+===================================================== */
 
-footer {
+.contenido-cliente {
+
+    width: 100%;
+
+    max-width: 1400px;
+
+    margin: 0 auto;
+
+    padding: 45px 35px 60px;
+
+    min-height: 500px;
+}
+
+
+/* =====================================================
+   PRODUCTOS CLIENTE
+   100 PRODUCTOS
+   4 COLUMNAS × 25 FILAS
+===================================================== */
+
+.productos {
+
+    width: 100%;
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(4, 1fr);
+
+    column-gap: 45px;
+
+    row-gap: 45px;
+
+    padding: 15px 25px;
+
+    align-items: start;
+}
+
+
+/* =====================================================
+   TARJETA DE PRODUCTO
+===================================================== */
+
+.producto {
+
+    width: 100%;
+
+    max-width: 195px;
+
+    margin: 0 auto;
+
+    background: white;
+
+    border-radius: 10px;
+
+    padding: 8px;
+
+    box-shadow:
+        0 3px 10px rgba(0, 0, 0, 0.10);
+
+    text-align: center;
+
+    transition:
+        transform .2s ease,
+        box-shadow .2s ease;
+}
+
+.producto:hover {
+
+    transform: translateY(-3px);
+
+    box-shadow:
+        0 5px 14px rgba(0, 0, 0, 0.15);
+}
+
+
+/* =====================================================
+   IMAGEN DEL PRODUCTO
+===================================================== */
+
+.producto img {
+
+    width: 100%;
+
+    height: 155px;
+
+    object-fit: contain;
+
+    border-radius: 8px;
+
+    display: block;
+}
+
+
+/* =====================================================
+   NOMBRE
+===================================================== */
+
+.producto h3 {
+
+    margin: 7px 0 5px;
+
+    font-size: 13px;
+
+    font-weight: bold;
+
+    overflow: hidden;
+
+    text-overflow: ellipsis;
+}
+
+
+/* =====================================================
+   DATOS
+===================================================== */
+
+.producto p {
+
+    margin: 3px 0;
+
+    font-size: 11px;
+}
+
+
+/* =====================================================
+   PRECIO
+===================================================== */
+
+.precio {
+
+    font-size: 16px;
+
+    font-weight: bold;
+
+    color: #111;
+
+    margin-top: 6px;
+}
+
+
+/* =====================================================
+   BOTÓN PEDIR
+===================================================== */
+
+.btn-pedir {
+
+    display: inline-block;
+
+    margin-top: 7px;
+
+    background: #1b9a1b;
+
+    color: white;
+
+    padding: 7px 13px;
+
+    border-radius: 6px;
+
+    text-decoration: none;
+
+    font-size: 11px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+    transition: opacity .2s ease;
+}
+
+.btn-pedir:hover {
+
+    opacity: .85;
+}
+
+
+/* =====================================================
+   PIE DE PÁGINA
+===================================================== */
+
+.pie-cliente {
+
+    width: 100%;
+
+    background: #ec4a0a;
+
+    color: white;
 
     text-align: center;
 
     padding: 25px;
 
-    margin-top: 40px;
-
-    background: var(--color-tienda);
-
-    color: white;
-
+    margin-top: 30px;
 }
 
+.pie-cliente p {
 
-/* =========================
-   SIN PRODUCTOS
-========================= */
-
-.sin-productos {
-
-    text-align: center;
-
-    width: 100%;
-
-    padding: 40px;
+    margin: 0;
 
     font-size: 18px;
 
+    font-weight: bold;
 }
 
 
-/* =========================
+/* =====================================================
+   LOGIN ADMINISTRADOR
+===================================================== */
+
+.login {
+
+    min-height: 100vh;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    padding: 20px;
+
+    background: #f5f5f5;
+}
+
+.login-box {
+
+    width: 100%;
+
+    max-width: 400px;
+
+    background: white;
+
+    padding: 30px;
+
+    border-radius: 15px;
+
+    box-shadow:
+        0 5px 20px rgba(0, 0, 0, 0.15);
+
+    text-align: center;
+}
+
+.login-box h1 {
+
+    margin-top: 0;
+
+    margin-bottom: 25px;
+}
+
+.login-box input {
+
+    width: 100%;
+
+    padding: 13px;
+
+    margin-bottom: 15px;
+
+    border: 1px solid #ccc;
+
+    border-radius: 7px;
+
+    font-size: 15px;
+}
+
+.login-box button {
+
+    width: 100%;
+
+    padding: 13px;
+
+    border: none;
+
+    border-radius: 7px;
+
+    background: #28a745;
+
+    color: white;
+
+    font-weight: bold;
+
+    cursor: pointer;
+}
+
+.login-box .volver {
+
+    margin-top: 12px;
+
+    background: #555;
+}
+
+
+/* =====================================================
+   PANEL ADMINISTRADOR
+===================================================== */
+
+.admin-header {
+
+    width: 100%;
+
+    background: #28a745;
+
+    color: white;
+
+    min-height: 80px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    padding: 15px 25px;
+}
+
+.admin-header h1 {
+
+    margin: 0;
+}
+
+.admin-header button {
+
+    background: white;
+
+    color: #28a745;
+
+    border: none;
+
+    border-radius: 7px;
+
+    padding: 10px 15px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+}
+
+.admin-panel {
+
+    max-width: 1250px;
+
+    margin: auto;
+
+    padding: 30px;
+
+    min-height: 500px;
+}
+
+
+/* =====================================================
+   MENÚ ADMINISTRADOR
+===================================================== */
+
+.admin-menu {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(auto-fit, minmax(200px, 1fr));
+
+    gap: 15px;
+
+    margin: 30px 0;
+}
+
+.admin-menu button {
+
+    padding: 18px;
+
+    border: none;
+
+    border-radius: 10px;
+
+    background: white;
+
+    box-shadow:
+        0 3px 10px rgba(0, 0, 0, 0.10);
+
+    cursor: pointer;
+
+    font-weight: bold;
+}
+
+
+/* =====================================================
+   PRODUCTOS ADMIN
+   4 COLUMNAS
+===================================================== */
+
+.lista-productos {
+
+    width: 100%;
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(4, 1fr);
+
+    column-gap: 22px;
+
+    row-gap: 22px;
+
+    padding: 15px;
+}
+
+
+/* =====================================================
+   TARJETA PRODUCTO ADMIN
+===================================================== */
+
+.lista-productos .producto {
+
+    width: 100%;
+
+    max-width: 220px;
+
+    margin: 0 auto;
+
+    border: 1px solid #ddd;
+
+    border-radius: 8px;
+
+    overflow: hidden;
+
+    background: white;
+
+    box-shadow:
+        0 2px 7px rgba(0,0,0,.08);
+}
+
+
+.lista-productos .producto img {
+
+    width: 100%;
+
+    height: 160px;
+
+    object-fit: cover;
+
+    display: block;
+}
+
+
+/* =====================================================
+   INFORMACIÓN ADMIN
+===================================================== */
+
+.lista-productos .producto-info {
+
+    padding: 9px;
+}
+
+.lista-productos .producto-info h3 {
+
+    margin: 0 0 5px;
+
+    font-size: 14px;
+}
+
+.lista-productos .producto-info p {
+
+    margin: 3px 0;
+
+    font-size: 11px;
+}
+
+
+/* =====================================================
+   BOTONES ADMIN
+===================================================== */
+
+.acciones {
+
+    display: flex;
+
+    gap: 5px;
+
+    margin-top: 8px;
+}
+
+.editar {
+
+    flex: 1;
+
+    background: #ffc107;
+
+    border: none;
+
+    padding: 6px 3px;
+
+    border-radius: 5px;
+
+    cursor: pointer;
+
+    font-weight: bold;
+
+    font-size: 10px;
+}
+
+.eliminar {
+
+    flex: 1;
+
+    background: #dc3545;
+
+    color: white;
+
+    border: none;
+
+    padding: 6px 3px;
+
+    border-radius: 5px;
+
+    cursor: pointer;
+
+    font-weight: bold;
+
+    font-size: 10px;
+}
+
+
+/* =====================================================
    TABLET
-========================= */
+===================================================== */
 
-@media (max-width: 1100px) {
+@media (max-width: 1000px) {
 
-    #productos {
+    .contenido-cliente {
+
+        padding: 40px 20px 50px;
+    }
+
+    .productos {
 
         grid-template-columns:
-            repeat(4, minmax(0, 1fr));
+            repeat(3, 1fr);
 
+        column-gap: 35px;
+
+        row-gap: 35px;
+
+        padding: 12px 15px;
+    }
+
+    .producto {
+
+        max-width: 190px;
+    }
+
+    .lista-productos {
+
+        grid-template-columns:
+            repeat(3, 1fr);
+
+        column-gap: 18px;
+
+        row-gap: 18px;
     }
 
 }
 
 
-/* =========================
-   TABLET PEQUEÑA
-========================= */
-
-@media (max-width: 850px) {
-
-    #productos {
-
-        grid-template-columns:
-            repeat(3, minmax(0, 1fr));
-
-    }
-
-}
-
-
-/* =========================
+/* =====================================================
    CELULAR
-========================= */
+===================================================== */
 
 @media (max-width: 600px) {
 
-    main {
+    /* ENCABEZADO */
 
-        padding: 0 10px;
+    .encabezado-cliente {
 
+        min-height: 120px;
+
+        padding: 12px;
     }
 
-    #productos {
+
+    .titulo-tienda h1 {
+
+        font-size: 25px;
+    }
+
+
+    .titulo-tienda p {
+
+        font-size: 12px;
+    }
+
+
+    #btnCalificar {
+
+        left: 15px;
+
+        font-size: 27px;
+    }
+
+
+    #btnAdmin {
+
+        right: 15px;
+
+        padding: 9px 12px;
+
+        font-size: 12px;
+    }
+
+
+    /* CONTENIDO CLIENTE */
+
+    .contenido-cliente {
+
+        padding:
+            30px 8px 40px;
+    }
+
+
+    /* PRODUCTOS CLIENTE */
+
+    .productos {
 
         grid-template-columns:
-            repeat(2, minmax(0, 1fr));
+            repeat(2, 1fr);
 
-        gap: 10px;
+        column-gap: 18px;
 
+        row-gap: 25px;
+
+        padding: 8px;
     }
+
 
     .producto {
 
-        padding: 8px;
+        max-width: 155px;
 
-        border-radius: 10px;
+        padding: 7px;
 
+        border-radius: 8px;
     }
 
-    .imagen-producto {
 
-        height: 160px;
+    .producto img {
 
+        height: 125px;
     }
+
 
     .producto h3 {
 
-        font-size: 15px;
+        font-size: 12px;
 
+        margin: 6px 0 4px;
     }
+
 
     .producto p {
 
-        font-size: 14px;
-
+        font-size: 10px;
     }
 
-    .opciones {
 
-        font-size: 13px;
+    .precio {
 
+        font-size: 15px;
     }
 
-    button {
 
-        width: 100%;
-
-        padding: 9px 5px;
-
-        font-size: 14px;
-
-    }
-
-    .btn-admin {
-
-        right: 10px;
+    .btn-pedir {
 
         padding: 7px 10px;
 
-        font-size: 12px;
+        font-size: 10px;
 
+        margin-top: 6px;
     }
 
-}
+
+    /* ADMIN */
+
+    .admin-header {
+
+        padding: 12px;
+    }
 
 
-/* =========================
-   CELULAR PEQUEÑO
-========================= */
+    .admin-header h1 {
 
-@media (max-width: 400px) {
+        font-size: 20px;
+    }
 
-    #productos {
+
+    .admin-panel {
+
+        padding: 15px;
+    }
+
+
+    /* PRODUCTOS ADMIN */
+
+    .lista-productos {
 
         grid-template-columns:
-            repeat(2, minmax(0, 1fr));
+            repeat(2, 1fr);
 
-        gap: 7px;
+        column-gap: 10px;
 
+        row-gap: 12px;
+
+        padding: 8px;
     }
 
-    .imagen-producto {
 
-        height: 135px;
+    .lista-productos .producto {
 
+        max-width: 160px;
     }
 
-    .producto {
 
-        padding: 6px;
+    .lista-productos .producto img {
 
+        height: 120px;
+    }
+
+
+    .lista-productos .producto-info {
+
+        padding: 7px;
+    }
+
+
+    .lista-productos .producto-info h3 {
+
+        font-size: 12px;
+    }
+
+
+    .lista-productos .producto-info p {
+
+        font-size: 9px;
+    }
+
+
+    .editar,
+    .eliminar {
+
+        font-size: 9px;
+
+        padding: 5px 2px;
     }
 
 }
