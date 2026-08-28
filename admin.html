@@ -2,403 +2,976 @@
 <html lang="es">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Administrador</title>
 
-    <style>
+<meta charset="UTF-8">
 
-        * {
-            box-sizing: border-box;
-        }
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-            background: #f5f5f5;
-        }
+<title>Administrador</title>
 
-        header {
-            background: #28a745;
-            color: white;
-            padding: 20px;
-            text-align: center;
-        }
+<style>
+/* =====================================================
+   GENERAL
+===================================================== */
+*{
+    box-sizing:border-box;
+}
+body{
+    margin:0;
+    font-family:Arial,sans-serif;
+    background:#f5f5f5;
+    color:#222;
+}
+/* =====================================================
+   ENCABEZADO
+===================================================== */
+.admin-header{
+    background:#ec4a0a;
+    color:white;
+    text-align:center;
+    padding:15px 20px;
+    position:relative;
+    margin:0 25px;
+    border-radius:0 0 10px 10px;
+}
+.admin-header h1{
+    margin:0;
+    font-size:25px;
+}
 
-        header h1 {
-            margin: 0;
-            font-size: 28px;
-        }
+.admin-header p{
+    margin:4px 0 0;
+    font-size:13px;
+}
+/* =====================================================
+   WHATSAPP
+===================================================== */
 
-        header p {
-            margin: 8px 0 0;
-        }
+.whatsapp{
+    position:absolute;
+    right:18px;
+    top:16px;
+    background:#1b9a1b;
+    color:white;
+    border:2px solid white;
+    border-radius:6px;
+    padding:7px 11px;
+    cursor:pointer;
+    font-weight:bold;
+    font-size:12px;
+}
+/* =====================================================
+   BARRA
+===================================================== */
 
-        .menu {
-            position: relative;
-            display: inline-block;
-            margin: 20px;
-        }
+.barra-botones{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:12px 35px;
+    position:relative;
+}
 
-        .boton-menu {
-            background: #28a745;
-            color: white;
-            border: none;
-            padding: 12px 20px;
-            border-radius: 8px;
-            font-size: 16px;
-            font-weight: bold;
-            cursor: pointer;
-        }
+.btn-menu,
+.btn-dashboard{
+    border:none;
+    padding:8px 13px;
+    border-radius:6px;
+    color:white;
+    font-weight:bold;
+    cursor:pointer;
+    font-size:12px;
+    background:#28a745;
+}
+/* =====================================================
+   MENU
+===================================================== */
 
-        .contenido-menu {
-            display: none;
-            position: absolute;
-            background: white;
-            min-width: 220px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-            border-radius: 8px;
-            overflow: hidden;
-            z-index: 20;
-        }
+.menu{
+    display:none;
+    position:absolute;
+    left:35px;
+    top:50px;
+    width:190px;
+    background:white;
+    padding:7px;
+    border-radius:8px;
+    box-shadow:0 5px 18px rgba(0,0,0,.22);
+    z-index:2000;
+}
 
-        .contenido-menu button {
-            width: 100%;
-            padding: 14px;
-            border: none;
-            background: white;
-            text-align: left;
-            cursor: pointer;
-            font-size: 15px;
-        }
+.menu button{
+    display:block;
+    width:100%;
+    margin-bottom:5px;
+    padding:8px;
+    border:none;
+    border-radius:6px;
+    background:#28a745;
+    color:white;
+    font-weight:bold;
+    cursor:pointer;
+    text-align:left;
+    font-size:12px;
+}
 
-        .contenido-menu button:hover {
-            background: #f0f0f0;
-        }
+.menu button:last-child{
+    background:#dc3545;
+    margin-bottom:0;
+}
+/* =====================================================
+   SUBMENU DASHBOARD
+===================================================== */
 
-        .mostrar {
-            display: block;
-        }
+.submenu-dashboard{
+    display:none;
+    flex-direction:column;
+    position:absolute;
+    right:35px;
+    top:50px;
+    width:190px;
+    background:white;
+    padding:7px;
+    border-radius:8px;
+    box-shadow:0 5px 18px rgba(0,0,0,.22);
+    z-index:2000;
+}
 
-        .panel {
-            width: 100%;
-            margin: 20px auto;
-            padding: 10px 20px;
-        }
+.submenu-dashboard.activo{
+    display:flex;
+}
 
-        /* =========================
-           5 PRODUCTOS POR FILA
-        ========================== */
+.submenu-dashboard button{
+    display:block;
+    width:100%;
+    margin-bottom:5px;
+    padding:8px;
+    border:none;
+    border-radius:6px;
+    background:#28a745;
+    color:white;
+    font-weight:bold;
+    cursor:pointer;
+    text-align:left;
+    font-size:12px;
+}
 
-        #productosAdmin {
-            display: grid;
-            grid-template-columns: repeat(5, 1fr);
-            gap: 18px;
-            width: 100%;
-            margin-top: 20px;
-        }
+.submenu-dashboard button:last-child{
+    margin-bottom:0;
+}
+/* =====================================================
+   PANEL
+===================================================== */
 
-        .producto-admin {
-            background: white;
-            padding: 12px;
-            border-radius: 12px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-            text-align: center;
-            min-width: 0;
-        }
+.admin-panel{
+    max-width:1250px;
+    margin:0 auto;
+    padding:10px 35px 40px;
+}
 
-        .producto-admin img {
-            width: 100%;
-            height: 180px;
-            object-fit: contain;
-            background: #eee;
-            border-radius: 8px;
-        }
+.productos-principales{
+    background:white;
+    border-radius:10px;
+    padding:18px;
+    box-shadow:0 2px 8px rgba(0,0,0,.10);
+}
 
-        .producto-admin h3 {
-            margin: 10px 0;
-            font-size: 17px;
-        }
+.productos-principales h2{
+    margin:0 0 18px;
+    font-size:19px;
+}
+/* =====================================================
+   PRODUCTOS
+===================================================== */
 
-        .producto-admin p {
-            margin: 6px 0;
-            font-size: 14px;
-        }
+.lista-productos{
+    display:grid;
+    grid-template-columns:repeat(4,minmax(0,1fr));
+    gap:18px;
+    width:100%;
+}
 
-        .boton-editar {
-            background: #28a745;
-            color: white;
-            border: none;
-            padding: 8px 12px;
-            border-radius: 7px;
-            cursor: pointer;
-            margin-top: 8px;
-        }
+.producto{
+    border:1px solid #ddd;
+    border-radius:8px;
+    overflow:hidden;
+    background:white;
+    width:100%;
+    min-width:0;
+}
 
-        .boton-eliminar {
-            background: #dc3545;
-            color: white;
-            border: none;
-            padding: 8px 12px;
-            border-radius: 7px;
-            cursor: pointer;
-            margin-top: 8px;
-        }
+.producto img{
+    width:100%;
+    height:200px;
+    object-fit:contain;
+    display:block;
+    background:#f2f2f2;
+}
 
-        .ventana {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.5);
-            justify-content: center;
-            align-items: center;
-            z-index: 100;
-        }
+.producto-info{
+    padding:9px;
+}
 
-        .ventana-contenido {
-            background: white;
-            width: 90%;
-            max-width: 330px;
-            max-height: 90vh;
-            overflow-y: auto;
-            padding: 15px;
-            border-radius: 10px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
-            text-align: center;
-        }
+.producto-info h3{
+    margin:0 0 5px;
+    font-size:14px;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+}
 
-        .ventana-contenido h2 {
-            font-size: 20px;
-            margin: 5px 0 15px;
-        }
+.producto-info p{
+    margin:3px 0;
+    font-size:12px;
+}
 
-        .campo {
-            text-align: left;
-            margin-top: 10px;
-        }
+.acciones{
+    display:flex;
+    gap:5px;
+    margin-top:8px;
+}
 
-        .campo label {
-            display: block;
-            font-size: 13px;
-            font-weight: bold;
-            margin-bottom: 5px;
-        }
+.editar{
+    flex:1;
+    background:#ffc107;
+    border:none;
+    padding:6px 3px;
+    border-radius:5px;
+    cursor:pointer;
+    font-weight:bold;
+    font-size:10px;
+}
 
-        .campo input {
-            width: 100%;
-            padding: 9px;
-            border: 1px solid #ccc;
-            border-radius: 6px;
-            font-size: 13px;
-        }
+.eliminar{
+    flex:1;
+    background:#dc3545;
+    color:white;
+    border:none;
+    padding:6px 3px;
+    border-radius:5px;
+    cursor:pointer;
+    font-weight:bold;
+    font-size:10px;
+}
+/* =====================================================
+   VENTANAS
+===================================================== */
 
-        #vistaPrevia {
-            display: none;
-            margin-top: 10px;
-        }
+.fondo-ventana{
+    display:none;
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background:rgba(0,0,0,.35);
+    z-index:3000;
+    align-items:center;
+    justify-content:center;
+    padding:35px;
+}
 
-        #imagenPreview {
-            width: 100%;
-            height: 180px;
-            object-fit: contain;
-            background: #eee;
-            border-radius: 8px;
-        }
+.ventana{
+    width:100%;
+    max-width:350px;
+    max-height:75vh;
+    overflow-y:auto;
+    background:white;
+    border-radius:10px;
+    box-shadow:0 8px 25px rgba(0,0,0,.3);
+    padding:14px;
+    position:relative;
+}
 
-        .guardar {
-            width: 100%;
-            margin-top: 12px;
-            padding: 10px;
-            border: none;
-            border-radius: 7px;
-            background: #28a745;
-            color: white;
-            font-size: 14px;
-            font-weight: bold;
-            cursor: pointer;
-        }
+.titulo-ventana{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:12px;
+}
 
-        .cerrar {
-            margin-top: 10px;
-            padding: 9px 20px;
-            border: none;
-            border-radius: 7px;
-            background: #dc3545;
-            color: white;
-            font-size: 13px;
-            font-weight: bold;
-            cursor: pointer;
-        }
+.titulo-ventana h2{
+    margin:0;
+    font-size:17px;
+}
 
-        .opcion-config {
-            width: 100%;
-            padding: 9px;
-            margin: 5px 0;
-            border: none;
-            border-radius: 6px;
-            background: #f0f0f0;
-            font-size: 13px;
-            cursor: pointer;
-            text-align: left;
-        }
+.cerrar-x{
+    width:28px;
+    height:28px;
+    border:none;
+    border-radius:50%;
+    background:#dc3545;
+    color:white;
+    font-size:16px;
+    font-weight:bold;
+    cursor:pointer;
+}
+/* =====================================================
+   CAMPOS
+===================================================== */
 
-        .color-seccion {
-            display: none;
-            margin-top: 10px;
-            padding: 10px;
-            background: #f7f7f7;
-            border-radius: 8px;
-        }
+.campo{
+    margin-bottom:13px;
+    position:relative;
+}
 
-        .color-seccion input[type="color"] {
-            width: 100%;
-            height: 45px;
-            border: none;
-            padding: 0;
-        }
+.campo label{
+    display:block;
+    font-weight:bold;
+    margin-bottom:4px;
+    font-size:13px;
+}
 
-        /* =========================
-           TABLET
-        ========================== */
+.campo input,
+.campo select,
+.campo textarea{
+    width:100%;
+    padding:8px;
+    border:1px solid #ccc;
+    border-radius:5px;
+    font-size:13px;
+}
 
-        @media (max-width: 1000px) {
+.campo textarea{
+    resize:vertical;
+    min-height:90px;
+}
 
-            #productosAdmin {
-                grid-template-columns: repeat(3, 1fr);
-            }
+.campo input[type="color"]{
+    width:100%;
+    height:55px;
+    padding:4px;
+    border:1px solid #ccc;
+    border-radius:7px;
+    cursor:pointer;
+    background:white;
+}
+/* =====================================================
+   BOTONES
+===================================================== */
 
-        }
+.botones{
+    display:flex;
+    gap:7px;
+    flex-wrap:wrap;
+    margin-top:12px;
+}
 
-        /* =========================
-           CELULAR
-        ========================== */
+.btn-verde{
+    background:#28a745;
+    color:white;
+    border:none;
+    padding:8px 13px;
+    border-radius:5px;
+    font-weight:bold;
+    cursor:pointer;
+    font-size:12px;
+}
 
-        @media (max-width: 650px) {
+.btn-rojo{
+    background:#dc3545;
+    color:white;
+    border:none;
+    padding:8px 13px;
+    border-radius:5px;
+    font-weight:bold;
+    cursor:pointer;
+    font-size:12px;
+}
+/* =====================================================
+   AJUSTES
+===================================================== */
 
-            #productosAdmin {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 12px;
-            }
+.ajustes-opciones{
+    display:flex;
+    flex-direction:column;
+    gap:7px;
+}
 
-            .panel {
-                padding: 10px;
-            }
+.opcion-ajuste{
+    width:100%;
+    border:none;
+    border-radius:7px;
+    padding:10px;
+    color:white;
+    font-weight:bold;
+    font-size:12px;
+    cursor:pointer;
+    text-align:left;
+}
 
-            .producto-admin {
-                padding: 8px;
-            }
+.opcion-cliente{
+    background:#ec4a0a;
+}
 
-            .producto-admin img {
-                height: 150px;
-            }
+.opcion-admin{
+    background:#28a745;
+}
 
-            .producto-admin h3 {
-                font-size: 15px;
-            }
+.opcion-titulos{
+    background:#6f42c1;
+}
 
-            .producto-admin p {
-                font-size: 13px;
-            }
 
-            .boton-editar,
-            .boton-eliminar {
-                width: 100%;
-                padding: 7px 4px;
-                font-size: 12px;
-            }
+/* =====================================================
+   TITULOS
+===================================================== */
 
-        }
+.pestanas-titulos{
+    display:flex;
+    flex-direction:column;
+    gap:7px;
+}
 
-        @media (max-width: 400px) {
+.pestana-titulo{
+    width:100%;
+    border:none;
+    border-radius:7px;
+    padding:10px;
+    color:white;
+    font-weight:bold;
+    font-size:12px;
+    cursor:pointer;
+    text-align:left;
+}
 
-            #productosAdmin {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 8px;
-            }
+.pestana-cliente{
+    background:#ec4a0a;
+}
 
-            .producto-admin img {
-                height: 130px;
-            }
+.pestana-administrador{
+    background:#28a745;
+}
 
-        }
+.pestana-atras{
+    background:#6c757d;
+}
 
-    </style>
+
+/* =====================================================
+   EDITOR
+===================================================== */
+
+.editor-botones{
+    display:flex;
+    gap:6px;
+    margin-top:5px;
+    position:relative;
+    width:max-content;
+}
+
+.btn-editor{
+    width:35px;
+    height:31px;
+    border:1px solid #ccc;
+    border-radius:6px;
+    background:#f8f8f8;
+    cursor:pointer;
+    font-size:16px;
+    font-weight:bold;
+}
+
+
+/* =====================================================
+   MENU TIPOGRAFIA
+===================================================== */
+
+.menu-tipografia{
+    display:none;
+    position:absolute;
+    left:0;
+    top:36px;
+    width:170px;
+    background:white;
+    border:1px solid #ddd;
+    border-radius:7px;
+    box-shadow:0 5px 15px rgba(0,0,0,.2);
+    padding:4px;
+    z-index:5000;
+}
+
+.menu-tipografia button{
+    display:block;
+    width:100%;
+    padding:7px;
+    border:none;
+    background:white;
+    text-align:left;
+    cursor:pointer;
+    border-radius:5px;
+    font-size:13px;
+}
+
+.menu-tipografia button:hover{
+    background:#eee;
+}
+
+
+/* =====================================================
+   EMOTICON
+===================================================== */
+
+.menu-emoticon{
+    display:none;
+    position:absolute;
+    left:42px;
+    top:36px;
+    width:220px;
+    background:white;
+    border:1px solid #ddd;
+    border-radius:7px;
+    box-shadow:0 5px 15px rgba(0,0,0,.2);
+    padding:7px;
+    z-index:5000;
+}
+
+.emoticon-grid{
+    display:grid;
+    grid-template-columns:repeat(7,1fr);
+    gap:3px;
+}
+
+.emoticon-grid button{
+    border:none;
+    background:white;
+    border-radius:5px;
+    padding:4px;
+    cursor:pointer;
+    font-size:17px;
+}
+
+.emoticon-grid button:hover{
+    background:#eee;
+}
+
+
+/* =====================================================
+   WHATSAPP - EDITOR
+===================================================== */
+
+.whatsapp-editor{
+    position:relative;
+}
+
+.whatsapp-numero{
+    display:flex;
+    align-items:center;
+    width:100%;
+    border:1px solid #ccc;
+    border-radius:5px;
+    overflow:hidden;
+    background:white;
+}
+
+.prefijo-peru{
+    background:#f1f1f1;
+    padding:8px 9px;
+    font-weight:bold;
+    color:#333;
+    font-size:13px;
+    border-right:1px solid #ccc;
+}
+
+.whatsapp-numero input{
+    border:none;
+    outline:none;
+    border-radius:0;
+    flex:1;
+}
+
+.whatsapp-numero input:focus{
+    border:none;
+    box-shadow:none;
+}
+
+
+/* =====================================================
+   BOTONES DEL MENSAJE WHATSAPP
+===================================================== */
+
+.editor-whatsapp{
+    display:flex;
+    gap:6px;
+    margin-top:6px;
+    position:relative;
+}
+
+.btn-whatsapp-editor{
+    width:38px;
+    height:34px;
+    border:1px solid #ccc;
+    border-radius:6px;
+    background:#f8f8f8;
+    cursor:pointer;
+    font-size:17px;
+}
+
+.btn-whatsapp-editor.negrita-activa{
+    background:#28a745;
+    color:white;
+    border-color:#28a745;
+}
+
+
+/* =====================================================
+   EMOTICONOS WHATSAPP
+===================================================== */
+
+.menu-emoticon-whatsapp{
+    display:none;
+    position:absolute;
+    left:44px;
+    top:39px;
+    width:235px;
+    background:white;
+    border:1px solid #ddd;
+    border-radius:8px;
+    box-shadow:0 5px 18px rgba(0,0,0,.25);
+    padding:8px;
+    z-index:6000;
+}
+
+.emoticon-grid-whatsapp{
+    display:grid;
+    grid-template-columns:repeat(7,1fr);
+    gap:3px;
+}
+
+.emoticon-grid-whatsapp button{
+    border:none;
+    background:white;
+    border-radius:5px;
+    padding:4px;
+    cursor:pointer;
+    font-size:18px;
+}
+
+.emoticon-grid-whatsapp button:hover{
+    background:#eee;
+}
+
+
+/* =====================================================
+   DASHBOARD
+===================================================== */
+
+.estadisticas{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:8px;
+}
+
+.cuadro{
+    border:1px solid #ddd;
+    border-radius:8px;
+    padding:10px;
+    text-align:center;
+}
+
+.cuadro h3{
+    margin:0;
+    font-size:13px;
+}
+
+.numero{
+    font-size:22px;
+    font-weight:bold;
+    margin:8px 0;
+}
+
+
+/* =====================================================
+   CONFIGURACIÓN DASHBOARD
+===================================================== */
+
+.dashboard-config{
+    display:flex;
+    flex-direction:column;
+    gap:8px;
+}
+
+.dashboard-config button{
+    width:100%;
+    border:none;
+    border-radius:7px;
+    padding:10px;
+    color:white;
+    font-weight:bold;
+    font-size:12px;
+    cursor:pointer;
+    text-align:left;
+}
+
+.config-reaccion{
+    background:#28a745;
+}
+
+
+/* =====================================================
+   CELULAR
+===================================================== */
+
+@media(max-width:800px){
+
+    .lista-productos{
+        grid-template-columns:repeat(2,minmax(0,1fr));
+        gap:10px;
+    }
+
+    .producto img{
+        height:160px;
+    }
+
+}
+
+@media(max-width:500px){
+
+    .admin-header{
+        margin:0 10px;
+    }
+
+    .admin-header h1{
+        font-size:21px;
+        padding-right:60px;
+    }
+
+    .admin-header p{
+        font-size:11px;
+        padding-right:60px;
+    }
+
+    .whatsapp{
+        right:8px;
+        top:15px;
+        padding:6px 8px;
+        font-size:10px;
+    }
+
+    .barra-botones{
+        padding:11px 15px;
+    }
+
+    .menu{
+        left:15px;
+        top:48px;
+    }
+
+    .submenu-dashboard{
+        right:15px;
+        top:48px;
+    }
+
+    .admin-panel{
+        padding:8px 12px 30px;
+    }
+
+    .productos-principales{
+        padding:12px;
+    }
+
+    .lista-productos{
+        grid-template-columns:repeat(2,minmax(0,1fr));
+        gap:8px;
+    }
+
+    .producto img{
+        height:140px;
+    }
+
+    .producto-info{
+        padding:6px;
+    }
+
+    .producto-info h3{
+        font-size:11px;
+    }
+
+    .producto-info p{
+        font-size:10px;
+    }
+
+    .estadisticas{
+        grid-template-columns:1fr;
+    }
+
+    .ventana{
+        max-width:340px;
+    }
+
+}
+
+</style>
+
 </head>
+
 
 <body>
 
-<header id="encabezadoAdmin">
 
-    <h1>ADMINISTRADOR</h1>
+<header class="admin-header">
 
-    <p>Panel de administración de la tienda</p>
+    <h1 id="tituloAdmin">
+        ADMINISTRADOR
+    </h1>
+
+    <p id="esloganAdmin">
+        PANEL DE ADMINISTRACIÓN
+    </p>
+
+    <button
+        class="whatsapp"
+        onclick="abrirWhatsapp()">
+
+        WhatsApp
+
+    </button>
 
 </header>
 
-<div class="menu">
+
+<div class="barra-botones">
 
     <button
-        id="botonMenu"
-        class="boton-menu"
-        onclick="abrirMenu()">
+        class="btn-menu"
+        onclick="mostrarMenu()">
 
         ☰ MENÚ
 
     </button>
 
-    <div id="menuOpciones" class="contenido-menu">
 
-        <button onclick="configuracion()">
-            ⚙️ Configuración
+    <!-- =================================================
+         BOTÓN DASHBOARD
+    ================================================== -->
+
+    <button
+        class="btn-dashboard"
+        onclick="toggleDashboard()">
+
+        📊 DASHBOARD
+
+    </button>
+
+
+    <!-- =================================================
+         SUBMENU DASHBOARD
+    ================================================== -->
+
+    <div
+        id="subMenuDashboard"
+        class="submenu-dashboard">
+
+        <button
+            onclick="abrirVentana('ventanaDashboard')">
+
+            📈 ESTADÍSTICAS
+
         </button>
 
-        <button onclick="subirImagen()">
-            📸 Subir imagen
+        <button
+            onclick="abrirVentana('ventanaConfiguracionDashboard')">
+
+            ⚙️ CONFIGURACIÓN
+
         </button>
 
-        <button onclick="salirAdministrador()">
-            🚪 Salir
+    </div>
+
+
+    <div id="menu" class="menu">
+
+        <button onclick="abrirVentana('ventanaSubir')">
+            📷 SUBIR FOTO
+        </button>
+
+        <button onclick="abrirVentana('ventanaAjustes')">
+            ⚙️ AJUSTES
+        </button>
+
+        <button onclick="abrirVentana('ventanaUsuarios')">
+            👤 CAMBIAR USUARIO Y CONTRASEÑA
+        </button>
+
+        <button onclick="salirDeAdmin()">
+            🚪 SALIR
         </button>
 
     </div>
 
 </div>
 
-<main class="panel">
 
-    <div id="productosAdmin"></div>
+<main class="admin-panel">
+
+<section class="productos-principales">
+
+    <h2>
+        📦 PRODUCTOS PUBLICADOS
+    </h2>
+
+    <div
+        id="listaProductos"
+        class="lista-productos">
+
+        <p>
+            Cargando productos...
+        </p>
+
+    </div>
+
+</section>
 
 </main>
 
 
-<!-- SUBIR PRODUCTO -->
+<!-- =====================================================
+     SUBIR PRODUCTO
+===================================================== -->
 
-<div id="ventanaSubirImagen" class="ventana">
+<div id="ventanaSubir" class="fondo-ventana">
 
-    <div class="ventana-contenido">
+    <div class="ventana">
 
-        <h2>📸 SUBIR IMAGEN</h2>
+        <div class="titulo-ventana">
+
+            <h2 id="tituloVentanaProducto">
+                📷 SUBIR FOTO
+            </h2>
+
+            <button
+                class="cerrar-x"
+                onclick="cerrarVentana('ventanaSubir')">
+
+                ✕
+
+            </button>
+
+        </div>
+
 
         <div class="campo">
 
-            <label>Imagen del producto</label>
+            <label>Nombre del producto</label>
+
+            <input
+                type="text"
+                id="nombreProducto"
+                placeholder="Nombre del producto">
+
+        </div>
+
+
+        <div class="campo">
+
+            <label>Imagen</label>
 
             <input
                 type="file"
                 id="imagenProducto"
-                accept="image/*"
-                onchange="mostrarVistaPrevia()">
+                accept="image/*">
 
         </div>
 
-        <div id="vistaPrevia">
-
-            <img id="imagenPreview" src="" alt="Vista previa">
-
-        </div>
 
         <div class="campo">
 
@@ -407,9 +980,10 @@
             <input
                 type="text"
                 id="colorProducto"
-                placeholder="Ejemplo: Rojo">
+                placeholder="Ejemplo: Negro">
 
         </div>
+
 
         <div class="campo">
 
@@ -422,6 +996,7 @@
 
         </div>
 
+
         <div class="campo">
 
             <label>Precio</label>
@@ -429,68 +1004,25 @@
             <input
                 type="number"
                 id="precioProducto"
-                placeholder="Ejemplo: 35"
+                placeholder="Ejemplo: 50.00"
                 step="0.01">
 
         </div>
 
-        <button
-            class="guardar"
-            onclick="publicarProducto()">
 
-            🟢 PUBLICAR
-
-        </button>
-
-        <button
-            class="cerrar"
-            onclick="cerrarSubirImagen()">
-
-            CERRAR
-
-        </button>
-
-    </div>
-
-</div>
-
-
-<!-- CONFIGURACION -->
-
-<div id="ventanaConfiguracion" class="ventana">
-
-    <div class="ventana-contenido">
-
-        <h2>⚙️ CONFIGURACIÓN</h2>
-
-        <button
-            class="opcion-config"
-            onclick="mostrarColorAdmin()">
-
-            🎨 Cambiar color del administrador
-
-        </button>
-
-        <div id="colorAdmin" class="color-seccion">
-
-            <h3>🎨 COLOR ADMINISTRADOR</h3>
-
-            <input
-                type="color"
-                id="selectorColorAdmin"
-                value="#28a745">
+        <div class="botones">
 
             <button
-                class="guardar"
-                onclick="guardarColorAdmin()">
+                class="btn-verde"
+                onclick="guardarProducto()">
 
-                💾 GUARDAR COLOR
+                GUARDAR
 
             </button>
 
             <button
-                class="cerrar"
-                onclick="cerrarColorAdmin()">
+                class="btn-rojo"
+                onclick="cerrarVentana('ventanaSubir')">
 
                 CERRAR
 
@@ -498,34 +1030,900 @@
 
         </div>
 
-        <button
-            class="opcion-config"
-            onclick="mostrarColorCliente()">
 
-            🛍️ Cambiar color del cliente
+        <p id="mensaje"></p>
 
-        </button>
+    </div>
 
-        <div id="colorCliente" class="color-seccion">
+</div>
 
-            <h3>🛍️ COLOR DE LA TIENDA</h3>
+
+<!-- =====================================================
+     AJUSTES
+===================================================== -->
+
+<div id="ventanaAjustes" class="fondo-ventana">
+
+    <div class="ventana">
+
+        <div class="titulo-ventana">
+
+            <h2>⚙️ AJUSTES</h2>
+
+            <button
+                class="cerrar-x"
+                onclick="cerrarVentana('ventanaAjustes')">
+
+                ✕
+
+            </button>
+
+        </div>
+
+
+        <div class="ajustes-opciones">
+
+            <button
+                class="opcion-ajuste opcion-cliente"
+                onclick="abrirVentana('ventanaColorCliente')">
+
+                🎨 COLOR CLIENTE
+
+            </button>
+
+
+            <button
+                class="opcion-ajuste opcion-admin"
+                onclick="abrirVentana('ventanaColorAdmin')">
+
+                🎨 COLOR ADMINISTRADOR
+
+            </button>
+
+
+            <button
+                class="opcion-ajuste opcion-titulos"
+                onclick="abrirVentana('ventanaTitulos')">
+
+                📝 TÍTULOS
+
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     COLOR CLIENTE
+===================================================== -->
+
+<div id="ventanaColorCliente" class="fondo-ventana">
+
+    <div class="ventana">
+
+        <div class="titulo-ventana">
+
+            <h2>🎨 COLOR CLIENTE</h2>
+
+            <button
+                class="cerrar-x"
+                onclick="cerrarVentana('ventanaColorCliente')">
+
+                ✕
+
+            </button>
+
+        </div>
+
+
+        <div class="campo">
+
+            <label>Seleccionar color</label>
 
             <input
                 type="color"
-                id="selectorColorCliente"
+                id="colorCliente"
                 value="#ec4a0a">
 
+        </div>
+
+
+        <div class="botones">
+
             <button
-                class="guardar"
+                class="btn-verde"
                 onclick="guardarColorCliente()">
 
-                💾 GUARDAR COLOR
+                GUARDAR
+
+            </button>
+
+        </div>
+
+        <p id="mensajeColorCliente"></p>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     COLOR ADMIN
+===================================================== -->
+
+<div id="ventanaColorAdmin" class="fondo-ventana">
+
+    <div class="ventana">
+
+        <div class="titulo-ventana">
+
+            <h2>🎨 COLOR ADMINISTRADOR</h2>
+
+            <button
+                class="cerrar-x"
+                onclick="cerrarVentana('ventanaColorAdmin')">
+
+                ✕
+
+            </button>
+
+        </div>
+
+
+        <div class="campo">
+
+            <label>Seleccionar color</label>
+
+            <input
+                type="color"
+                id="colorAdministrador"
+                value="#ec4a0a">
+
+        </div>
+
+
+        <div class="botones">
+
+            <button
+                class="btn-verde"
+                onclick="guardarColorAdministrador()">
+
+                GUARDAR
+
+            </button>
+
+        </div>
+
+        <p id="mensajeColorAdmin"></p>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     TITULOS
+===================================================== -->
+
+<div id="ventanaTitulos" class="fondo-ventana">
+
+    <div class="ventana">
+
+        <div class="titulo-ventana">
+
+            <h2>📝 TÍTULOS</h2>
+
+            <button
+                class="cerrar-x"
+                onclick="cerrarVentana('ventanaTitulos')">
+
+                ✕
+
+            </button>
+
+        </div>
+
+
+        <div class="pestanas-titulos">
+
+            <button
+                class="pestana-titulo pestana-cliente"
+                onclick="abrirVentana('ventanaTituloCliente')">
+
+                🛍️ TÍTULO CLIENTE
+
+            </button>
+
+
+            <button
+                class="pestana-titulo pestana-administrador"
+                onclick="abrirVentana('ventanaTituloAdministrador')">
+
+                👨‍💼 TÍTULO ADMINISTRADOR
+
+            </button>
+
+
+            <button
+                class="pestana-titulo pestana-atras"
+                onclick="cerrarVentana('ventanaTitulos')">
+
+                ↩️ ATRÁS
+
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     TITULO CLIENTE
+===================================================== -->
+
+<div id="ventanaTituloCliente" class="fondo-ventana">
+
+    <div class="ventana">
+
+        <div class="titulo-ventana">
+
+            <h2>🛍️ TÍTULO CLIENTE</h2>
+
+            <button
+                class="cerrar-x"
+                onclick="cerrarVentana('ventanaTituloCliente')">
+
+                ✕
+
+            </button>
+
+        </div>
+
+
+        <div class="campo">
+
+            <label>Título</label>
+
+            <input
+                type="text"
+                id="tituloCliente"
+                value="MI TIENDA">
+
+            <div class="editor-botones">
+
+                <button
+                    class="btn-editor"
+                    onclick="alternarTipografias('tituloCliente')">
+
+                    B
+
+                </button>
+
+                <button
+                    class="btn-editor"
+                    onclick="alternarEmoticonos('tituloCliente')">
+
+                    🙂
+
+                </button>
+
+
+                <div
+                    id="tipo-tituloCliente"
+                    class="menu-tipografia">
+
+                    <button onclick="seleccionarTipografia('tituloCliente','Arial')">Arial</button>
+                    <button onclick="seleccionarTipografia('tituloCliente','Verdana')">Verdana</button>
+                    <button onclick="seleccionarTipografia('tituloCliente','Georgia')">Georgia</button>
+                    <button onclick="seleccionarTipografia('tituloCliente','Tahoma')">Tahoma</button>
+                    <button onclick="seleccionarTipografia('tituloCliente','Trebuchet MS')">Trebuchet MS</button>
+                    <button onclick="seleccionarTipografia('tituloCliente','Times New Roman')">Times New Roman</button>
+                    <button onclick="seleccionarTipografia('tituloCliente','Courier New')">Courier New</button>
+
+                </div>
+
+
+                <div
+                    id="emoji-tituloCliente"
+                    class="menu-emoticon">
+
+                    <div class="emoticon-grid">
+
+                        <button onclick="agregarEmoticon('tituloCliente','❤️')">❤️</button>
+                        <button onclick="agregarEmoticon('tituloCliente','👍')">👍</button>
+                        <button onclick="agregarEmoticon('tituloCliente','⭐')">⭐</button>
+                        <button onclick="agregarEmoticon('tituloCliente','😍')">😍</button>
+                        <button onclick="agregarEmoticon('tituloCliente','🔥')">🔥</button>
+                        <button onclick="agregarEmoticon('tituloCliente','😊')">😊</button>
+                        <button onclick="agregarEmoticon('tituloCliente','😎')">😎</button>
+                        <button onclick="agregarEmoticon('tituloCliente','🥰')">🥰</button>
+                        <button onclick="agregarEmoticon('tituloCliente','🎉')">🎉</button>
+                        <button onclick="agregarEmoticon('tituloCliente','💯')">💯</button>
+                        <button onclick="agregarEmoticon('tituloCliente','🛍️')">🛍️</button>
+                        <button onclick="agregarEmoticon('tituloCliente','👕')">👕</button>
+                        <button onclick="agregarEmoticon('tituloCliente','💖')">💖</button>
+                        <button onclick="agregarEmoticon('tituloCliente','✨')">✨</button>
+                        <button onclick="agregarEmoticon('tituloCliente','👌')">👌</button>
+                        <button onclick="agregarEmoticon('tituloCliente','😁')">😁</button>
+                        <button onclick="agregarEmoticon('tituloCliente','🤩')">🤩</button>
+                        <button onclick="agregarEmoticon('tituloCliente','💕')">💕</button>
+                        <button onclick="agregarEmoticon('tituloCliente','🌟')">🌟</button>
+                        <button onclick="agregarEmoticon('tituloCliente','🎁')">🎁</button>
+                        <button onclick="agregarEmoticon('tituloCliente','👑')">👑</button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="campo">
+
+            <label>Eslogan</label>
+
+            <input
+                type="text"
+                id="esloganCliente"
+                value="COMPRA FÁCIL, LUCE INCREÍBLE">
+
+            <div class="editor-botones">
+
+                <button
+                    class="btn-editor"
+                    onclick="alternarTipografias('esloganCliente')">
+
+                    B
+
+                </button>
+
+                <button
+                    class="btn-editor"
+                    onclick="alternarEmoticonos('esloganCliente')">
+
+                    🙂
+
+                </button>
+
+
+                <div
+                    id="tipo-esloganCliente"
+                    class="menu-tipografia">
+
+                    <button onclick="seleccionarTipografia('esloganCliente','Arial')">Arial</button>
+                    <button onclick="seleccionarTipografia('esloganCliente','Verdana')">Verdana</button>
+                    <button onclick="seleccionarTipografia('esloganCliente','Georgia')">Georgia</button>
+                    <button onclick="seleccionarTipografia('esloganCliente','Tahoma')">Tahoma</button>
+                    <button onclick="seleccionarTipografia('esloganCliente','Trebuchet MS')">Trebuchet MS</button>
+                    <button onclick="seleccionarTipografia('esloganCliente','Times New Roman')">Times New Roman</button>
+                    <button onclick="seleccionarTipografia('esloganCliente','Courier New')">Courier New</button>
+
+                </div>
+
+
+                <div
+                    id="emoji-esloganCliente"
+                    class="menu-emoticon">
+
+                    <div class="emoticon-grid">
+
+                        <button onclick="agregarEmoticon('esloganCliente','❤️')">❤️</button>
+                        <button onclick="agregarEmoticon('esloganCliente','👍')">👍</button>
+                        <button onclick="agregarEmoticon('esloganCliente','⭐')">⭐</button>
+                        <button onclick="agregarEmoticon('esloganCliente','😍')">😍</button>
+                        <button onclick="agregarEmoticon('esloganCliente','🔥')">🔥</button>
+                        <button onclick="agregarEmoticon('esloganCliente','😊')">😊</button>
+                        <button onclick="agregarEmoticon('esloganCliente','😎')">😎</button>
+                        <button onclick="agregarEmoticon('esloganCliente','🥰')">🥰</button>
+                        <button onclick="agregarEmoticon('esloganCliente','🎉')">🎉</button>
+                        <button onclick="agregarEmoticon('esloganCliente','💯')">💯</button>
+                        <button onclick="agregarEmoticon('esloganCliente','🛍️')">🛍️</button>
+                        <button onclick="agregarEmoticon('esloganCliente','👕')">👕</button>
+                        <button onclick="agregarEmoticon('esloganCliente','💖')">💖</button>
+                        <button onclick="agregarEmoticon('esloganCliente','✨')">✨</button>
+                        <button onclick="agregarEmoticon('esloganCliente','👌')">👌</button>
+                        <button onclick="agregarEmoticon('esloganCliente','😁')">😁</button>
+                        <button onclick="agregarEmoticon('esloganCliente','🤩')">🤩</button>
+                        <button onclick="agregarEmoticon('esloganCliente','💕')">💕</button>
+                        <button onclick="agregarEmoticon('esloganCliente','🌟')">🌟</button>
+                        <button onclick="agregarEmoticon('esloganCliente','🎁')">🎁</button>
+                        <button onclick="agregarEmoticon('esloganCliente','👑')">👑</button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="campo">
+
+            <label>Pie de página</label>
+
+            <input
+                type="text"
+                id="pieCliente"
+                value="MI TIENDA ONLINE">
+
+            <div class="editor-botones">
+
+                <button
+                    class="btn-editor"
+                    onclick="alternarTipografias('pieCliente')">
+
+                    B
+
+                </button>
+
+                <button
+                    class="btn-editor"
+                    onclick="alternarEmoticonos('pieCliente')">
+
+                    🙂
+
+                </button>
+
+
+                <div
+                    id="tipo-pieCliente"
+                    class="menu-tipografia">
+
+                    <button onclick="seleccionarTipografia('pieCliente','Arial')">Arial</button>
+                    <button onclick="seleccionarTipografia('pieCliente','Verdana')">Verdana</button>
+                    <button onclick="seleccionarTipografia('pieCliente','Georgia')">Georgia</button>
+                    <button onclick="seleccionarTipografia('pieCliente','Tahoma')">Tahoma</button>
+                    <button onclick="seleccionarTipografia('pieCliente','Trebuchet MS')">Trebuchet MS</button>
+                    <button onclick="seleccionarTipografia('pieCliente','Times New Roman')">Times New Roman</button>
+                    <button onclick="seleccionarTipografia('pieCliente','Courier New')">Courier New</button>
+
+                </div>
+
+
+                <div
+                    id="emoji-pieCliente"
+                    class="menu-emoticon">
+
+                    <div class="emoticon-grid">
+
+                        <button onclick="agregarEmoticon('pieCliente','❤️')">❤️</button>
+                        <button onclick="agregarEmoticon('pieCliente','👍')">👍</button>
+                        <button onclick="agregarEmoticon('pieCliente','⭐')">⭐</button>
+                        <button onclick="agregarEmoticon('pieCliente','😍')">😍</button>
+                        <button onclick="agregarEmoticon('pieCliente','🔥')">🔥</button>
+                        <button onclick="agregarEmoticon('pieCliente','😊')">😊</button>
+                        <button onclick="agregarEmoticon('pieCliente','😎')">😎</button>
+                        <button onclick="agregarEmoticon('pieCliente','🥰')">🥰</button>
+                        <button onclick="agregarEmoticon('pieCliente','🎉')">🎉</button>
+                        <button onclick="agregarEmoticon('pieCliente','💯')">💯</button>
+                        <button onclick="agregarEmoticon('pieCliente','🛍️')">🛍️</button>
+                        <button onclick="agregarEmoticon('pieCliente','👕')">👕</button>
+                        <button onclick="agregarEmoticon('pieCliente','💖')">💖</button>
+                        <button onclick="agregarEmoticon('pieCliente','✨')">✨</button>
+                        <button onclick="agregarEmoticon('pieCliente','👌')">👌</button>
+                        <button onclick="agregarEmoticon('pieCliente','😁')">😁</button>
+                        <button onclick="agregarEmoticon('pieCliente','🤩')">🤩</button>
+                        <button onclick="agregarEmoticon('pieCliente','💕')">💕</button>
+                        <button onclick="agregarEmoticon('pieCliente','🌟')">🌟</button>
+                        <button onclick="agregarEmoticon('pieCliente','🎁')">🎁</button>
+                        <button onclick="agregarEmoticon('pieCliente','👑')">👑</button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="botones">
+
+            <button
+                class="btn-verde"
+                onclick="guardarTituloCliente()">
+
+                GUARDAR
 
             </button>
 
             <button
-                class="cerrar"
-                onclick="cerrarColorCliente()">
+                class="btn-rojo"
+                onclick="cerrarVentana('ventanaTituloCliente')">
+
+                ATRÁS
+
+            </button>
+
+        </div>
+
+        <p id="mensajeTituloCliente"></p>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     TITULO ADMINISTRADOR
+===================================================== -->
+
+<div id="ventanaTituloAdministrador" class="fondo-ventana">
+
+    <div class="ventana">
+
+        <div class="titulo-ventana">
+
+            <h2>👨‍💼 TÍTULO ADMINISTRADOR</h2>
+
+            <button
+                class="cerrar-x"
+                onclick="cerrarVentana('ventanaTituloAdministrador')">
+
+                ✕
+
+            </button>
+
+        </div>
+
+
+        <div class="campo">
+
+            <label>Título</label>
+
+            <input
+                type="text"
+                id="nuevoTituloAdmin"
+                value="ADMINISTRADOR">
+
+            <div class="editor-botones">
+
+                <button
+                    class="btn-editor"
+                    onclick="alternarTipografias('nuevoTituloAdmin')">
+
+                    B
+
+                </button>
+
+                <button
+                    class="btn-editor"
+                    onclick="alternarEmoticonos('nuevoTituloAdmin')">
+
+                    🙂
+
+                </button>
+
+
+                <div
+                    id="tipo-nuevoTituloAdmin"
+                    class="menu-tipografia">
+
+                    <button onclick="seleccionarTipografia('nuevoTituloAdmin','Arial')">Arial</button>
+                    <button onclick="seleccionarTipografia('nuevoTituloAdmin','Verdana')">Verdana</button>
+                    <button onclick="seleccionarTipografia('nuevoTituloAdmin','Georgia')">Georgia</button>
+                    <button onclick="seleccionarTipografia('nuevoTituloAdmin','Tahoma')">Tahoma</button>
+                    <button onclick="seleccionarTipografia('nuevoTituloAdmin','Trebuchet MS')">Trebuchet MS</button>
+                    <button onclick="seleccionarTipografia('nuevoTituloAdmin','Times New Roman')">Times New Roman</button>
+                    <button onclick="seleccionarTipografia('nuevoTituloAdmin','Courier New')">Courier New</button>
+
+                </div>
+
+
+                <div
+                    id="emoji-nuevoTituloAdmin"
+                    class="menu-emoticon">
+
+                    <div class="emoticon-grid">
+
+                        <button onclick="agregarEmoticon('nuevoTituloAdmin','❤️')">❤️</button>
+                        <button onclick="agregarEmoticon('nuevoTituloAdmin','👍')">👍</button>
+                        <button onclick="agregarEmoticon('nuevoTituloAdmin','⭐')">⭐</button>
+                        <button onclick="agregarEmoticon('nuevoTituloAdmin','😍')">😍</button>
+                        <button onclick="agregarEmoticon('nuevoTituloAdmin','🔥')">🔥</button>
+                        <button onclick="agregarEmoticon('nuevoTituloAdmin','😊')">😊</button>
+                        <button onclick="agregarEmoticon('nuevoTituloAdmin','😎')">😎</button>
+                        <button onclick="agregarEmoticon('nuevoTituloAdmin','🥰')">🥰</button>
+                        <button onclick="agregarEmoticon('nuevoTituloAdmin','🎉')">🎉</button>
+                        <button onclick="agregarEmoticon('nuevoTituloAdmin','💯')">💯</button>
+                        <button onclick="agregarEmoticon('nuevoTituloAdmin','🛍️')">🛍️</button>
+                        <button onclick="agregarEmoticon('nuevoTituloAdmin','👕')">👕</button>
+                        <button onclick="agregarEmoticon('nuevoTituloAdmin','💖')">💖</button>
+                        <button onclick="agregarEmoticon('nuevoTituloAdmin','✨')">✨</button>
+                        <button onclick="agregarEmoticon('nuevoTituloAdmin','👌')">👌</button>
+                        <button onclick="agregarEmoticon('nuevoTituloAdmin','😁')">😁</button>
+                        <button onclick="agregarEmoticon('nuevoTituloAdmin','🤩')">🤩</button>
+                        <button onclick="agregarEmoticon('nuevoTituloAdmin','💕')">💕</button>
+                        <button onclick="agregarEmoticon('nuevoTituloAdmin','🌟')">🌟</button>
+                        <button onclick="agregarEmoticon('nuevoTituloAdmin','🎁')">🎁</button>
+                        <button onclick="agregarEmoticon('nuevoTituloAdmin','👑')">👑</button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="campo">
+
+            <label>Eslogan</label>
+
+            <input
+                type="text"
+                id="nuevoEsloganAdmin"
+                value="PANEL DE ADMINISTRACIÓN">
+
+            <div class="editor-botones">
+
+                <button
+                    class="btn-editor"
+                    onclick="alternarTipografias('nuevoEsloganAdmin')">
+
+                    B
+
+                </button>
+
+                <button
+                    class="btn-editor"
+                    onclick="alternarEmoticonos('nuevoEsloganAdmin')">
+
+                    🙂
+
+                </button>
+
+
+                <div
+                    id="tipo-nuevoEsloganAdmin"
+                    class="menu-tipografia">
+
+                    <button onclick="seleccionarTipografia('nuevoEsloganAdmin','Arial')">Arial</button>
+                    <button onclick="seleccionarTipografia('nuevoEsloganAdmin','Verdana')">Verdana</button>
+                    <button onclick="seleccionarTipografia('nuevoEsloganAdmin','Georgia')">Georgia</button>
+                    <button onclick="seleccionarTipografia('nuevoEsloganAdmin','Tahoma')">Tahoma</button>
+                    <button onclick="seleccionarTipografia('nuevoEsloganAdmin','Trebuchet MS')">Trebuchet MS</button>
+                    <button onclick="seleccionarTipografia('nuevoEsloganAdmin','Times New Roman')">Times New Roman</button>
+                    <button onclick="seleccionarTipografia('nuevoEsloganAdmin','Courier New')">Courier New</button>
+
+                </div>
+
+
+                <div
+                    id="emoji-nuevoEsloganAdmin"
+                    class="menu-emoticon">
+
+                    <div class="emoticon-grid">
+
+                        <button onclick="agregarEmoticon('nuevoEsloganAdmin','❤️')">❤️</button>
+                        <button onclick="agregarEmoticon('nuevoEsloganAdmin','👍')">👍</button>
+                        <button onclick="agregarEmoticon('nuevoEsloganAdmin','⭐')">⭐</button>
+                        <button onclick="agregarEmoticon('nuevoEsloganAdmin','😍')">😍</button>
+                        <button onclick="agregarEmoticon('nuevoEsloganAdmin','🔥')">🔥</button>
+                        <button onclick="agregarEmoticon('nuevoEsloganAdmin','😊')">😊</button>
+                        <button onclick="agregarEmoticon('nuevoEsloganAdmin','😎')">😎</button>
+                        <button onclick="agregarEmoticon('nuevoEsloganAdmin','🥰')">🥰</button>
+                        <button onclick="agregarEmoticon('nuevoEsloganAdmin','🎉')">🎉</button>
+                        <button onclick="agregarEmoticon('nuevoEsloganAdmin','💯')">💯</button>
+                        <button onclick="agregarEmoticon('nuevoEsloganAdmin','🛍️')">🛍️</button>
+                        <button onclick="agregarEmoticon('nuevoEsloganAdmin','👕')">👕</button>
+                        <button onclick="agregarEmoticon('nuevoEsloganAdmin','💖')">💖</button>
+                        <button onclick="agregarEmoticon('nuevoEsloganAdmin','✨')">✨</button>
+                        <button onclick="agregarEmoticon('nuevoEsloganAdmin','👌')">👌</button>
+                        <button onclick="agregarEmoticon('nuevoEsloganAdmin','😁')">😁</button>
+                        <button onclick="agregarEmoticon('nuevoEsloganAdmin','🤩')">🤩</button>
+                        <button onclick="agregarEmoticon('nuevoEsloganAdmin','💕')">💕</button>
+                        <button onclick="agregarEmoticon('nuevoEsloganAdmin','🌟')">🌟</button>
+                        <button onclick="agregarEmoticon('nuevoEsloganAdmin','🎁')">🎁</button>
+                        <button onclick="agregarEmoticon('nuevoEsloganAdmin','👑')">👑</button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="botones">
+
+            <button
+                class="btn-verde"
+                onclick="guardarTituloAdministrador()">
+
+                GUARDAR
+
+            </button>
+
+            <button
+                class="btn-rojo"
+                onclick="cerrarVentana('ventanaTituloAdministrador')">
+
+                ATRÁS
+
+            </button>
+
+        </div>
+
+        <p id="mensajeTituloAdmin"></p>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     WHATSAPP
+===================================================== -->
+
+<div id="ventanaWhatsapp" class="fondo-ventana">
+
+    <div class="ventana">
+
+        <div class="titulo-ventana">
+
+            <h2>💬 WHATSAPP</h2>
+
+            <button
+                class="cerrar-x"
+                onclick="cerrarVentana('ventanaWhatsapp')">
+
+                ✕
+
+            </button>
+
+        </div>
+
+
+        <div class="campo">
+
+            <label>Número de WhatsApp</label>
+
+            <div class="whatsapp-numero">
+
+                <span class="prefijo-peru">
+                    +51
+                </span>
+
+                <input
+                    type="tel"
+                    id="numeroWhatsapp"
+                    maxlength="9"
+                    inputmode="numeric"
+                    placeholder="987654321"
+                    oninput="limpiarNumeroWhatsapp(this)">
+
+            </div>
+
+        </div>
+
+
+        <div class="campo whatsapp-editor">
+
+            <label>Mensaje</label>
+
+            <textarea
+                id="mensajeWhatsapp"
+                placeholder="Escribe el mensaje que quieres enviar..."></textarea>
+
+
+            <div class="editor-whatsapp">
+
+                <button
+                    type="button"
+                    id="btnNegritaWhatsapp"
+                    class="btn-whatsapp-editor"
+                    onclick="alternarNegritaWhatsapp()">
+
+                    N
+
+                </button>
+
+
+                <button
+                    type="button"
+                    class="btn-whatsapp-editor"
+                    onclick="alternarEmoticonosWhatsapp()">
+
+                    🙂
+
+                </button>
+
+
+                <div
+                    id="menuEmoticonWhatsapp"
+                    class="menu-emoticon-whatsapp">
+
+                    <div class="emoticon-grid-whatsapp">
+
+                        <button onclick="agregarEmoticonWhatsapp('😀')">😀</button>
+                        <button onclick="agregarEmoticonWhatsapp('😃')">😃</button>
+                        <button onclick="agregarEmoticonWhatsapp('😄')">😄</button>
+                        <button onclick="agregarEmoticonWhatsapp('😁')">😁</button>
+                        <button onclick="agregarEmoticonWhatsapp('😆')">😆</button>
+                        <button onclick="agregarEmoticonWhatsapp('😅')">😅</button>
+                        <button onclick="agregarEmoticonWhatsapp('😂')">😂</button>
+
+                        <button onclick="agregarEmoticonWhatsapp('🤣')">🤣</button>
+                        <button onclick="agregarEmoticonWhatsapp('😊')">😊</button>
+                        <button onclick="agregarEmoticonWhatsapp('😍')">😍</button>
+                        <button onclick="agregarEmoticonWhatsapp('🥰')">🥰</button>
+                        <button onclick="agregarEmoticonWhatsapp('😘')">😘</button>
+                        <button onclick="agregarEmoticonWhatsapp('😎')">😎</button>
+                        <button onclick="agregarEmoticonWhatsapp('🤩')">🤩</button>
+
+                        <button onclick="agregarEmoticonWhatsapp('❤️')">❤️</button>
+                        <button onclick="agregarEmoticonWhatsapp('🧡')">🧡</button>
+                        <button onclick="agregarEmoticonWhatsapp('💛')">💛</button>
+                        <button onclick="agregarEmoticonWhatsapp('💚')">💚</button>
+                        <button onclick="agregarEmoticonWhatsapp('💙')">💙</button>
+                        <button onclick="agregarEmoticonWhatsapp('💜')">💜</button>
+                        <button onclick="agregarEmoticonWhatsapp('🖤')">🖤</button>
+
+                        <button onclick="agregarEmoticonWhatsapp('👍')">👍</button>
+                        <button onclick="agregarEmoticonWhatsapp('👎')">👎</button>
+                        <button onclick="agregarEmoticonWhatsapp('👌')">👌</button>
+                        <button onclick="agregarEmoticonWhatsapp('👏')">👏</button>
+                        <button onclick="agregarEmoticonWhatsapp('🙏')">🙏</button>
+                        <button onclick="agregarEmoticonWhatsapp('💪')">💪</button>
+                        <button onclick="agregarEmoticonWhatsapp('🙌')">🙌</button>
+
+                        <button onclick="agregarEmoticonWhatsapp('🔥')">🔥</button>
+                        <button onclick="agregarEmoticonWhatsapp('⭐')">⭐</button>
+                        <button onclick="agregarEmoticonWhatsapp('🌟')">🌟</button>
+                        <button onclick="agregarEmoticonWhatsapp('✨')">✨</button>
+                        <button onclick="agregarEmoticonWhatsapp('🎉')">🎉</button>
+                        <button onclick="agregarEmoticonWhatsapp('🎁')">🎁</button>
+                        <button onclick="agregarEmoticonWhatsapp('🛍️')">🛍️</button>
+
+                        <button onclick="agregarEmoticonWhatsapp('👕')">👕</button>
+                        <button onclick="agregarEmoticonWhatsapp('💯')">💯</button>
+                        <button onclick="agregarEmoticonWhatsapp('✅')">✅</button>
+                        <button onclick="agregarEmoticonWhatsapp('❌')">❌</button>
+                        <button onclick="agregarEmoticonWhatsapp('💰')">💰</button>
+                        <button onclick="agregarEmoticonWhatsapp('📦')">📦</button>
+                        <button onclick="agregarEmoticonWhatsapp('📱')">📱</button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <p style="font-size:11px;color:#666;margin-top:5px;">
+
+            Usa <b>N</b> para poner el texto en negrita
+            y 🙂 para insertar emoticones.
+
+        </p>
+
+
+        <div class="botones">
+
+            <button
+                class="btn-verde"
+                onclick="guardarWhatsapp()">
+
+                GUARDAR
+
+            </button>
+
+            <button
+                class="btn-rojo"
+                onclick="cerrarVentana('ventanaWhatsapp')">
 
                 CERRAR
 
@@ -533,711 +1931,2991 @@
 
         </div>
 
-        <button
-            class="opcion-config"
-            onclick="mostrarCredenciales()">
 
-            🔐 Cambiar usuario y contraseña
-
-        </button>
-
-        <button
-            class="opcion-config"
-            onclick="alert('Aquí configuraremos el dibujito del cliente.')">
-
-            🖼️ Agregar dibujito a la página del cliente
-
-        </button>
-
-        <button
-            class="cerrar"
-            onclick="volverMenu()">
-
-            ↩️ ATRÁS
-
-        </button>
+        <p id="mensajeWhatsappGuardar"></p>
 
     </div>
 
 </div>
 
 
-<!-- CREDENCIALES -->
+<!-- =====================================================
+     USUARIO
+===================================================== -->
 
-<div id="ventanaCredenciales" class="ventana">
+<div id="ventanaUsuarios" class="fondo-ventana">
 
-    <div class="ventana-contenido">
+    <div class="ventana">
 
-        <h2>🔐 CAMBIAR ACCESO</h2>
+        <div class="titulo-ventana">
 
-        <div class="campo">
+            <h2>👤 USUARIO Y CONTRASEÑA</h2>
 
-            <label>Usuario</label>
+            <button
+                class="cerrar-x"
+                onclick="cerrarVentana('ventanaUsuarios')">
 
-            <input type="text" id="nuevoUsuario">
+                ✕
 
-        </div>
-
-        <div class="campo">
-
-            <label>Contraseña</label>
-
-            <input type="password" id="nuevaContrasena">
+            </button>
 
         </div>
 
-        <button
-            class="guardar"
-            onclick="guardarCredenciales()">
+        <p style="font-size:12px;">
 
-            💾 GUARDAR
+            El inicio de sesión se controla desde
+            Supabase Authentication.
 
-        </button>
+        </p>
 
-        <button
-            class="cerrar"
-            onclick="cerrarCredenciales()">
+        <p style="font-size:12px;">
 
-            CERRAR
+            Para cambiar el correo o contraseña del
+            administrador se debe hacer desde
+            Supabase Authentication.
 
-        </button>
+        </p>
 
     </div>
 
 </div>
+
+
+<!-- =====================================================
+     ESTADÍSTICAS
+===================================================== -->
+
+<div id="ventanaDashboard" class="fondo-ventana">
+
+    <div class="ventana">
+
+        <div class="titulo-ventana">
+
+            <h2>📈 ESTADÍSTICAS</h2>
+
+            <button
+                class="cerrar-x"
+                onclick="cerrarVentana('ventanaDashboard')">
+
+                ✕
+
+            </button>
+
+        </div>
+
+
+        <div class="estadisticas">
+
+            <div class="cuadro">
+
+                <h3>DÍA</h3>
+
+                <div
+                    id="estadisticaDia"
+                    class="numero">
+
+                    ❤️ 0
+
+                </div>
+
+            </div>
+
+
+            <div class="cuadro">
+
+                <h3>MES</h3>
+
+                <div
+                    id="estadisticaMes"
+                    class="numero">
+
+                    ❤️ 0
+
+                </div>
+
+            </div>
+
+
+            <div class="cuadro">
+
+                <h3>AÑO</h3>
+
+                <div
+                    id="estadisticaAno"
+                    class="numero">
+
+                    ❤️ 0
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     CONFIGURACIÓN DASHBOARD
+===================================================== -->
+
+<div id="ventanaConfiguracionDashboard" class="fondo-ventana">
+
+    <div class="ventana">
+
+        <div class="titulo-ventana">
+
+            <h2>⚙️ CONFIGURACIÓN</h2>
+
+            <button
+                class="cerrar-x"
+                onclick="cerrarVentana('ventanaConfiguracionDashboard')">
+
+                ✕
+
+            </button>
+
+        </div>
+
+
+        <div class="dashboard-config">
+
+            <button
+                class="config-reaccion"
+                onclick="seleccionarReaccionDashboard('❤️')">
+
+                ❤️ REACCIÓN CORAZÓN
+
+            </button>
+
+            <button
+                class="config-reaccion"
+                onclick="seleccionarReaccionDashboard('👍')">
+
+                👍 REACCIÓN ME GUSTA
+
+            </button>
+
+            <button
+                class="config-reaccion"
+                onclick="seleccionarReaccionDashboard('⭐')">
+
+                ⭐ REACCIÓN ESTRELLA
+
+            </button>
+
+            <button
+                class="config-reaccion"
+                onclick="seleccionarReaccionDashboard('🔥')">
+
+                🔥 REACCIÓN FUEGO
+
+            </button>
+
+            <button
+                class="config-reaccion"
+                onclick="seleccionarReaccionDashboard('😍')">
+
+                😍 REACCIÓN ME ENCANTA
+
+            </button>
+
+        </div>
+
+
+        <p
+            id="mensajeConfiguracionDashboard"
+            style="font-size:12px;margin-top:10px;">
+
+        </p>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     SUPABASE
+===================================================== -->
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 
 <script>
 
-function abrirMenu() {
+/* =====================================================
+   SUPABASE
+===================================================== */
 
-    document
-        .getElementById("menuOpciones")
-        .classList.toggle("mostrar");
+const SUPABASE_URL =
+    "https://yuivmqncvmsbtiigxsqt.supabase.co";
+
+const SUPABASE_KEY =
+    "sb_publishable_r1ZMaIIEVcAt26_P-FBu9Q_DUenqDH_";
+
+const supabaseClient =
+    window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_KEY
+    );
+
+
+/* =====================================================
+   VARIABLES
+===================================================== */
+
+let productoEditando = null;
+
+let configuracionActual = null;
+
+
+/* =====================================================
+   SESION
+===================================================== */
+
+async function comprobarSesion(){
+
+    const {
+        data,
+        error
+    } = await supabaseClient.auth.getSession();
+
+    if(error){
+
+        console.error(error);
+
+        return false;
+
+    }
+
+    if(!data.session){
+
+        window.location.href =
+            "admin-login.html";
+
+        return false;
+
+    }
+
+    return true;
 
 }
 
 
-function configuracion() {
+/* =====================================================
+   MENU
+===================================================== */
 
-    document
-        .getElementById("ventanaConfiguracion")
-        .style.display = "flex";
+function mostrarMenu(){
 
-    document
-        .getElementById("menuOpciones")
-        .classList.remove("mostrar");
+    const menu =
+        document.getElementById("menu");
 
-}
+    const dashboard =
+        document.getElementById(
+            "subMenuDashboard"
+        );
 
 
-function mostrarColorAdmin() {
+    /* Cierra Dashboard */
 
-    const seccion =
-        document.getElementById("colorAdmin");
+    if(dashboard){
 
-    seccion.style.display =
-        seccion.style.display === "block"
+        dashboard.classList.remove(
+            "activo"
+        );
+
+    }
+
+
+    menu.style.display =
+        menu.style.display === "block"
         ? "none"
         : "block";
 
 }
 
 
-function guardarColorAdmin() {
-
-    const color =
-        document
-            .getElementById("selectorColorAdmin")
-            .value;
-
-    localStorage.setItem(
-        "colorAdministrador",
-        color
-    );
-
-    document
-        .getElementById("encabezadoAdmin")
-        .style.backgroundColor = color;
-
-    document
-        .getElementById("botonMenu")
-        .style.backgroundColor = color;
-
-    alert("Color del administrador guardado.");
-
-}
-
-
-function cerrarColorAdmin() {
-
-    document
-        .getElementById("colorAdmin")
-        .style.display = "none";
-
-}
-
-
-function mostrarColorCliente() {
-
-    const seccion =
-        document.getElementById("colorCliente");
-
-    seccion.style.display =
-        seccion.style.display === "block"
-        ? "none"
-        : "block";
-
-    const color =
-        localStorage.getItem("colorCliente");
-
-    if (color) {
-
-        document
-            .getElementById("selectorColorCliente")
-            .value = color;
-
-    }
-
-}
-
-
-function guardarColorCliente() {
-
-    const color =
-        document
-            .getElementById("selectorColorCliente")
-            .value;
-
-    localStorage.setItem(
-        "colorCliente",
-        color
-    );
-
-    alert("Color de la tienda guardado.");
-
-}
-
-
-function cerrarColorCliente() {
-
-    document
-        .getElementById("colorCliente")
-        .style.display = "none";
-
-}
-
-
-function mostrarCredenciales() {
-
-    document
-        .getElementById("ventanaCredenciales")
-        .style.display = "flex";
-
-    document
-        .getElementById("nuevoUsuario")
-        .value =
-        localStorage.getItem("usuarioAdmin") || "ronal";
-
-    document
-        .getElementById("nuevaContrasena")
-        .value =
-        localStorage.getItem("contrasenaAdmin") || "7194";
-
-}
-
-
-function guardarCredenciales() {
-
-    const usuario =
-        document
-            .getElementById("nuevoUsuario")
-            .value
-            .trim();
-
-    const contrasena =
-        document
-            .getElementById("nuevaContrasena")
-            .value;
-
-    if (!usuario || !contrasena) {
-
-        alert("Completa todos los campos.");
-
-        return;
-
-    }
-
-    localStorage.setItem(
-        "usuarioAdmin",
-        usuario
-    );
-
-    localStorage.setItem(
-        "contrasenaAdmin",
-        contrasena
-    );
-
-    alert("Usuario y contraseña cambiados.");
-
-    cerrarCredenciales();
-
-}
-
-
-function cerrarCredenciales() {
-
-    document
-        .getElementById("ventanaCredenciales")
-        .style.display = "none";
-
-}
-
-
-function volverMenu() {
-
-    document
-        .getElementById("ventanaConfiguracion")
-        .style.display = "none";
-
-    document
-        .getElementById("colorAdmin")
-        .style.display = "none";
-
-    document
-        .getElementById("colorCliente")
-        .style.display = "none";
-
-}
-
-
-function subirImagen() {
-
-    const productos =
-        JSON.parse(
-            localStorage.getItem("productos")
-        ) || [];
-
-    /* LÍMITE DE 100 */
-
-    if (productos.length >= 100) {
-
-        alert(
-            "Has llegado al límite de 100 productos."
+/* =====================================================
+   DASHBOARD
+===================================================== */
+
+function toggleDashboard(){
+
+    const submenu =
+        document.getElementById(
+            "subMenuDashboard"
         );
 
-        return;
-
-    }
-
-    document
-        .getElementById("ventanaSubirImagen")
-        .style.display = "flex";
-
-    limpiarFormulario();
-
-}
-
-
-function mostrarVistaPrevia() {
-
-    const archivo =
-        document
-            .getElementById("imagenProducto")
-            .files[0];
-
-    if (!archivo) return;
-
-    const lector = new FileReader();
-
-    lector.onload = function(event) {
-
-        document
-            .getElementById("imagenPreview")
-            .src = event.target.result;
-
-        document
-            .getElementById("vistaPrevia")
-            .style.display = "block";
-
-    };
-
-    lector.readAsDataURL(archivo);
-
-}
-
-
-function publicarProducto() {
-
-    const archivo =
-        document
-            .getElementById("imagenProducto")
-            .files[0];
-
-    const color =
-        document
-            .getElementById("colorProducto")
-            .value
-            .trim();
-
-    const talla =
-        document
-            .getElementById("tallaProducto")
-            .value
-            .trim();
-
-    const precio =
-        document
-            .getElementById("precioProducto")
-            .value
-            .trim();
-
-    const productos =
-        JSON.parse(
-            localStorage.getItem("productos")
-        ) || [];
-
-
-    /* COMPROBAR LÍMITE */
-
-    if (
-        window.productoEditando === null &&
-        productos.length >= 100
-    ) {
-
-        alert(
-            "Has llegado al límite de 100 productos."
+    const menu =
+        document.getElementById(
+            "menu"
         );
 
-        return;
+
+    /* Cierra el menú normal */
+
+    if(menu){
+
+        menu.style.display =
+            "none";
 
     }
 
 
-    if (!archivo && window.productoEditando === null) {
-
-        alert("Selecciona una imagen.");
-
-        return;
-
-    }
-
-    if (!color) {
-
-        alert("Escribe el color.");
-
-        return;
-
-    }
-
-    if (!talla) {
-
-        alert("Escribe la talla.");
-
-        return;
-
-    }
-
-    if (!precio) {
-
-        alert("Escribe el precio.");
+    if(!submenu){
 
         return;
 
     }
 
 
-    function guardarProducto(imagen) {
+    submenu.classList.toggle(
+        "activo"
+    );
 
-        if (window.productoEditando !== null) {
+}
 
-            productos[window.productoEditando].color = color;
-            productos[window.productoEditando].talla = talla;
-            productos[window.productoEditando].precio = precio;
 
-            if (imagen) {
+/* =====================================================
+   REACCIÓN DASHBOARD
+===================================================== */
 
-                productos[window.productoEditando].imagen =
-                    imagen;
+async function seleccionarReaccionDashboard(
+    reaccion
+){
 
-            }
+    const mensaje =
+        document.getElementById(
+            "mensajeConfiguracionDashboard"
+        );
 
-            alert("Producto actualizado.");
 
-        } else {
+    mensaje.textContent =
+        "Guardando...";
 
-            productos.push({
 
-                id: Date.now(),
+    const resultado =
+        await guardarConfiguracion({
 
-                nombre: "Producto",
+            reaccion_dashboard:
+                reaccion
 
-                imagen: imagen,
+        });
 
-                color: color,
 
-                talla: talla,
+    if(!resultado.ok){
 
-                precio: precio
+        mensaje.textContent =
+            "No se pudo guardar.";
 
-            });
+        mensaje.style.color =
+            "red";
 
-            alert(
-                "¡Producto publicado correctamente!"
+        return;
+
+    }
+
+
+    document
+        .getElementById(
+            "estadisticaDia"
+        )
+        .textContent =
+        reaccion + " 0";
+
+
+    document
+        .getElementById(
+            "estadisticaMes"
+        )
+        .textContent =
+        reaccion + " 0";
+
+
+    document
+        .getElementById(
+            "estadisticaAno"
+        )
+        .textContent =
+        reaccion + " 0";
+
+
+    mensaje.textContent =
+        "Reacción guardada correctamente.";
+
+    mensaje.style.color =
+        "green";
+
+}
+
+
+/* =====================================================
+   ABRIR VENTANA
+===================================================== */
+
+function abrirVentana(id){
+
+    const menu =
+        document.getElementById("menu");
+
+    const dashboard =
+        document.getElementById(
+            "subMenuDashboard"
+        );
+
+
+    if(menu){
+
+        menu.style.display =
+            "none";
+
+    }
+
+
+    if(dashboard){
+
+        dashboard.classList.remove(
+            "activo"
+        );
+
+    }
+
+
+    document
+        .querySelectorAll(".fondo-ventana")
+        .forEach(function(v){
+
+            v.style.display = "none";
+
+        });
+
+
+    const ventana =
+        document.getElementById(id);
+
+
+    if(ventana){
+
+        ventana.style.display = "flex";
+
+    }
+
+}
+
+
+/* =====================================================
+   CERRAR
+===================================================== */
+
+function cerrarVentana(id){
+
+    const ventana =
+        document.getElementById(id);
+
+
+    if(ventana){
+
+        ventana.style.display =
+            "none";
+
+    }
+
+
+    cerrarTodosLosMenusEditor();
+
+}
+
+
+/* =====================================================
+   MENUS EDITOR
+===================================================== */
+
+function cerrarTodosLosMenusEditor(){
+
+    document
+        .querySelectorAll(".menu-tipografia")
+        .forEach(function(menu){
+
+            menu.style.display =
+                "none";
+
+        });
+
+
+    document
+        .querySelectorAll(".menu-emoticon")
+        .forEach(function(menu){
+
+            menu.style.display =
+                "none";
+
+        });
+
+
+    const menuWhatsapp =
+        document.getElementById(
+            "menuEmoticonWhatsapp"
+        );
+
+
+    if(menuWhatsapp){
+
+        menuWhatsapp.style.display =
+            "none";
+
+    }
+
+}
+
+
+/* =====================================================
+   TIPOGRAFIA
+===================================================== */
+
+function alternarTipografias(id){
+
+    const menu =
+        document.getElementById(
+            "tipo-" + id
+        );
+
+
+    if(!menu){
+
+        return;
+
+    }
+
+
+    const estabaAbierto =
+        menu.style.display === "block";
+
+
+    cerrarTodosLosMenusEditor();
+
+
+    if(!estabaAbierto){
+
+        menu.style.display =
+            "block";
+
+    }
+
+}
+
+
+/* =====================================================
+   SELECCIONAR TIPOGRAFIA
+===================================================== */
+
+function seleccionarTipografia(
+    id,
+    tipografia
+){
+
+    const campo =
+        document.getElementById(id);
+
+
+    if(!campo){
+
+        return;
+
+    }
+
+
+    campo.style.fontFamily =
+        tipografia;
+
+
+    campo.dataset.tipografia =
+        tipografia;
+
+
+    if(id === "nuevoTituloAdmin"){
+
+        const tituloAdmin =
+            document.getElementById(
+                "tituloAdmin"
+            );
+
+
+        if(tituloAdmin){
+
+            tituloAdmin.style.fontFamily =
+                tipografia;
+
+        }
+
+    }
+
+
+    if(id === "nuevoEsloganAdmin"){
+
+        const esloganAdmin =
+            document.getElementById(
+                "esloganAdmin"
+            );
+
+
+        if(esloganAdmin){
+
+            esloganAdmin.style.fontFamily =
+                tipografia;
+
+        }
+
+    }
+
+
+    cerrarTodosLosMenusEditor();
+
+}
+
+
+/* =====================================================
+   EMOTICONOS GENERALES
+===================================================== */
+
+function alternarEmoticonos(id){
+
+    const menu =
+        document.getElementById(
+            "emoji-" + id
+        );
+
+
+    if(!menu){
+
+        return;
+
+    }
+
+
+    const estabaAbierto =
+        menu.style.display === "block";
+
+
+    cerrarTodosLosMenusEditor();
+
+
+    if(!estabaAbierto){
+
+        menu.style.display =
+            "block";
+
+    }
+
+}
+
+
+function agregarEmoticon(
+    id,
+    emoticon
+){
+
+    const campo =
+        document.getElementById(id);
+
+
+    if(!campo){
+
+        return;
+
+    }
+
+
+    const inicio =
+        campo.selectionStart;
+
+    const fin =
+        campo.selectionEnd;
+
+    const texto =
+        campo.value;
+
+
+    campo.value =
+        texto.substring(0,inicio)
+        +
+        emoticon
+        +
+        texto.substring(fin);
+
+
+    campo.focus();
+
+
+    const posicion =
+        inicio +
+        emoticon.length;
+
+
+    campo.setSelectionRange(
+        posicion,
+        posicion
+    );
+
+
+    cerrarTodosLosMenusEditor();
+
+}
+
+
+/* =====================================================
+   WHATSAPP - ABRIR
+===================================================== */
+
+async function abrirWhatsapp(){
+
+    await cargarWhatsapp();
+
+    abrirVentana(
+        "ventanaWhatsapp"
+    );
+
+}
+
+
+/* =====================================================
+   WHATSAPP - CARGAR
+===================================================== */
+
+async function cargarWhatsapp(){
+
+    try{
+
+        const {
+            data,
+            error
+        } =
+        await supabaseClient
+            .from("configuracion_tienda")
+            .select("*")
+            .limit(1);
+
+
+        if(error){
+
+            console.error(
+                "Error cargando WhatsApp:",
+                error
+            );
+
+            return;
+
+        }
+
+
+        if(!data || data.length === 0){
+
+            return;
+
+        }
+
+
+        const c =
+            data[0];
+
+
+        if(
+            c.whatsapp_numero !== undefined &&
+            c.whatsapp_numero !== null
+        ){
+
+            document
+                .getElementById(
+                    "numeroWhatsapp"
+                )
+                .value =
+                String(
+                    c.whatsapp_numero
+                ).replace(
+                    /^\+?51/,
+                    ""
+                );
+
+        }
+
+
+        if(
+            c.whatsapp_mensaje !== undefined &&
+            c.whatsapp_mensaje !== null
+        ){
+
+            document
+                .getElementById(
+                    "mensajeWhatsapp"
+                )
+                .value =
+                c.whatsapp_mensaje;
+
+        }
+
+
+        if(
+            c.whatsapp_negrita !== undefined
+        ){
+
+            const activa =
+                c.whatsapp_negrita === true;
+
+
+            aplicarEstadoNegritaWhatsapp(
+                activa
             );
 
         }
 
-        localStorage.setItem(
-            "productos",
-            JSON.stringify(productos)
+    }
+    catch(error){
+
+        console.error(error);
+
+    }
+
+}
+
+
+/* =====================================================
+   WHATSAPP - LIMPIAR NÚMERO
+===================================================== */
+
+function limpiarNumeroWhatsapp(input){
+
+    input.value =
+        input.value
+            .replace(/\D/g,"")
+            .substring(0,9);
+
+}
+
+
+/* =====================================================
+   WHATSAPP - NEGRITA
+===================================================== */
+
+function alternarNegritaWhatsapp(){
+
+    const mensaje =
+        document.getElementById(
+            "mensajeWhatsapp"
         );
 
-        cerrarSubirImagen();
 
-        mostrarProductosAdmin();
+    const boton =
+        document.getElementById(
+            "btnNegritaWhatsapp"
+        );
 
-    }
+
+    const activa =
+        boton.classList.contains(
+            "negrita-activa"
+        );
 
 
-    if (archivo) {
+    aplicarEstadoNegritaWhatsapp(
+        !activa
+    );
 
-        const lector = new FileReader();
 
-        lector.onload = function(event) {
-
-            guardarProducto(
-                event.target.result
-            );
-
-        };
-
-        lector.readAsDataURL(archivo);
-
-    } else {
-
-        guardarProducto(null);
-
-    }
+    mensaje.focus();
 
 }
 
 
-function mostrarProductosAdmin() {
+/* =====================================================
+   APLICAR NEGRITA
+===================================================== */
 
-    const contenedor =
-        document.getElementById("productosAdmin");
+function aplicarEstadoNegritaWhatsapp(
+    activa
+){
 
-    contenedor.innerHTML = "";
-
-    const productos =
-        JSON.parse(
-            localStorage.getItem("productos")
-        ) || [];
-
-
-    productos.forEach(function(producto, indice) {
-
-        const tarjeta =
-            document.createElement("div");
-
-        tarjeta.className = "producto-admin";
-
-        tarjeta.innerHTML = `
-
-            <img
-                src="${producto.imagen}"
-                alt="Producto">
-
-            <h3>
-                ${producto.nombre}
-            </h3>
-
-            <p>
-                Precio: S/ ${producto.precio}
-            </p>
-
-            <p>
-                Color: ${producto.color}
-            </p>
-
-            <p>
-                Talla: ${producto.talla}
-            </p>
-
-            <button
-                class="boton-editar"
-                onclick="editarProducto(${indice})">
-
-                ✏️ EDITAR
-
-            </button>
-
-            <button
-                class="boton-eliminar"
-                onclick="eliminarProducto(${indice})">
-
-                🗑️ ELIMINAR
-
-            </button>
-
-        `;
-
-        contenedor.appendChild(tarjeta);
-
-    });
-
-}
+    const boton =
+        document.getElementById(
+            "btnNegritaWhatsapp"
+        );
 
 
-function editarProducto(indice) {
-
-    const productos =
-        JSON.parse(
-            localStorage.getItem("productos")
-        ) || [];
-
-    const producto =
-        productos[indice];
-
-    if (!producto) return;
-
-    document
-        .getElementById("ventanaSubirImagen")
-        .style.display = "flex";
-
-    document
-        .getElementById("colorProducto")
-        .value = producto.color;
-
-    document
-        .getElementById("tallaProducto")
-        .value = producto.talla;
-
-    document
-        .getElementById("precioProducto")
-        .value = producto.precio;
-
-    document
-        .getElementById("imagenPreview")
-        .src = producto.imagen;
-
-    document
-        .getElementById("vistaPrevia")
-        .style.display = "block";
-
-    window.productoEditando = indice;
-
-}
+    const mensaje =
+        document.getElementById(
+            "mensajeWhatsapp"
+        );
 
 
-function eliminarProducto(indice) {
-
-    if (!confirm("¿Quieres eliminar este producto?")) {
+    if(!boton || !mensaje){
 
         return;
 
     }
 
-    const productos =
-        JSON.parse(
-            localStorage.getItem("productos")
-        ) || [];
 
-    productos.splice(indice, 1);
+    if(activa){
 
-    localStorage.setItem(
-        "productos",
-        JSON.stringify(productos)
-    );
-
-    mostrarProductosAdmin();
-
-}
-
-
-function cerrarSubirImagen() {
-
-    document
-        .getElementById("ventanaSubirImagen")
-        .style.display = "none";
-
-    limpiarFormulario();
-
-}
-
-
-function limpiarFormulario() {
-
-    document
-        .getElementById("imagenProducto")
-        .value = "";
-
-    document
-        .getElementById("colorProducto")
-        .value = "";
-
-    document
-        .getElementById("tallaProducto")
-        .value = "";
-
-    document
-        .getElementById("precioProducto")
-        .value = "";
-
-    document
-        .getElementById("imagenPreview")
-        .src = "";
-
-    document
-        .getElementById("vistaPrevia")
-        .style.display = "none";
-
-    window.productoEditando = null;
-
-}
-
-
-function salirAdministrador() {
-
-    sessionStorage.removeItem("sesionAdmin");
-
-    window.location.href = "index.html";
-
-}
-
-
-function cargarColorAdmin() {
-
-    const color =
-        localStorage.getItem(
-            "colorAdministrador"
+        boton.classList.add(
+            "negrita-activa"
         );
 
-    if (!color) return;
 
-    document
-        .getElementById("encabezadoAdmin")
-        .style.backgroundColor = color;
+        boton.style.fontWeight =
+            "900";
 
-    document
-        .getElementById("botonMenu")
-        .style.backgroundColor = color;
 
-    document
-        .getElementById("selectorColorAdmin")
-        .value = color;
+        mensaje.style.fontWeight =
+            "bold";
+
+
+        mensaje.dataset.negrita =
+            "true";
+
+    }
+    else{
+
+        boton.classList.remove(
+            "negrita-activa"
+        );
+
+
+        boton.style.fontWeight =
+            "bold";
+
+
+        mensaje.style.fontWeight =
+            "normal";
+
+
+        mensaje.dataset.negrita =
+            "false";
+
+    }
 
 }
 
 
-window.productoEditando = null;
+/* =====================================================
+   WHATSAPP - EMOTICONOS
+===================================================== */
 
-cargarColorAdmin();
+function alternarEmoticonosWhatsapp(){
 
-mostrarProductosAdmin();
+    const menu =
+        document.getElementById(
+            "menuEmoticonWhatsapp"
+        );
+
+
+    if(!menu){
+
+        return;
+
+    }
+
+
+    const estabaAbierto =
+        menu.style.display === "block";
+
+
+    cerrarTodosLosMenusEditor();
+
+
+    if(!estabaAbierto){
+
+        menu.style.display =
+            "block";
+
+    }
+
+}
+
+
+/* =====================================================
+   AGREGAR EMOTICON WHATSAPP
+===================================================== */
+
+function agregarEmoticonWhatsapp(
+    emoticon
+){
+
+    const campo =
+        document.getElementById(
+            "mensajeWhatsapp"
+        );
+
+
+    if(!campo){
+
+        return;
+
+    }
+
+
+    const inicio =
+        campo.selectionStart;
+
+    const fin =
+        campo.selectionEnd;
+
+    const texto =
+        campo.value;
+
+
+    campo.value =
+        texto.substring(0,inicio)
+        +
+        emoticon
+        +
+        texto.substring(fin);
+
+
+    campo.focus();
+
+
+    const posicion =
+        inicio +
+        emoticon.length;
+
+
+    campo.setSelectionRange(
+        posicion,
+        posicion
+    );
+
+
+    document
+        .getElementById(
+            "menuEmoticonWhatsapp"
+        )
+        .style.display =
+        "none";
+
+}
+
+
+/* =====================================================
+   WHATSAPP - GUARDAR
+===================================================== */
+
+async function guardarWhatsapp(){
+
+    const numero =
+        document
+        .getElementById(
+            "numeroWhatsapp"
+        )
+        .value
+        .replace(/\D/g,"");
+
+
+    const mensaje =
+        document
+        .getElementById(
+            "mensajeWhatsapp"
+        )
+        .value;
+
+
+    const boton =
+        document
+        .getElementById(
+            "btnNegritaWhatsapp"
+        );
+
+
+    const negrita =
+        boton.classList.contains(
+            "negrita-activa"
+        );
+
+
+    const aviso =
+        document
+        .getElementById(
+            "mensajeWhatsappGuardar"
+        );
+
+
+    if(numero.length !== 9){
+
+        aviso.textContent =
+            "Escribe un número peruano de 9 dígitos.";
+
+
+        aviso.style.color =
+            "red";
+
+
+        return;
+
+    }
+
+
+    aviso.textContent =
+        "Guardando WhatsApp...";
+
+
+    aviso.style.color =
+        "#333";
+
+
+    const resultado =
+        await guardarConfiguracion({
+
+            whatsapp_numero:
+                numero,
+
+            whatsapp_mensaje:
+                mensaje,
+
+            whatsapp_negrita:
+                negrita
+
+        });
+
+
+    if(!resultado.ok){
+
+        aviso.textContent =
+            "No se pudo guardar: "
+            +
+            resultado.error.message;
+
+
+        aviso.style.color =
+            "red";
+
+
+        return;
+
+    }
+
+
+    aviso.textContent =
+        "WhatsApp guardado correctamente.";
+
+
+    aviso.style.color =
+        "green";
+
+
+    alert(
+        "Configuración de WhatsApp guardada."
+    );
+
+}
+
+
+/* =====================================================
+   GUARDAR CONFIGURACION EN SUPABASE
+===================================================== */
+
+async function guardarConfiguracion(
+    config
+){
+
+    try{
+
+        const {
+            data,
+            error
+        } =
+        await supabaseClient
+            .from("configuracion_tienda")
+            .select("*")
+            .limit(1);
+
+
+        if(error){
+
+            console.error(
+                "Error buscando configuración:",
+                error
+            );
+
+
+            return {
+                ok:false,
+                error:error
+            };
+
+        }
+
+
+        if(data && data.length > 0){
+
+            const fila =
+                data[0];
+
+
+            if(fila.id !== undefined){
+
+                const resultado =
+                    await supabaseClient
+                        .from("configuracion_tienda")
+                        .update(config)
+                        .eq(
+                            "id",
+                            fila.id
+                        );
+
+
+                if(resultado.error){
+
+                    console.error(
+                        resultado.error
+                    );
+
+
+                    return {
+                        ok:false,
+                        error:
+                            resultado.error
+                    };
+
+                }
+
+            }
+
+            else{
+
+                const claves =
+                    Object.keys(fila);
+
+
+                const clave =
+                    claves.find(
+                        function(k){
+
+                            return (
+                                k === "clave" ||
+                                k === "codigo"
+                            );
+
+                        }
+                    );
+
+
+                if(clave){
+
+                    const resultado =
+                        await supabaseClient
+                            .from("configuracion_tienda")
+                            .update(config)
+                            .eq(
+                                clave,
+                                fila[clave]
+                            );
+
+
+                    if(resultado.error){
+
+                        console.error(
+                            resultado.error
+                        );
+
+
+                        return {
+                            ok:false,
+                            error:
+                                resultado.error
+                        };
+
+                    }
+
+                }
+
+                else{
+
+                    return {
+                        ok:false,
+                        error:{
+                            message:
+                            "La tabla configuracion_tienda no tiene una columna id o clave."
+                        }
+                    };
+
+                }
+
+            }
+
+        }
+
+        else{
+
+            const resultado =
+                await supabaseClient
+                    .from("configuracion_tienda")
+                    .insert(config);
+
+
+            if(resultado.error){
+
+                console.error(
+                    resultado.error
+                );
+
+
+                return {
+                    ok:false,
+                    error:
+                        resultado.error
+                };
+
+            }
+
+        }
+
+
+        return {
+            ok:true
+        };
+
+
+    }
+    catch(error){
+
+        console.error(error);
+
+
+        return {
+            ok:false,
+            error:error
+        };
+
+    }
+
+}
+
+
+/* =====================================================
+   CARGAR CONFIGURACION
+===================================================== */
+
+async function cargarConfiguracionSupabase(){
+
+    try{
+
+        const {
+            data,
+            error
+        } =
+        await supabaseClient
+            .from("configuracion_tienda")
+            .select("*")
+            .limit(1);
+
+
+        if(error){
+
+            console.error(
+                "No se pudo cargar configuración:",
+                error
+            );
+
+
+            return;
+
+        }
+
+
+        if(!data || data.length === 0){
+
+            return;
+
+        }
+
+
+        configuracionActual =
+            data[0];
+
+
+        const c =
+            configuracionActual;
+
+
+        if(c.color_cliente){
+
+            document
+                .getElementById(
+                    "colorCliente"
+                )
+                .value =
+                c.color_cliente;
+
+        }
+
+
+        if(c.color_administrador){
+
+            document
+                .getElementById(
+                    "colorAdministrador"
+                )
+                .value =
+                c.color_administrador;
+
+
+            document
+                .querySelector(
+                    ".admin-header"
+                )
+                .style.background =
+                c.color_administrador;
+
+        }
+
+
+        if(c.titulo_cliente){
+
+            document
+                .getElementById(
+                    "tituloCliente"
+                )
+                .value =
+                c.titulo_cliente;
+
+        }
+
+
+        if(c.eslogan_cliente){
+
+            document
+                .getElementById(
+                    "esloganCliente"
+                )
+                .value =
+                c.eslogan_cliente;
+
+        }
+
+
+        if(c.pie_cliente){
+
+            document
+                .getElementById(
+                    "pieCliente"
+                )
+                .value =
+                c.pie_cliente;
+
+        }
+
+
+        if(c.titulo_admin){
+
+            document
+                .getElementById(
+                    "nuevoTituloAdmin"
+                )
+                .value =
+                c.titulo_admin;
+
+
+            document
+                .getElementById(
+                    "tituloAdmin"
+                )
+                .textContent =
+                c.titulo_admin;
+
+        }
+
+
+        if(c.eslogan_admin){
+
+            document
+                .getElementById(
+                    "nuevoEsloganAdmin"
+                )
+                .value =
+                c.eslogan_admin;
+
+
+            document
+                .getElementById(
+                    "esloganAdmin"
+                )
+                .textContent =
+                c.eslogan_admin;
+
+        }
+
+
+        aplicarTipografiaGuardada(
+            "tituloCliente",
+            c.tipografia_titulo_cliente
+        );
+
+
+        aplicarTipografiaGuardada(
+            "esloganCliente",
+            c.tipografia_eslogan_cliente
+        );
+
+
+        aplicarTipografiaGuardada(
+            "pieCliente",
+            c.tipografia_pie_cliente
+        );
+
+
+        aplicarTipografiaGuardada(
+            "nuevoTituloAdmin",
+            c.tipografia_titulo_admin
+        );
+
+
+        aplicarTipografiaGuardada(
+            "nuevoEsloganAdmin",
+            c.tipografia_eslogan_admin
+        );
+
+
+        if(c.tipografia_titulo_admin){
+
+            const tituloAdmin =
+                document.getElementById(
+                    "tituloAdmin"
+                );
+
+
+            if(tituloAdmin){
+
+                tituloAdmin.style.fontFamily =
+                    c.tipografia_titulo_admin;
+
+            }
+
+        }
+
+
+        if(c.tipografia_eslogan_admin){
+
+            const esloganAdmin =
+                document.getElementById(
+                    "esloganAdmin"
+                );
+
+
+            if(esloganAdmin){
+
+                esloganAdmin.style.fontFamily =
+                    c.tipografia_eslogan_admin;
+
+            }
+
+        }
+
+
+        /* =================================================
+           REACCIÓN DASHBOARD
+        ================================================= */
+
+        if(c.reaccion_dashboard){
+
+            const reaccion =
+                c.reaccion_dashboard;
+
+
+            document
+                .getElementById(
+                    "estadisticaDia"
+                )
+                .textContent =
+                reaccion + " 0";
+
+
+            document
+                .getElementById(
+                    "estadisticaMes"
+                )
+                .textContent =
+                reaccion + " 0";
+
+
+            document
+                .getElementById(
+                    "estadisticaAno"
+                )
+                .textContent =
+                reaccion + " 0";
+
+        }
+
+
+        /* =================================================
+           WHATSAPP
+        ================================================= */
+
+        if(
+            c.whatsapp_numero !== undefined &&
+            c.whatsapp_numero !== null
+        ){
+
+            document
+                .getElementById(
+                    "numeroWhatsapp"
+                )
+                .value =
+                String(
+                    c.whatsapp_numero
+                ).replace(
+                    /^\+?51/,
+                    ""
+                );
+
+        }
+
+
+        if(
+            c.whatsapp_mensaje !== undefined &&
+            c.whatsapp_mensaje !== null
+        ){
+
+            document
+                .getElementById(
+                    "mensajeWhatsapp"
+                )
+                .value =
+                c.whatsapp_mensaje;
+
+        }
+
+
+        if(
+            c.whatsapp_negrita !== undefined
+        ){
+
+            aplicarEstadoNegritaWhatsapp(
+                c.whatsapp_negrita === true
+            );
+
+        }
+
+
+    }
+    catch(error){
+
+        console.error(error);
+
+    }
+
+}
+
+
+/* =====================================================
+   APLICAR TIPOGRAFIA GUARDADA
+===================================================== */
+
+function aplicarTipografiaGuardada(
+    id,
+    tipografia
+){
+
+    if(!tipografia){
+
+        return;
+
+    }
+
+
+    const campo =
+        document.getElementById(id);
+
+
+    if(!campo){
+
+        return;
+
+    }
+
+
+    campo.style.fontFamily =
+        tipografia;
+
+
+    campo.dataset.tipografia =
+        tipografia;
+
+}
+
+
+/* =====================================================
+   COLOR CLIENTE
+===================================================== */
+
+async function guardarColorCliente(){
+
+    const color =
+        document
+        .getElementById(
+            "colorCliente"
+        )
+        .value;
+
+
+    const mensaje =
+        document
+        .getElementById(
+            "mensajeColorCliente"
+        );
+
+
+    mensaje.textContent =
+        "Guardando...";
+
+
+    mensaje.style.color =
+        "#333";
+
+
+    const resultado =
+        await guardarConfiguracion({
+
+            color_cliente:
+                color
+
+        });
+
+
+    if(!resultado.ok){
+
+        mensaje.textContent =
+            "No se pudo guardar: "
+            +
+            resultado.error.message;
+
+
+        mensaje.style.color =
+            "red";
+
+
+        return;
+
+    }
+
+
+    mensaje.textContent =
+        "Color cliente guardado correctamente.";
+
+
+    mensaje.style.color =
+        "green";
+
+
+    alert(
+        "Color del cliente guardado."
+    );
+
+}
+
+
+/* =====================================================
+   COLOR ADMINISTRADOR
+===================================================== */
+
+async function guardarColorAdministrador(){
+
+    const color =
+        document
+        .getElementById(
+            "colorAdministrador"
+        )
+        .value;
+
+
+    const mensaje =
+        document
+        .getElementById(
+            "mensajeColorAdmin"
+        );
+
+
+    document
+        .querySelector(
+            ".admin-header"
+        )
+        .style.background =
+        color;
+
+
+    mensaje.textContent =
+        "Guardando...";
+
+
+    const resultado =
+        await guardarConfiguracion({
+
+            color_administrador:
+                color
+
+        });
+
+
+    if(!resultado.ok){
+
+        mensaje.textContent =
+            "No se pudo guardar: "
+            +
+            resultado.error.message;
+
+
+        mensaje.style.color =
+            "red";
+
+
+        return;
+
+    }
+
+
+    mensaje.textContent =
+        "Color administrador guardado.";
+
+
+    mensaje.style.color =
+        "green";
+
+
+    alert(
+        "Color del administrador guardado."
+    );
+
+}
+
+
+/* =====================================================
+   TITULO CLIENTE
+===================================================== */
+
+async function guardarTituloCliente(){
+
+    const titulo =
+        document
+        .getElementById(
+            "tituloCliente"
+        )
+        .value;
+
+
+    const eslogan =
+        document
+        .getElementById(
+            "esloganCliente"
+        )
+        .value;
+
+
+    const pie =
+        document
+        .getElementById(
+            "pieCliente"
+        )
+        .value;
+
+
+    const tipografiaTitulo =
+        obtenerTipografia(
+            "tituloCliente"
+        );
+
+
+    const tipografiaEslogan =
+        obtenerTipografia(
+            "esloganCliente"
+        );
+
+
+    const tipografiaPie =
+        obtenerTipografia(
+            "pieCliente"
+        );
+
+
+    const mensaje =
+        document
+        .getElementById(
+            "mensajeTituloCliente"
+        );
+
+
+    mensaje.textContent =
+        "Guardando configuración...";
+
+
+    mensaje.style.color =
+        "#333";
+
+
+    const resultado =
+        await guardarConfiguracion({
+
+            titulo_cliente:
+                titulo,
+
+            eslogan_cliente:
+                eslogan,
+
+            pie_cliente:
+                pie,
+
+            tipografia_titulo_cliente:
+                tipografiaTitulo,
+
+            tipografia_eslogan_cliente:
+                tipografiaEslogan,
+
+            tipografia_pie_cliente:
+                tipografiaPie
+
+        });
+
+
+    if(!resultado.ok){
+
+        mensaje.textContent =
+            "No se pudo guardar: "
+            +
+            resultado.error.message;
+
+
+        mensaje.style.color =
+            "red";
+
+
+        return;
+
+    }
+
+
+    mensaje.textContent =
+        "Configuración guardada correctamente.";
+
+
+    mensaje.style.color =
+        "green";
+
+
+    alert(
+        "Configuración del cliente guardada."
+    );
+
+}
+
+
+/* =====================================================
+   TITULO ADMINISTRADOR
+===================================================== */
+
+async function guardarTituloAdministrador(){
+
+    const titulo =
+        document
+        .getElementById(
+            "nuevoTituloAdmin"
+        )
+        .value;
+
+
+    const eslogan =
+        document
+        .getElementById(
+            "nuevoEsloganAdmin"
+        )
+        .value;
+
+
+    const tipografiaTitulo =
+        obtenerTipografia(
+            "nuevoTituloAdmin"
+        );
+
+
+    const tipografiaEslogan =
+        obtenerTipografia(
+            "nuevoEsloganAdmin"
+        );
+
+
+    const tituloVisible =
+        document.getElementById(
+            "tituloAdmin"
+        );
+
+
+    const esloganVisible =
+        document.getElementById(
+            "esloganAdmin"
+        );
+
+
+    if(tituloVisible){
+
+        tituloVisible.textContent =
+            titulo ||
+            "ADMINISTRADOR";
+
+    }
+
+
+    if(esloganVisible){
+
+        esloganVisible.textContent =
+            eslogan ||
+            "PANEL DE ADMINISTRACIÓN";
+
+    }
+
+
+    if(tituloVisible){
+
+        tituloVisible.style.fontFamily =
+            tipografiaTitulo;
+
+    }
+
+
+    if(esloganVisible){
+
+        esloganVisible.style.fontFamily =
+            tipografiaEslogan;
+
+    }
+
+
+    const mensaje =
+        document
+        .getElementById(
+            "mensajeTituloAdmin"
+        );
+
+
+    mensaje.textContent =
+        "Guardando configuración...";
+
+
+    mensaje.style.color =
+        "#333";
+
+
+    const resultado =
+        await guardarConfiguracion({
+
+            titulo_admin:
+                titulo,
+
+            eslogan_admin:
+                eslogan,
+
+            tipografia_titulo_admin:
+                tipografiaTitulo,
+
+            tipografia_eslogan_admin:
+                tipografiaEslogan
+
+        });
+
+
+    if(!resultado.ok){
+
+        mensaje.textContent =
+            "No se pudo guardar: "
+            +
+            resultado.error.message;
+
+
+        mensaje.style.color =
+            "red";
+
+
+        return;
+
+    }
+
+
+    mensaje.textContent =
+        "Configuración guardada correctamente.";
+
+
+    mensaje.style.color =
+        "green";
+
+
+    alert(
+        "Configuración del administrador guardada."
+    );
+
+}
+
+
+/* =====================================================
+   OBTENER TIPOGRAFIA
+===================================================== */
+
+function obtenerTipografia(id){
+
+    const campo =
+        document.getElementById(id);
+
+
+    if(!campo){
+
+        return "Arial";
+
+    }
+
+
+    return (
+        campo.dataset.tipografia ||
+        "Arial"
+    );
+
+}
+
+
+/* =====================================================
+   PRODUCTOS
+===================================================== */
+
+async function guardarProducto(){
+
+    const nombre =
+        document
+        .getElementById("nombreProducto")
+        .value.trim();
+
+
+    const imagenInput =
+        document
+        .getElementById("imagenProducto");
+
+
+    const color =
+        document
+        .getElementById("colorProducto")
+        .value.trim();
+
+
+    const talla =
+        document
+        .getElementById("tallaProducto")
+        .value.trim();
+
+
+    const precio =
+        document
+        .getElementById("precioProducto")
+        .value;
+
+
+    const mensaje =
+        document
+        .getElementById("mensaje");
+
+
+    if(
+        !nombre ||
+        !color ||
+        !talla ||
+        !precio
+    ){
+
+        mensaje.textContent =
+            "Completa todos los campos.";
+
+
+        mensaje.style.color =
+            "red";
+
+
+        return;
+
+    }
+
+
+    mensaje.textContent =
+        "Guardando en Supabase...";
+
+
+    mensaje.style.color =
+        "#333";
+
+
+    try{
+
+        if(productoEditando){
+
+            let imagen =
+                productoEditando.imagen;
+
+
+            if(
+                imagenInput.files.length > 0
+            ){
+
+                imagen =
+                    await convertirImagen(
+                        imagenInput.files[0]
+                    );
+
+            }
+
+
+            const {
+                error
+            } =
+            await supabaseClient
+                .from("productos")
+                .update({
+
+                    nombre:nombre,
+
+                    precio:
+                        parseFloat(precio),
+
+                    imagen:imagen,
+
+                    color:color,
+
+                    talla:talla,
+
+                    activo:true
+
+                })
+                .eq(
+                    "id",
+                    productoEditando.id
+                );
+
+
+            if(error){
+
+                mensaje.textContent =
+                    "No se pudo actualizar: "
+                    +
+                    error.message;
+
+
+                mensaje.style.color =
+                    "red";
+
+
+                return;
+
+            }
+
+
+            mensaje.textContent =
+                "Producto actualizado correctamente.";
+
+
+            mensaje.style.color =
+                "green";
+
+
+            productoEditando =
+                null;
+
+
+            document
+                .getElementById(
+                    "tituloVentanaProducto"
+                )
+                .textContent =
+                "📷 SUBIR FOTO";
+
+
+            await cargarProductos();
+
+
+            setTimeout(
+                function(){
+
+                    cerrarVentana(
+                        "ventanaSubir"
+                    );
+
+                },
+                700
+            );
+
+
+            return;
+
+        }
+
+
+        if(
+            imagenInput.files.length === 0
+        ){
+
+            mensaje.textContent =
+                "Selecciona una imagen.";
+
+
+            mensaje.style.color =
+                "red";
+
+
+            return;
+
+        }
+
+
+        const imagen =
+            await convertirImagen(
+                imagenInput.files[0]
+            );
+
+
+        const creadoEn =
+            new Date().toISOString();
+
+
+        const {
+            error
+        } =
+        await supabaseClient
+            .from("productos")
+            .insert({
+
+                nombre:nombre,
+
+                precio:
+                    parseFloat(precio),
+
+                imagen:imagen,
+
+                color:color,
+
+                talla:talla,
+
+                activo:true,
+
+                creado_en:
+                    creadoEn
+
+            });
+
+
+        if(error){
+
+            mensaje.textContent =
+                "No se pudo guardar: "
+                +
+                error.message;
+
+
+            mensaje.style.color =
+                "red";
+
+
+            return;
+
+        }
+
+
+        mensaje.textContent =
+            "Producto publicado correctamente.";
+
+
+        mensaje.style.color =
+            "green";
+
+
+        limpiarFormulario();
+
+
+        await cargarProductos();
+
+
+        setTimeout(
+            function(){
+
+                cerrarVentana(
+                    "ventanaSubir"
+                );
+
+            },
+            700
+        );
+
+
+    }
+    catch(error){
+
+        console.error(error);
+
+
+        mensaje.textContent =
+            "Ocurrió un error: "
+            +
+            error.message;
+
+
+        mensaje.style.color =
+            "red";
+
+    }
+
+}
+
+
+/* =====================================================
+   IMAGEN
+===================================================== */
+
+function convertirImagen(archivo){
+
+    return new Promise(
+        function(resolve,reject){
+
+            const lector =
+                new FileReader();
+
+
+            lector.onload =
+                function(){
+
+                    resolve(
+                        lector.result
+                    );
+
+                };
+
+
+            lector.onerror =
+                function(){
+
+                    reject(
+                        lector.error
+                    );
+
+                };
+
+
+            lector.readAsDataURL(
+                archivo
+            );
+
+        }
+    );
+
+}
+
+
+/* =====================================================
+   CARGAR PRODUCTOS
+===================================================== */
+
+async function cargarProductos(){
+
+    const contenedor =
+        document.getElementById(
+            "listaProductos"
+        );
+
+
+    contenedor.innerHTML =
+        "<p>Cargando productos...</p>";
+
+
+    try{
+
+        const {
+            data,
+            error
+        } =
+        await supabaseClient
+            .from("productos")
+            .select("*")
+            .eq(
+                "activo",
+                true
+            )
+            .order(
+                "creado_en",
+                {
+                    ascending:false
+                }
+            )
+            .limit(100);
+
+
+        if(error){
+
+            console.error(error);
+
+
+            contenedor.innerHTML =
+                "<p style='color:red'>Error al cargar productos.</p>";
+
+
+            return;
+
+        }
+
+
+        contenedor.innerHTML =
+            "";
+
+
+        if(
+            !data ||
+            data.length === 0
+        ){
+
+            contenedor.innerHTML =
+                "<p>Todavía no hay productos publicados.</p>";
+
+
+            return;
+
+        }
+
+
+        data.forEach(
+            function(producto){
+
+                const tarjeta =
+                    document.createElement(
+                        "div"
+                    );
+
+
+                tarjeta.className =
+                    "producto";
+
+
+                const imagen =
+                    producto.imagen ||
+                    "";
+
+
+                tarjeta.innerHTML = `
+
+                    <img
+                        src="${imagen}"
+                        alt="${escapeHTML(
+                            producto.nombre ||
+                            "Producto"
+                        )}"
+                    >
+
+                    <div class="producto-info">
+
+                        <h3>
+                            ${escapeHTML(
+                                producto.nombre ||
+                                ""
+                            )}
+                        </h3>
+
+                        <p>
+                            Precio:
+                            S/ ${producto.precio ?? ""}
+                        </p>
+
+                        <p>
+                            Color:
+                            ${escapeHTML(
+                                producto.color ||
+                                ""
+                            )}
+                        </p>
+
+                        <p>
+                            Talla:
+                            ${escapeHTML(
+                                producto.talla ||
+                                ""
+                            )}
+                        </p>
+
+                        <div class="acciones">
+
+                            <button
+                                class="editar"
+                                onclick="editarProducto('${producto.id}')">
+
+                                EDITAR
+
+                            </button>
+
+                            <button
+                                class="eliminar"
+                                onclick="eliminarProducto('${producto.id}')">
+
+                                ELIMINAR
+
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                `;
+
+
+                contenedor.appendChild(
+                    tarjeta
+                );
+
+            }
+        );
+
+
+    }
+    catch(error){
+
+        console.error(error);
+
+
+        contenedor.innerHTML =
+            "<p style='color:red'>No se pudo conectar con la base de datos.</p>";
+
+    }
+
+}
+
+
+/* =====================================================
+   ESCAPAR HTML
+===================================================== */
+
+function escapeHTML(texto){
+
+    const div =
+        document.createElement(
+            "div"
+        );
+
+
+    div.textContent =
+        texto;
+
+
+    return div.innerHTML;
+
+}
+
+
+/* =====================================================
+   EDITAR
+===================================================== */
+
+async function editarProducto(id){
+
+    try{
+
+        const {
+            data,
+            error
+        } =
+        await supabaseClient
+            .from("productos")
+            .select("*")
+            .eq(
+                "id",
+                id
+            )
+            .single();
+
+
+        if(error){
+
+            alert(
+                "No se pudo cargar el producto."
+            );
+
+
+            return;
+
+        }
+
+
+        productoEditando =
+            data;
+
+
+        document
+            .getElementById(
+                "nombreProducto"
+            )
+            .value =
+            data.nombre ||
+            "";
+
+
+        document
+            .getElementById(
+                "colorProducto"
+            )
+            .value =
+            data.color ||
+            "";
+
+
+        document
+            .getElementById(
+                "tallaProducto"
+            )
+            .value =
+            data.talla ||
+            "";
+
+
+        document
+            .getElementById(
+                "precioProducto"
+            )
+            .value =
+            data.precio ||
+            "";
+
+
+        document
+            .getElementById(
+                "imagenProducto"
+            )
+            .value =
+            "";
+
+
+        document
+            .getElementById(
+                "tituloVentanaProducto"
+            )
+            .textContent =
+            "✏️ EDITAR PRODUCTO";
+
+
+        abrirVentana(
+            "ventanaSubir"
+        );
+
+
+    }
+    catch(error){
+
+        console.error(error);
+
+    }
+
+}
+
+
+/* =====================================================
+   ELIMINAR
+===================================================== */
+
+async function eliminarProducto(id){
+
+    const confirmar =
+        confirm(
+            "¿Quieres eliminar este producto?"
+        );
+
+
+    if(!confirmar){
+
+        return;
+
+    }
+
+
+    try{
+
+        const {
+            error
+        } =
+        await supabaseClient
+            .from("productos")
+            .update({
+
+                activo:false
+
+            })
+            .eq(
+                "id",
+                id
+            );
+
+
+        if(error){
+
+            alert(
+                "No se pudo eliminar el producto."
+            );
+
+
+            return;
+
+        }
+
+
+        await cargarProductos();
+
+
+    }
+    catch(error){
+
+        console.error(error);
+
+
+        alert(
+            "Error al eliminar."
+        );
+
+    }
+
+}
+
+
+/* =====================================================
+   LIMPIAR FORMULARIO
+===================================================== */
+
+function limpiarFormulario(){
+
+    document
+        .getElementById(
+            "nombreProducto"
+        )
+        .value =
+        "";
+
+
+    document
+        .getElementById(
+            "imagenProducto"
+        )
+        .value =
+        "";
+
+
+    document
+        .getElementById(
+            "colorProducto"
+        )
+        .value =
+        "";
+
+
+    document
+        .getElementById(
+            "tallaProducto"
+        )
+        .value =
+        "";
+
+
+    document
+        .getElementById(
+            "precioProducto"
+        )
+        .value =
+        "";
+
+}
+
+
+/* =====================================================
+   SALIR
+===================================================== */
+
+async function salirDeAdmin(){
+
+    await supabaseClient
+        .auth
+        .signOut();
+
+
+    window.location.href =
+        "index.html";
+
+}
+
+
+/* =====================================================
+   CLICK AFUERA
+===================================================== */
+
+document.addEventListener(
+    "click",
+    function(event){
+
+        if(
+            !event.target.closest(
+                ".editor-botones"
+            ) &&
+            !event.target.closest(
+                ".editor-whatsapp"
+            )
+        ){
+
+            cerrarTodosLosMenusEditor();
+
+        }
+
+    }
+);
+
+
+/* =====================================================
+   ACTUALIZACION PRODUCTOS
+===================================================== */
+
+supabaseClient
+    .channel(
+        "productos-admin"
+    )
+    .on(
+        "postgres_changes",
+        {
+            event:"*",
+            schema:"public",
+            table:"productos"
+        },
+        function(){
+
+            cargarProductos();
+
+        }
+    )
+    .subscribe();
+
+
+/* =====================================================
+   INICIAR ADMIN
+===================================================== */
+
+async function iniciarAdmin(){
+
+    const autorizado =
+        await comprobarSesion();
+
+    if(!autorizado){
+
+        return;
+
+    }
+
+    await cargarProductos();
+    await cargarConfiguracionSupabase();
+}
+
+/* =====================================================
+   INICIAR
+===================================================== */
+iniciarAdmin();
 
 </script>
 
 </body>
+
 </html>
