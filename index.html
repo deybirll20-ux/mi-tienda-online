@@ -1,176 +1,1230 @@
 <!DOCTYPE html>
+
 <html lang="es">
 
 <head>
 
-    <meta charset="UTF-8">
+<meta charset="UTF-8">
 
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
+<meta name="viewport"
+   content="width=device-width, initial-scale=1.0">
 
-    <title>Mi Tienda Online</title>
+<title>Mi Tienda</title>
 
-    <link rel="stylesheet" href="estilos.css">
+<link rel="stylesheet"
+      href="estilos.css">
 
 </head>
 
 <body>
 
-<header>
+<!-- =====================================================
+     ENCABEZADO CLIENTE
+===================================================== -->
 
-    <h1> BIENVENIDOS A MI TIENDA</h1>
+<header class="encabezado-cliente">
 
-    <p> COMPRA FÁCIL, LUCE INCREÍBLE </p>
 
-    <a
-        href="admin-login.html"
-        class="btn-admin">
+<!-- ❤️ CALIFICAR TIENDA -->
 
-        ADMIN
+<button
+    id="btnCalificar"
+    onclick="calificarTienda()">
 
-    </a>
+    ❤️
+
+</button>
+
+
+<!-- TÍTULO CENTRAL -->
+
+<div class="titulo-tienda">
+
+    <h1 id="tituloCliente">
+        MI TIENDA
+    </h1>
+
+    <p id="esloganCliente">
+        COMPRA FÁCIL, LUCE INCREÍBLE
+    </p>
+
+</div>
+
+
+<!-- ADMIN -->
+
+<button
+    id="btnAdmin"
+    onclick="irAlAdmin()">
+
+    ADMIN
+
+</button>
+
 
 </header>
 
-<main>
+<!-- =====================================================
+     PRODUCTOS
+===================================================== -->
 
-    <h2>Productos</h2>
+<main class="contenido-cliente">
 
-    <div id="productos"></div>
+<div
+    id="productos"
+    class="productos">
+
+    <p class="mensaje-cargando">
+        Cargando productos...
+    </p>
+
+</div>
+
 
 </main>
 
-<footer>
+<!-- =====================================================
+     PIE DE PÁGINA
+===================================================== -->
 
-    <p>© 2026 Mi Tienda Online</p>
+<footer class="pie-cliente">
+
+
+<p id="pieCliente">
+    MI TIENDA ONLINE
+</p>
+
 
 </footer>
 
-<script src="script.js"></script>
+<!-- =====================================================
+     SUPABASE
+===================================================== -->
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <script>
 
-function mostrarProductos() {
 
-    const contenedor =
-        document.getElementById("productos");
+// =====================================================
+// CONEXIÓN SUPABASE
+// =====================================================
 
-    contenedor.innerHTML = "";
-
-    const productos =
-        JSON.parse(
-            localStorage.getItem("productos")
-        ) || [];
+const SUPABASE_URL =
+    "https://yuivmqncvmsbtiigxsqt.supabase.co";
 
 
-    if (productos.length === 0) {
+const SUPABASE_KEY =
+    "sb_publishable_r1ZMaIIEVcAt26_P-FBu9Q_DUenqDH_";
 
-        contenedor.innerHTML = `
 
-            <p class="sin-productos">
+const supabaseClient =
+    window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_KEY
+    );
 
-                No hay productos disponibles.
 
-            </p>
 
-        `;
+// =====================================================
+// DATOS WHATSAPP
+// =====================================================
+
+let numeroWhatsApp = "";
+
+let mensajeWhatsAppGuardado = "";
+
+
+
+// =====================================================
+// IR AL ADMIN
+// =====================================================
+
+function irAlAdmin() {
+
+    window.location.href =
+        "admin-login.html";
+
+}
+
+
+
+// =====================================================
+// CALIFICAR TIENDA
+// =====================================================
+
+function calificarTienda() {
+
+    alert(
+        "Gracias por calificar nuestra tienda ❤️"
+    );
+
+}
+
+
+
+// =====================================================
+// PREPARAR NÚMERO WHATSAPP
+// =====================================================
+
+function prepararNumeroWhatsApp(numero) {
+
+    if (!numero) {
+
+        return "";
+
+    }
+
+
+    // Convertir a texto
+
+    numero =
+        String(numero).trim();
+
+
+    // Quitar espacios, guiones,
+    // paréntesis y otros caracteres
+
+    numero =
+        numero.replace(
+            /\D/g,
+            ""
+        );
+
+
+    // Si ya tiene código de Perú
+
+    if (
+        numero.startsWith("51")
+    ) {
+
+        return numero;
+
+    }
+
+
+    // Si es celular peruano de 9 dígitos
+
+    if (
+        numero.length === 9
+    ) {
+
+        return "51" + numero;
+
+    }
+
+
+    return numero;
+
+}
+
+
+
+// =====================================================
+// CARGAR CONFIGURACIÓN DESDE SUPABASE
+// =====================================================
+
+async function cargarConfiguracionCliente() {
+
+    try {
+
+        const {
+            data,
+            error
+        } = await supabaseClient
+
+            .from("configuracion_tienda")
+
+            .select("*")
+
+            .limit(1)
+
+            .maybeSingle();
+
+
+
+        // =================================================
+        // ERROR
+        // =================================================
+
+        if (error) {
+
+            console.error(
+                "Error cargando configuración:",
+                error
+            );
+
+            return;
+
+        }
+
+
+
+        if (!data) {
+
+            console.log(
+                "No existe configuración en configuracion_tienda."
+            );
+
+            return;
+
+        }
+
+
+
+        console.log(
+            "Configuración cliente:",
+            data
+        );
+
+
+
+        // =================================================
+        // NÚMERO WHATSAPP
+        // =================================================
+
+        const whatsapp =
+
+            data.whatsapp ||
+
+            data.whatsapp_numero ||
+
+            data.numero_whatsapp ||
+
+            data.telefono_whatsapp ||
+
+            data.telefono ||
+
+            data.celular ||
+
+            data.numero ||
+
+            "";
+
+
+
+        numeroWhatsApp =
+            prepararNumeroWhatsApp(
+                whatsapp
+            );
+
+
+
+        console.log(
+            "WhatsApp tienda:",
+            numeroWhatsApp
+        );
+
+
+
+        // =================================================
+        // MENSAJE WHATSAPP GUARDADO
+        // =================================================
+
+        mensajeWhatsAppGuardado =
+
+            data.whatsapp_mensaje ||
+
+            data.mensaje_whatsapp ||
+
+            data.mensaje ||
+
+            data.mensajeWhatsApp ||
+
+            data.texto_whatsapp ||
+
+            data.textoWhatsApp ||
+
+            "";
+
+
+
+        console.log(
+            "Mensaje WhatsApp guardado:",
+            mensajeWhatsAppGuardado
+        );
+
+
+
+        // =================================================
+        // TÍTULO CLIENTE
+        // =================================================
+
+        const titulo =
+
+            data.titulo_cliente ||
+
+            data.tituloCliente ||
+
+            data.titulo_cliente_tienda ||
+
+            data.titulo ||
+
+            null;
+
+
+
+        if (titulo) {
+
+            const elemento =
+                document.getElementById(
+                    "tituloCliente"
+                );
+
+
+            if (elemento) {
+
+                elemento.textContent =
+                    titulo;
+
+            }
+
+        }
+
+
+
+        // =================================================
+        // ESLOGAN CLIENTE
+        // =================================================
+
+        const eslogan =
+
+            data.eslogan_cliente ||
+
+            data.esloganCliente ||
+
+            data.slogan_cliente ||
+
+            data.eslogan ||
+
+            data.slogan ||
+
+            null;
+
+
+
+        if (eslogan) {
+
+            const elemento =
+                document.getElementById(
+                    "esloganCliente"
+                );
+
+
+            if (elemento) {
+
+                elemento.textContent =
+                    eslogan;
+
+            }
+
+        }
+
+
+
+        // =================================================
+        // PIE CLIENTE
+        // =================================================
+
+        const pie =
+
+            data.pie_cliente ||
+
+            data.pieCliente ||
+
+            data.footer_cliente ||
+
+            data.footer ||
+
+            null;
+
+
+
+        if (pie) {
+
+            const elemento =
+                document.getElementById(
+                    "pieCliente"
+                );
+
+
+            if (elemento) {
+
+                elemento.textContent =
+                    pie;
+
+            }
+
+        }
+
+
+
+        // =================================================
+        // COLOR CLIENTE
+        // =================================================
+
+        const color =
+
+            data.color_cliente ||
+
+            data.colorCliente ||
+
+            data.color_tienda ||
+
+            data.color ||
+
+            null;
+
+
+
+        if (color) {
+
+            aplicarColorCliente(
+                color
+            );
+
+        }
+
+
+
+        // =================================================
+        // TIPOGRAFÍA TÍTULO
+        // =================================================
+
+        const tipografiaTitulo =
+
+            data.tipografia_titulo_cliente ||
+
+            data.tipografiaTituloCliente ||
+
+            data.tipografia_titulo ||
+
+            data.tipografia_cliente_titulo ||
+
+            null;
+
+
+
+        if (tipografiaTitulo) {
+
+            const elemento =
+                document.getElementById(
+                    "tituloCliente"
+                );
+
+
+            if (elemento) {
+
+                elemento.style.fontFamily =
+                    tipografiaTitulo;
+
+            }
+
+        }
+
+
+
+        // =================================================
+        // TIPOGRAFÍA ESLOGAN
+        // =================================================
+
+        const tipografiaEslogan =
+
+            data.tipografia_eslogan_cliente ||
+
+            data.tipografiaEsloganCliente ||
+
+            data.tipografia_eslogan ||
+
+            data.tipografia_cliente_eslogan ||
+
+            null;
+
+
+
+        if (tipografiaEslogan) {
+
+            const elemento =
+                document.getElementById(
+                    "esloganCliente"
+                );
+
+
+            if (elemento) {
+
+                elemento.style.fontFamily =
+                    tipografiaEslogan;
+
+            }
+
+        }
+
+
+
+        // =================================================
+        // TIPOGRAFÍA PIE
+        // =================================================
+
+        const tipografiaPie =
+
+            data.tipografia_pie_cliente ||
+
+            data.tipografiaPieCliente ||
+
+            data.tipografia_pie ||
+
+            data.tipografia_cliente_pie ||
+
+            null;
+
+
+
+        if (tipografiaPie) {
+
+            const elemento =
+                document.getElementById(
+                    "pieCliente"
+                );
+
+
+            if (elemento) {
+
+                elemento.style.fontFamily =
+                    tipografiaPie;
+
+            }
+
+        }
+
+
+
+        // =================================================
+        // TIPOGRAFÍA GENERAL CLIENTE
+        // =================================================
+
+        const tipografiaGeneral =
+
+            data.tipografia_cliente ||
+
+            data.tipografiaCliente ||
+
+            null;
+
+
+
+        if (tipografiaGeneral) {
+
+            document.body.style.fontFamily =
+                tipografiaGeneral;
+
+        }
+
+
+    }
+
+    catch(error) {
+
+        console.error(
+            "Error inesperado cargando configuración:",
+            error
+        );
+
+    }
+
+}
+
+
+
+// =====================================================
+// APLICAR COLOR CLIENTE
+// =====================================================
+
+function aplicarColorCliente(color) {
+
+    const encabezado =
+        document.querySelector(
+            ".encabezado-cliente"
+        );
+
+
+    const pie =
+        document.querySelector(
+            ".pie-cliente"
+        );
+
+
+    if (encabezado) {
+
+        encabezado.style.background =
+            color;
+
+    }
+
+
+    if (pie) {
+
+        pie.style.background =
+            color;
+
+    }
+
+}
+
+
+
+// =====================================================
+// CREAR PEDIDO WHATSAPP
+// =====================================================
+
+function crearPedidoWhatsApp(producto) {
+
+
+    // =================================================
+    // VERIFICAR NÚMERO
+    // =================================================
+
+    if (!numeroWhatsApp) {
+
+        alert(
+            "No se ha configurado el número de WhatsApp de la tienda."
+        );
 
         return;
 
     }
 
 
-    /* MOSTRAR COMO MÁXIMO 100 */
 
-    productos
-        .slice(0, 100)
-        .forEach(function(producto) {
+    // =================================================
+    // DATOS DEL PRODUCTO
+    // =================================================
 
-        const tarjeta =
-            document.createElement("div");
+    const nombre =
 
-        tarjeta.className = "producto";
+        producto.nombre ||
 
-        tarjeta.innerHTML = `
+        "Producto";
 
-            <div class="imagen-producto">
 
-                <img
-                    src="${producto.imagen}"
-                    alt="Producto">
+    const talla =
 
-            </div>
+        producto.talla ||
 
-            <h3>
-                ${producto.nombre}
-            </h3>
+        "-";
 
-            <p>
-                Precio:
-                S/ ${producto.precio}
+
+    const color =
+
+        producto.color ||
+
+        "-";
+
+
+
+    // =================================================
+    // MENSAJE GUARDADO
+    // =================================================
+
+    const mensajeBase =
+
+        mensajeWhatsAppGuardado ||
+
+        "Hola, quiero pedir este producto.";
+
+
+
+    // =================================================
+    // MENSAJE FINAL
+    // =================================================
+
+    const mensaje =
+
+        mensajeBase +
+
+        "\n\n" +
+
+        "Producto: " +
+
+        nombre +
+
+        "\n" +
+
+        "Talla: " +
+
+        talla +
+
+        "\n" +
+
+        "Color: " +
+
+        color;
+
+
+
+    console.log(
+        "Mensaje final:",
+        mensaje
+    );
+
+
+
+    // =================================================
+    // ENLACE WHATSAPP
+    // =================================================
+
+    const enlace =
+
+        "https://wa.me/" +
+
+        numeroWhatsApp +
+
+        "?text=" +
+
+        encodeURIComponent(
+            mensaje
+        );
+
+
+
+    // =================================================
+    // ABRIR WHATSAPP
+    // =================================================
+
+    window.open(
+        enlace,
+        "_blank"
+    );
+
+}
+
+
+
+// =====================================================
+// CARGAR PRODUCTOS DESDE SUPABASE
+// =====================================================
+
+async function cargarProductosCliente() {
+
+    const contenedor =
+        document.getElementById(
+            "productos"
+        );
+
+
+    if (!contenedor) {
+
+        return;
+
+    }
+
+
+
+    contenedor.innerHTML = `
+
+        <p class="mensaje-cargando">
+            Cargando productos...
+        </p>
+
+    `;
+
+
+
+    try {
+
+        const {
+            data,
+            error
+        } = await supabaseClient
+
+            .from("productos")
+
+            .select("*")
+
+            .eq(
+                "activo",
+                true
+            )
+
+            .order(
+                "creado_en",
+                {
+                    ascending: false
+                }
+            );
+
+
+
+        // =================================================
+        // ERROR
+        // =================================================
+
+        if (error) {
+
+            console.error(
+                "Error cargando productos:",
+                error
+            );
+
+
+            contenedor.innerHTML = `
+
+                <p class="mensaje-error">
+                    No se pudieron cargar los productos.
+                </p>
+
+            `;
+
+            return;
+
+        }
+
+
+
+        // =================================================
+        // LIMPIAR
+        // =================================================
+
+        contenedor.innerHTML = "";
+
+
+
+        // =================================================
+        // NO HAY PRODUCTOS
+        // =================================================
+
+        if (
+            !data ||
+            data.length === 0
+        ) {
+
+            contenedor.innerHTML = `
+
+                <p class="mensaje-vacio">
+                    Todavía no hay productos publicados.
+                </p>
+
+            `;
+
+            return;
+
+        }
+
+
+
+        // =================================================
+        // CREAR PRODUCTOS
+        // =================================================
+
+        data.forEach(
+            function(producto) {
+
+
+                const tarjeta =
+                    document.createElement(
+                        "div"
+                    );
+
+
+                tarjeta.className =
+                    "producto";
+
+
+
+                // =========================================
+                // IMAGEN
+                // =========================================
+
+                const imagen =
+                    document.createElement(
+                        "img"
+                    );
+
+
+                imagen.src =
+                    producto.imagen ||
+                    "";
+
+
+                imagen.alt =
+                    producto.nombre ||
+                    "Producto";
+
+
+
+                // =========================================
+                // NOMBRE
+                // =========================================
+
+                const nombre =
+                    document.createElement(
+                        "h3"
+                    );
+
+
+                nombre.textContent =
+                    producto.nombre ||
+                    "Producto";
+
+
+
+                // =========================================
+                // PRECIO
+                // =========================================
+
+                const precio =
+                    document.createElement(
+                        "p"
+                    );
+
+
+                precio.className =
+                    "precio";
+
+
+                precio.textContent =
+                    "S/ " +
+
+                    (
+                        producto.precio ??
+
+                        "0.00"
+                    );
+
+
+
+                // =========================================
+                // COLOR
+                // =========================================
+
+                const color =
+                    document.createElement(
+                        "p"
+                    );
+
+
+                color.className =
+                    "dato-producto";
+
+
+                color.textContent =
+                    "Color: " +
+
+                    (
+                        producto.color ||
+
+                        "-"
+                    );
+
+
+
+                // =========================================
+                // TALLA
+                // =========================================
+
+                const talla =
+                    document.createElement(
+                        "p"
+                    );
+
+
+                talla.className =
+                    "dato-producto";
+
+
+                talla.textContent =
+                    "Talla: " +
+
+                    (
+                        producto.talla ||
+
+                        "-"
+                    );
+
+
+
+                // =========================================
+                // DESCRIPCIÓN
+                // =========================================
+
+                if (
+
+                    producto.descripción ||
+
+                    producto.descripcion
+
+                ) {
+
+
+                    const descripcion =
+                        document.createElement(
+                            "p"
+                        );
+
+
+                    descripcion.className =
+                        "descripcion-producto";
+
+
+                    descripcion.textContent =
+
+                        producto.descripción ||
+
+                        producto.descripcion;
+
+
+                    tarjeta.appendChild(
+                        descripcion
+                    );
+
+                }
+
+
+
+                // =========================================
+                // BOTÓN PEDIR
+                // =========================================
+
+                const pedir =
+                    document.createElement(
+                        "button"
+                    );
+
+
+                pedir.className =
+                    "btn-pedir";
+
+
+                pedir.textContent =
+                    "PEDIR";
+
+
+                pedir.type =
+                    "button";
+
+
+
+                // =========================================
+                // EVENTO PEDIR
+                // =========================================
+
+                pedir.addEventListener(
+
+                    "click",
+
+                    function() {
+
+                        crearPedidoWhatsApp(
+                            producto
+                        );
+
+                    }
+
+                );
+
+
+
+                // =========================================
+                // AGREGAR ELEMENTOS
+                // =========================================
+
+                tarjeta.appendChild(
+                    imagen
+                );
+
+
+                tarjeta.appendChild(
+                    nombre
+                );
+
+
+                tarjeta.appendChild(
+                    precio
+                );
+
+
+                tarjeta.appendChild(
+                    color
+                );
+
+
+                tarjeta.appendChild(
+                    talla
+                );
+
+
+                tarjeta.appendChild(
+                    pedir
+                );
+
+
+
+                // =========================================
+                // MOSTRAR
+                // =========================================
+
+                contenedor.appendChild(
+                    tarjeta
+                );
+
+            }
+
+        );
+
+
+    }
+
+    catch(error) {
+
+
+        console.error(
+            "Error inesperado:",
+            error
+        );
+
+
+        contenedor.innerHTML = `
+
+            <p class="mensaje-error">
+                Error al conectar con la tienda.
             </p>
-
-            <div class="opciones">
-
-                <label>Talla:</label>
-
-                <span>
-                    ${producto.talla}
-                </span>
-
-                <label>Color:</label>
-
-                <span>
-                    ${producto.color}
-                </span>
-
-            </div>
-
-            <button
-                onclick="
-                    pedirProducto(
-                        '${producto.nombre}',
-                        '${producto.precio}',
-                        '${producto.color}',
-                        '${producto.talla}'
-                    )
-                ">
-
-                PEDIR
-
-            </button>
 
         `;
 
-        contenedor.appendChild(tarjeta);
-
-    });
+    }
 
 }
 
 
-function aplicarColorCliente() {
 
-    const color =
-        localStorage.getItem("colorCliente");
+// =====================================================
+// INICIAR TIENDA
+// =====================================================
 
-    if (!color) return;
+document.addEventListener(
 
-    document.documentElement
-        .style
-        .setProperty(
-            "--color-tienda",
-            color
-        );
+    "DOMContentLoaded",
 
-}
+    async function() {
 
 
-aplicarColorCliente();
+        // Primero configuración
 
-mostrarProductos();
+        await cargarConfiguracionCliente();
+
+
+
+        // Después productos
+
+        await cargarProductosCliente();
+
+
+    }
+
+);
+
 
 </script>
 
 </body>
+
 </html>
