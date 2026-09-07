@@ -2,29 +2,32 @@
 <html lang="es">
 
 <head>
-
 <meta charset="UTF-8">
-
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Administrador</title>
 
 <style>
+
 /* =====================================================
    GENERAL
 ===================================================== */
+
 *{
     box-sizing:border-box;
 }
+
 body{
     margin:0;
     font-family:Arial,sans-serif;
     background:#f5f5f5;
     color:#222;
 }
+
 /* =====================================================
    ENCABEZADO
 ===================================================== */
+
 .admin-header{
     background:#ec4a0a;
     color:white;
@@ -34,6 +37,7 @@ body{
     margin:0 25px;
     border-radius:0 0 10px 10px;
 }
+
 .admin-header h1{
     margin:0;
     font-size:25px;
@@ -43,6 +47,7 @@ body{
     margin:4px 0 0;
     font-size:13px;
 }
+
 /* =====================================================
    WHATSAPP
 ===================================================== */
@@ -60,6 +65,7 @@ body{
     font-weight:bold;
     font-size:12px;
 }
+
 /* =====================================================
    BARRA
 ===================================================== */
@@ -72,8 +78,20 @@ body{
     position:relative;
 }
 
+/* GRUPO DERECHO */
+
+.botones-derecha{
+    display:flex;
+    align-items:center;
+    gap:7px;
+}
+
+/* BOTONES */
+
 .btn-menu,
-.btn-dashboard{
+.btn-dashboard,
+.btn-ofertas,
+.btn-ruleta{
     border:none;
     padding:8px 13px;
     border-radius:6px;
@@ -81,8 +99,32 @@ body{
     font-weight:bold;
     cursor:pointer;
     font-size:12px;
+}
+
+/* DASHBOARD */
+
+.btn-dashboard{
     background:#28a745;
 }
+
+/* OFERTAS */
+
+.btn-ofertas{
+    background:#ff9800;
+}
+
+/* RULETA */
+
+.btn-ruleta{
+    background:#6f42c1;
+}
+
+/* MENU */
+
+.btn-menu{
+    background:#28a745;
+}
+
 /* =====================================================
    MENU
 ===================================================== */
@@ -119,6 +161,7 @@ body{
     background:#dc3545;
     margin-bottom:0;
 }
+
 /* =====================================================
    SUBMENU DASHBOARD
 ===================================================== */
@@ -159,6 +202,7 @@ body{
 .submenu-dashboard button:last-child{
     margin-bottom:0;
 }
+
 /* =====================================================
    PANEL
 ===================================================== */
@@ -180,6 +224,7 @@ body{
     margin:0 0 18px;
     font-size:19px;
 }
+
 /* =====================================================
    PRODUCTOS
 ===================================================== */
@@ -253,6 +298,7 @@ body{
     font-weight:bold;
     font-size:10px;
 }
+
 /* =====================================================
    VENTANAS
 ===================================================== */
@@ -306,6 +352,7 @@ body{
     font-weight:bold;
     cursor:pointer;
 }
+
 /* =====================================================
    CAMPOS
 ===================================================== */
@@ -346,6 +393,7 @@ body{
     cursor:pointer;
     background:white;
 }
+
 /* =====================================================
    BOTONES
 ===================================================== */
@@ -378,6 +426,7 @@ body{
     cursor:pointer;
     font-size:12px;
 }
+
 /* =====================================================
    AJUSTES
 ===================================================== */
@@ -411,7 +460,6 @@ body{
 .opcion-titulos{
     background:#6f42c1;
 }
-
 
 /* =====================================================
    TITULOS
@@ -447,7 +495,6 @@ body{
     background:#6c757d;
 }
 
-
 /* =====================================================
    EDITOR
 ===================================================== */
@@ -470,7 +517,6 @@ body{
     font-size:16px;
     font-weight:bold;
 }
-
 
 /* =====================================================
    MENU TIPOGRAFIA
@@ -505,7 +551,6 @@ body{
 .menu-tipografia button:hover{
     background:#eee;
 }
-
 
 /* =====================================================
    EMOTICON
@@ -543,7 +588,6 @@ body{
 .emoticon-grid button:hover{
     background:#eee;
 }
-
 
 /* =====================================================
    WHATSAPP - EDITOR
@@ -584,7 +628,6 @@ body{
     box-shadow:none;
 }
 
-
 /* =====================================================
    BOTONES DEL MENSAJE WHATSAPP
 ===================================================== */
@@ -611,7 +654,6 @@ body{
     color:white;
     border-color:#28a745;
 }
-
 
 /* =====================================================
    EMOTICONOS WHATSAPP
@@ -650,7 +692,6 @@ body{
     background:#eee;
 }
 
-
 /* =====================================================
    DASHBOARD
 ===================================================== */
@@ -679,7 +720,6 @@ body{
     margin:8px 0;
 }
 
-
 /* =====================================================
    CONFIGURACIÓN DASHBOARD
 ===================================================== */
@@ -706,7 +746,409 @@ body{
     background:#28a745;
 }
 
+/* =====================================================
+   OFERTAS
+===================================================== */
 
+.ofertas-config{
+    display:flex;
+    flex-direction:column;
+    gap:8px;
+}
+
+.ofertas-config button{
+    width:100%;
+    border:none;
+    border-radius:7px;
+    padding:10px;
+    color:white;
+    font-weight:bold;
+    font-size:12px;
+    cursor:pointer;
+    text-align:left;
+}
+
+.btn-oferta-activar{
+    background:#ff9800;
+}
+
+.btn-oferta-config{
+    background:#28a745;
+}
+/* =====================================================
+   🎯 RULETA
+===================================================== */
+
+.ventana-ruleta{
+    max-width:700px;
+    width:95%;
+}
+
+.contenido-ruleta{
+    padding:15px;
+}
+
+
+/* =====================================================
+   BLOQUES PRINCIPALES
+===================================================== */
+
+.bloque-ruleta{
+    margin-bottom:15px;
+    padding:15px;
+    border:1px solid #ddd;
+    border-radius:12px;
+    background:#fff;
+}
+
+.bloque-ruleta h3{
+    margin-top:0;
+    font-size:16px;
+}
+
+
+/* =====================================================
+   BOTÓN ACTIVAR / DESACTIVAR
+===================================================== */
+
+.btn-ruleta-estado,
+.btn-ruleta-config,
+.btn-guardar-ruleta,
+.btn-atras-ruleta{
+
+    width:100%;
+
+    border:none;
+
+    border-radius:8px;
+
+    padding:12px;
+
+    font-weight:bold;
+
+    cursor:pointer;
+
+    margin-top:8px;
+}
+
+.btn-ruleta-estado{
+
+    background:#e53935;
+
+    color:white;
+}
+
+.btn-ruleta-estado.activa{
+
+    background:#16a34a;
+}
+
+.btn-ruleta-config{
+
+    background:#2563eb;
+
+    color:white;
+}
+
+
+/* =====================================================
+   CONFIGURACIÓN DE PREMIOS
+===================================================== */
+
+.configuracion-premios{
+
+    padding:15px;
+}
+
+.configuracion-premios h3{
+
+    text-align:center;
+
+    margin-bottom:18px;
+}
+
+
+/* =====================================================
+   CADA PREMIO
+===================================================== */
+
+.premio-ruleta{
+
+    position:relative;
+
+    margin-bottom:18px;
+
+    padding:18px 18px 18px 58px;
+
+    border-radius:14px;
+
+    border:2px solid #ddd;
+
+    background:linear-gradient(
+        135deg,
+        #fff8e7,
+        #eef6ff
+    );
+}
+
+
+/* =====================================================
+   NÚMERO DEL PREMIO
+===================================================== */
+
+.numero-premio{
+
+    position:absolute;
+
+    left:12px;
+
+    top:18px;
+
+    width:34px;
+
+    height:34px;
+
+    border-radius:50%;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    background:#ff7a00;
+
+    color:white;
+
+    font-weight:bold;
+
+    font-size:16px;
+}
+
+
+/* =====================================================
+   SELECCIONAR IMAGEN / TEXTO
+===================================================== */
+
+.premio-ruleta select{
+
+    width:100%;
+
+    padding:10px;
+
+    margin-bottom:8px;
+
+    border:1px solid #bbb;
+
+    border-radius:8px;
+
+    font-size:14px;
+
+    font-weight:bold;
+
+    background:white;
+
+    cursor:pointer;
+}
+
+
+/* =====================================================
+   CAMPOS DEL PREMIO
+===================================================== */
+
+.premio-ruleta input,
+.premio-ruleta textarea{
+
+    width:100%;
+
+    padding:10px;
+
+    margin-top:8px;
+
+    border:1px solid #ccc;
+
+    border-radius:8px;
+
+    font-size:13px;
+
+    background:white;
+}
+
+.premio-ruleta textarea{
+
+    min-height:65px;
+
+    resize:vertical;
+}
+
+
+/* =====================================================
+   OPCIONES DEL PREMIO
+===================================================== */
+
+.opciones-premio{
+
+    margin-top:12px;
+
+    padding:12px;
+
+    border-radius:9px;
+
+    background:#f8f8f8;
+
+    border:1px solid #ddd;
+}
+
+.opciones-premio label{
+
+    display:block;
+
+    margin-bottom:8px;
+
+    font-size:13px;
+
+    font-weight:bold;
+
+    cursor:pointer;
+}
+
+.opciones-premio input[type="radio"]{
+
+    width:auto;
+
+    margin-right:7px;
+}
+
+
+/* =====================================================
+   ZONA DE IMAGEN
+===================================================== */
+
+.zona-imagen-premio{
+
+    margin-top:8px;
+}
+
+.preview-imagen-premio{
+
+    display:none;
+
+    width:100%;
+
+    max-height:180px;
+
+    object-fit:contain;
+
+    margin-top:10px;
+
+    border-radius:10px;
+
+    border:1px solid #ddd;
+
+    background:white;
+}
+
+
+/* =====================================================
+   CONFIGURACIÓN IMAGEN
+===================================================== */
+
+.config-imagen-premio{
+
+    display:block;
+
+    margin-top:10px;
+}
+
+
+/* =====================================================
+   CONFIGURACIÓN TEXTO
+===================================================== */
+
+.config-texto-premio{
+
+    display:none;
+
+    margin-top:10px;
+}
+
+
+/* =====================================================
+   BOTONES INFERIORES
+===================================================== */
+
+.botones-ruleta{
+
+    display:flex;
+
+    gap:10px;
+
+    padding:15px;
+}
+
+.btn-guardar-ruleta{
+
+    background:#16a34a;
+
+    color:white;
+}
+
+.btn-atras-ruleta{
+
+    background:#777;
+
+    color:white;
+}
+
+
+/* =====================================================
+   MENSAJE
+===================================================== */
+
+.mensaje-ruleta{
+
+    font-size:12px;
+
+    text-align:center;
+
+    margin-top:10px;
+}
+
+
+/* =====================================================
+   RESPONSIVE CELULAR
+===================================================== */
+
+@media(max-width:600px){
+
+    .ventana-ruleta{
+
+        width:96%;
+    }
+
+    .configuracion-premios{
+
+        padding:10px;
+    }
+
+    .premio-ruleta{
+
+        padding:15px 12px 15px 52px;
+    }
+
+    .numero-premio{
+
+        left:10px;
+
+        top:15px;
+    }
+
+    .botones-ruleta{
+
+        flex-direction:column;
+    }
+
+}
 /* =====================================================
    CELULAR
 ===================================================== */
@@ -749,6 +1191,18 @@ body{
 
     .barra-botones{
         padding:11px 15px;
+    }
+
+    .botones-derecha{
+        gap:4px;
+    }
+
+    .btn-menu,
+    .btn-dashboard,
+    .btn-ofertas,
+    .btn-ruleta{
+        padding:7px 8px;
+        font-size:9px;
     }
 
     .menu{
@@ -801,12 +1255,13 @@ body{
 }
 
 </style>
-
 </head>
-
 
 <body>
 
+<!-- =====================================================
+     ENCABEZADO
+===================================================== -->
 
 <header class="admin-header">
 
@@ -821,36 +1276,66 @@ body{
     <button
         class="whatsapp"
         onclick="abrirWhatsapp()">
-
         WhatsApp
-
     </button>
 
 </header>
 
 
+<!-- =====================================================
+     BARRA DE BOTONES
+===================================================== -->
+
 <div class="barra-botones">
+
+    <!-- MENU -->
 
     <button
         class="btn-menu"
         onclick="mostrarMenu()">
-
         ☰ MENÚ
-
     </button>
 
 
     <!-- =================================================
-         BOTÓN DASHBOARD
+         GRUPO DERECHO
     ================================================== -->
 
-    <button
-        class="btn-dashboard"
-        onclick="toggleDashboard()">
+    <div class="botones-derecha">
 
-        📊 DASHBOARD
+        <!-- OFERTAS -->
 
-    </button>
+        <button
+            class="btn-ofertas"
+            onclick="abrirVentana('ventanaOfertas')">
+
+            🎁 OFERTAS
+
+        </button>
+
+
+        <!-- RULETA -->
+
+        <button
+            class="btn-ruleta"
+            onclick="abrirVentana('ventanaRuleta')">
+
+            🎯 RULETA
+
+        </button>
+
+
+        <!-- DASHBOARD -->
+
+        <button
+            class="btn-dashboard"
+            onclick="toggleDashboard()">
+
+            📊 DASHBOARD
+
+        </button>
+
+    </div>
 
 
     <!-- =================================================
@@ -878,28 +1363,50 @@ body{
     </div>
 
 
-    <div id="menu" class="menu">
+    <!-- =================================================
+         MENU
+    ================================================== -->
 
-        <button onclick="abrirVentana('ventanaSubir')">
+    <div
+        id="menu"
+        class="menu">
+
+        <button
+            onclick="abrirVentana('ventanaSubir')">
+
             📷 SUBIR FOTO
+
         </button>
 
-        <button onclick="abrirVentana('ventanaAjustes')">
+        <button
+            onclick="abrirVentana('ventanaAjustes')">
+
             ⚙️ AJUSTES
+
         </button>
 
-        <button onclick="abrirVentana('ventanaUsuarios')">
+        <button
+            onclick="abrirVentana('ventanaUsuarios')">
+
             👤 CAMBIAR USUARIO Y CONTRASEÑA
+
         </button>
 
-        <button onclick="salirDeAdmin()">
+        <button
+            onclick="salirDeAdmin()">
+
             🚪 SALIR
+
         </button>
 
     </div>
 
 </div>
 
+
+<!-- =====================================================
+     PANEL
+===================================================== -->
 
 <main class="admin-panel">
 
@@ -928,7 +1435,9 @@ body{
      SUBIR PRODUCTO
 ===================================================== -->
 
-<div id="ventanaSubir" class="fondo-ventana">
+<div
+    id="ventanaSubir"
+    class="fondo-ventana">
 
     <div class="ventana">
 
@@ -951,7 +1460,9 @@ body{
 
         <div class="campo">
 
-            <label>Nombre del producto</label>
+            <label>
+                Nombre del producto
+            </label>
 
             <input
                 type="text"
@@ -963,7 +1474,9 @@ body{
 
         <div class="campo">
 
-            <label>Imagen</label>
+            <label>
+                Imagen
+            </label>
 
             <input
                 type="file"
@@ -975,7 +1488,9 @@ body{
 
         <div class="campo">
 
-            <label>Color</label>
+            <label>
+                Color
+            </label>
 
             <input
                 type="text"
@@ -987,7 +1502,9 @@ body{
 
         <div class="campo">
 
-            <label>Talla</label>
+            <label>
+                Talla
+            </label>
 
             <input
                 type="text"
@@ -999,7 +1516,9 @@ body{
 
         <div class="campo">
 
-            <label>Precio</label>
+            <label>
+                Precio
+            </label>
 
             <input
                 type="number"
@@ -1030,7 +1549,6 @@ body{
 
         </div>
 
-
         <p id="mensaje"></p>
 
     </div>
@@ -1042,13 +1560,17 @@ body{
      AJUSTES
 ===================================================== -->
 
-<div id="ventanaAjustes" class="fondo-ventana">
+<div
+    id="ventanaAjustes"
+    class="fondo-ventana">
 
     <div class="ventana">
 
         <div class="titulo-ventana">
 
-            <h2>⚙️ AJUSTES</h2>
+            <h2>
+                ⚙️ AJUSTES
+            </h2>
 
             <button
                 class="cerrar-x"
@@ -1060,7 +1582,6 @@ body{
 
         </div>
 
-
         <div class="ajustes-opciones">
 
             <button
@@ -1071,7 +1592,6 @@ body{
 
             </button>
 
-
             <button
                 class="opcion-ajuste opcion-admin"
                 onclick="abrirVentana('ventanaColorAdmin')">
@@ -1079,7 +1599,6 @@ body{
                 🎨 COLOR ADMINISTRADOR
 
             </button>
-
 
             <button
                 class="opcion-ajuste opcion-titulos"
@@ -1100,13 +1619,17 @@ body{
      COLOR CLIENTE
 ===================================================== -->
 
-<div id="ventanaColorCliente" class="fondo-ventana">
+<div
+    id="ventanaColorCliente"
+    class="fondo-ventana">
 
     <div class="ventana">
 
         <div class="titulo-ventana">
 
-            <h2>🎨 COLOR CLIENTE</h2>
+            <h2>
+                🎨 COLOR CLIENTE
+            </h2>
 
             <button
                 class="cerrar-x"
@@ -1118,10 +1641,11 @@ body{
 
         </div>
 
-
         <div class="campo">
 
-            <label>Seleccionar color</label>
+            <label>
+                Seleccionar color
+            </label>
 
             <input
                 type="color"
@@ -1129,7 +1653,6 @@ body{
                 value="#ec4a0a">
 
         </div>
-
 
         <div class="botones">
 
@@ -1154,13 +1677,17 @@ body{
      COLOR ADMIN
 ===================================================== -->
 
-<div id="ventanaColorAdmin" class="fondo-ventana">
+<div
+    id="ventanaColorAdmin"
+    class="fondo-ventana">
 
     <div class="ventana">
 
         <div class="titulo-ventana">
 
-            <h2>🎨 COLOR ADMINISTRADOR</h2>
+            <h2>
+                🎨 COLOR ADMINISTRADOR
+            </h2>
 
             <button
                 class="cerrar-x"
@@ -1172,10 +1699,11 @@ body{
 
         </div>
 
-
         <div class="campo">
 
-            <label>Seleccionar color</label>
+            <label>
+                Seleccionar color
+            </label>
 
             <input
                 type="color"
@@ -1183,7 +1711,6 @@ body{
                 value="#ec4a0a">
 
         </div>
-
 
         <div class="botones">
 
@@ -1208,13 +1735,17 @@ body{
      TITULOS
 ===================================================== -->
 
-<div id="ventanaTitulos" class="fondo-ventana">
+<div
+    id="ventanaTitulos"
+    class="fondo-ventana">
 
     <div class="ventana">
 
         <div class="titulo-ventana">
 
-            <h2>📝 TÍTULOS</h2>
+            <h2>
+                📝 TÍTULOS
+            </h2>
 
             <button
                 class="cerrar-x"
@@ -1226,7 +1757,6 @@ body{
 
         </div>
 
-
         <div class="pestanas-titulos">
 
             <button
@@ -1237,7 +1767,6 @@ body{
 
             </button>
 
-
             <button
                 class="pestana-titulo pestana-administrador"
                 onclick="abrirVentana('ventanaTituloAdministrador')">
@@ -1245,7 +1774,6 @@ body{
                 👨‍💼 TÍTULO ADMINISTRADOR
 
             </button>
-
 
             <button
                 class="pestana-titulo pestana-atras"
@@ -1266,13 +1794,17 @@ body{
      TITULO CLIENTE
 ===================================================== -->
 
-<div id="ventanaTituloCliente" class="fondo-ventana">
+<div
+    id="ventanaTituloCliente"
+    class="fondo-ventana">
 
     <div class="ventana">
 
         <div class="titulo-ventana">
 
-            <h2>🛍️ TÍTULO CLIENTE</h2>
+            <h2>
+                🛍️ TÍTULO CLIENTE
+            </h2>
 
             <button
                 class="cerrar-x"
@@ -1284,10 +1816,11 @@ body{
 
         </div>
 
-
         <div class="campo">
 
-            <label>Título</label>
+            <label>
+                Título
+            </label>
 
             <input
                 type="text"
@@ -1312,21 +1845,39 @@ body{
 
                 </button>
 
-
                 <div
                     id="tipo-tituloCliente"
                     class="menu-tipografia">
 
-                    <button onclick="seleccionarTipografia('tituloCliente','Arial')">Arial</button>
-                    <button onclick="seleccionarTipografia('tituloCliente','Verdana')">Verdana</button>
-                    <button onclick="seleccionarTipografia('tituloCliente','Georgia')">Georgia</button>
-                    <button onclick="seleccionarTipografia('tituloCliente','Tahoma')">Tahoma</button>
-                    <button onclick="seleccionarTipografia('tituloCliente','Trebuchet MS')">Trebuchet MS</button>
-                    <button onclick="seleccionarTipografia('tituloCliente','Times New Roman')">Times New Roman</button>
-                    <button onclick="seleccionarTipografia('tituloCliente','Courier New')">Courier New</button>
+                    <button onclick="seleccionarTipografia('tituloCliente','Arial')">
+                        Arial
+                    </button>
+
+                    <button onclick="seleccionarTipografia('tituloCliente','Verdana')">
+                        Verdana
+                    </button>
+
+                    <button onclick="seleccionarTipografia('tituloCliente','Georgia')">
+                        Georgia
+                    </button>
+
+                    <button onclick="seleccionarTipografia('tituloCliente','Tahoma')">
+                        Tahoma
+                    </button>
+
+                    <button onclick="seleccionarTipografia('tituloCliente','Trebuchet MS')">
+                        Trebuchet MS
+                    </button>
+
+                    <button onclick="seleccionarTipografia('tituloCliente','Times New Roman')">
+                        Times New Roman
+                    </button>
+
+                    <button onclick="seleccionarTipografia('tituloCliente','Courier New')">
+                        Courier New
+                    </button>
 
                 </div>
-
 
                 <div
                     id="emoji-tituloCliente"
@@ -1367,7 +1918,9 @@ body{
 
         <div class="campo">
 
-            <label>Eslogan</label>
+            <label>
+                Eslogan
+            </label>
 
             <input
                 type="text"
@@ -1392,7 +1945,6 @@ body{
 
                 </button>
 
-
                 <div
                     id="tipo-esloganCliente"
                     class="menu-tipografia">
@@ -1406,7 +1958,6 @@ body{
                     <button onclick="seleccionarTipografia('esloganCliente','Courier New')">Courier New</button>
 
                 </div>
-
 
                 <div
                     id="emoji-esloganCliente"
@@ -1447,7 +1998,9 @@ body{
 
         <div class="campo">
 
-            <label>Pie de página</label>
+            <label>
+                Pie de página
+            </label>
 
             <input
                 type="text"
@@ -1472,7 +2025,6 @@ body{
 
                 </button>
 
-
                 <div
                     id="tipo-pieCliente"
                     class="menu-tipografia">
@@ -1486,7 +2038,6 @@ body{
                     <button onclick="seleccionarTipografia('pieCliente','Courier New')">Courier New</button>
 
                 </div>
-
 
                 <div
                     id="emoji-pieCliente"
@@ -1556,13 +2107,17 @@ body{
      TITULO ADMINISTRADOR
 ===================================================== -->
 
-<div id="ventanaTituloAdministrador" class="fondo-ventana">
+<div
+    id="ventanaTituloAdministrador"
+    class="fondo-ventana">
 
     <div class="ventana">
 
         <div class="titulo-ventana">
 
-            <h2>👨‍💼 TÍTULO ADMINISTRADOR</h2>
+            <h2>
+                👨‍💼 TÍTULO ADMINISTRADOR
+            </h2>
 
             <button
                 class="cerrar-x"
@@ -1574,10 +2129,11 @@ body{
 
         </div>
 
-
         <div class="campo">
 
-            <label>Título</label>
+            <label>
+                Título
+            </label>
 
             <input
                 type="text"
@@ -1602,7 +2158,6 @@ body{
 
                 </button>
 
-
                 <div
                     id="tipo-nuevoTituloAdmin"
                     class="menu-tipografia">
@@ -1616,7 +2171,6 @@ body{
                     <button onclick="seleccionarTipografia('nuevoTituloAdmin','Courier New')">Courier New</button>
 
                 </div>
-
 
                 <div
                     id="emoji-nuevoTituloAdmin"
@@ -1657,7 +2211,9 @@ body{
 
         <div class="campo">
 
-            <label>Eslogan</label>
+            <label>
+                Eslogan
+            </label>
 
             <input
                 type="text"
@@ -1682,7 +2238,6 @@ body{
 
                 </button>
 
-
                 <div
                     id="tipo-nuevoEsloganAdmin"
                     class="menu-tipografia">
@@ -1696,7 +2251,6 @@ body{
                     <button onclick="seleccionarTipografia('nuevoEsloganAdmin','Courier New')">Courier New</button>
 
                 </div>
-
 
                 <div
                     id="emoji-nuevoEsloganAdmin"
@@ -1766,13 +2320,17 @@ body{
      WHATSAPP
 ===================================================== -->
 
-<div id="ventanaWhatsapp" class="fondo-ventana">
+<div
+    id="ventanaWhatsapp"
+    class="fondo-ventana">
 
     <div class="ventana">
 
         <div class="titulo-ventana">
 
-            <h2>💬 WHATSAPP</h2>
+            <h2>
+                💬 WHATSAPP
+            </h2>
 
             <button
                 class="cerrar-x"
@@ -1784,10 +2342,11 @@ body{
 
         </div>
 
-
         <div class="campo">
 
-            <label>Número de WhatsApp</label>
+            <label>
+                Número de WhatsApp
+            </label>
 
             <div class="whatsapp-numero">
 
@@ -1807,15 +2366,15 @@ body{
 
         </div>
 
-
         <div class="campo whatsapp-editor">
 
-            <label>Mensaje</label>
+            <label>
+                Mensaje
+            </label>
 
             <textarea
                 id="mensajeWhatsapp"
                 placeholder="Escribe el mensaje que quieres enviar..."></textarea>
-
 
             <div class="editor-whatsapp">
 
@@ -1829,7 +2388,6 @@ body{
 
                 </button>
 
-
                 <button
                     type="button"
                     class="btn-whatsapp-editor"
@@ -1838,7 +2396,6 @@ body{
                     🙂
 
                 </button>
-
 
                 <div
                     id="menuEmoticonWhatsapp"
@@ -1902,14 +2459,12 @@ body{
 
         </div>
 
-
         <p style="font-size:11px;color:#666;margin-top:5px;">
 
             Usa <b>N</b> para poner el texto en negrita
             y 🙂 para insertar emoticones.
 
         </p>
-
 
         <div class="botones">
 
@@ -1931,7 +2486,6 @@ body{
 
         </div>
 
-
         <p id="mensajeWhatsappGuardar"></p>
 
     </div>
@@ -1943,13 +2497,17 @@ body{
      USUARIO
 ===================================================== -->
 
-<div id="ventanaUsuarios" class="fondo-ventana">
+<div
+    id="ventanaUsuarios"
+    class="fondo-ventana">
 
     <div class="ventana">
 
         <div class="titulo-ventana">
 
-            <h2>👤 USUARIO Y CONTRASEÑA</h2>
+            <h2>
+                👤 USUARIO Y CONTRASEÑA
+            </h2>
 
             <button
                 class="cerrar-x"
@@ -1985,13 +2543,17 @@ body{
      ESTADÍSTICAS
 ===================================================== -->
 
-<div id="ventanaDashboard" class="fondo-ventana">
+<div
+    id="ventanaDashboard"
+    class="fondo-ventana">
 
     <div class="ventana">
 
         <div class="titulo-ventana">
 
-            <h2>📈 ESTADÍSTICAS</h2>
+            <h2>
+                📈 ESTADÍSTICAS
+            </h2>
 
             <button
                 class="cerrar-x"
@@ -2003,12 +2565,13 @@ body{
 
         </div>
 
-
         <div class="estadisticas">
 
             <div class="cuadro">
 
-                <h3>DÍA</h3>
+                <h3>
+                    DÍA
+                </h3>
 
                 <div
                     id="estadisticaDia"
@@ -2020,10 +2583,11 @@ body{
 
             </div>
 
-
             <div class="cuadro">
 
-                <h3>MES</h3>
+                <h3>
+                    MES
+                </h3>
 
                 <div
                     id="estadisticaMes"
@@ -2035,10 +2599,11 @@ body{
 
             </div>
 
-
             <div class="cuadro">
 
-                <h3>AÑO</h3>
+                <h3>
+                    AÑO
+                </h3>
 
                 <div
                     id="estadisticaAno"
@@ -2061,13 +2626,17 @@ body{
      CONFIGURACIÓN DASHBOARD
 ===================================================== -->
 
-<div id="ventanaConfiguracionDashboard" class="fondo-ventana">
+<div
+    id="ventanaConfiguracionDashboard"
+    class="fondo-ventana">
 
     <div class="ventana">
 
         <div class="titulo-ventana">
 
-            <h2>⚙️ CONFIGURACIÓN</h2>
+            <h2>
+                ⚙️ CONFIGURACIÓN
+            </h2>
 
             <button
                 class="cerrar-x"
@@ -2078,7 +2647,6 @@ body{
             </button>
 
         </div>
-
 
         <div class="dashboard-config">
 
@@ -2124,11 +2692,9 @@ body{
 
         </div>
 
-
         <p
             id="mensajeConfiguracionDashboard"
             style="font-size:12px;margin-top:10px;">
-
         </p>
 
     </div>
@@ -2137,11 +2703,647 @@ body{
 
 
 <!-- =====================================================
+     OFERTAS
+===================================================== -->
+
+<div
+    id="ventanaOfertas"
+    class="fondo-ventana">
+
+    <div class="ventana">
+
+        <div class="titulo-ventana">
+
+            <h2>
+                🎁 OFERTAS
+            </h2>
+
+            <button
+                class="cerrar-x"
+                onclick="cerrarVentana('ventanaOfertas')">
+
+                ✕
+
+            </button>
+
+        </div>
+
+        <div class="ofertas-config">
+
+            <button
+                class="btn-oferta-activar"
+                onclick="activarOfertas()">
+
+                🎁 ACTIVAR OFERTAS
+
+            </button>
+
+            <button
+                class="btn-oferta-config"
+                onclick="configurarOfertas()">
+
+                ⚙️ CONFIGURAR OFERTAS
+
+            </button>
+
+        </div>
+
+        <p
+            id="mensajeOfertas"
+            style="font-size:12px;margin-top:10px;">
+        </p>
+
+    </div>
+
+</div>
+
+<!-<!-- =====================================================
+     🎯 RULETA
+===================================================== -->
+
+<div id="ventanaRuleta" class="fondo-ventana">
+
+    <div class="ventana ventana-ruleta">
+
+        <div class="titulo-ventana">
+
+            <h2>🎯 RULETA</h2>
+
+            <button
+                class="cerrar-x"
+                onclick="cerrarVentana('ventanaRuleta')">
+                ✕
+            </button>
+
+        </div>
+
+
+        <div class="contenido-ruleta">
+
+            <!-- =================================================
+                 ESTADO
+            ================================================== -->
+
+            <div class="bloque-ruleta">
+
+                <h3>🎯 Estado de la ruleta</h3>
+
+                <button
+                    id="btnEstadoRuleta"
+                    class="btn-ruleta-estado"
+                    onclick="activarDesactivarRuleta()">
+
+                    🔴 DESACTIVADA
+
+                </button>
+
+            </div>
+
+
+            <!-- =================================================
+                 CONFIGURACIÓN
+            ================================================== -->
+
+            <div class="bloque-ruleta">
+
+                <h3>⚙️ Configuración de la ruleta</h3>
+
+                <button
+                    class="btn-ruleta-config"
+                    onclick="configurarRuleta()">
+
+                    ⚙️ CONFIGURAR RULETA
+
+                </button>
+
+            </div>
+
+
+            <p
+                id="mensajeRuleta"
+                class="mensaje-ruleta">
+            </p>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     🎯 CONFIGURAR RULETA
+===================================================== -->
+
+<div id="ventanaConfigRuleta" class="fondo-ventana">
+
+    <div class="ventana ventana-ruleta">
+
+        <div class="titulo-ventana">
+
+            <h2>⚙️ CONFIGURAR RULETA</h2>
+
+            <button
+                class="cerrar-x"
+                onclick="cerrarVentana('ventanaConfigRuleta')">
+
+                ✕
+
+            </button>
+
+        </div>
+
+
+        <div class="configuracion-premios">
+
+            <h3>🎁 PREMIOS DE LA RULETA</h3>
+
+
+            <!-- =================================================
+                 PREMIO 1
+            ================================================== -->
+
+            <div class="premio-ruleta">
+
+                <div class="numero-premio">1</div>
+
+                <select
+                    id="tipoPremio1"
+                    onchange="cambiarTipoPremio(1)">
+
+                    <option value="imagen">
+                        🖼️ IMAGEN
+                    </option>
+
+                    <option value="texto">
+                        📝 TEXTO
+                    </option>
+
+                </select>
+
+
+                <!-- IMAGEN -->
+
+                <div
+                    id="configImagenPremio1"
+                    class="config-imagen-premio">
+
+                    <input
+                        type="file"
+                        id="imagenPremio1"
+                        accept="image/*"
+                        onchange="mostrarPreviewPremio(1)">
+
+                    <img
+                        id="previewPremio1"
+                        class="preview-imagen-premio"
+                        alt="Vista previa">
+
+                    <input
+                        type="text"
+                        id="nombrePremio1"
+                        placeholder="🏷️ Nombre del producto">
+
+                </div>
+
+
+                <!-- TEXTO -->
+
+                <div
+                    id="configTextoPremio1"
+                    class="config-texto-premio">
+
+                    <input
+                        type="text"
+                        id="textoPremio1"
+                        placeholder="📝 Escribe el premio">
+
+                </div>
+
+
+                <!-- OPCIONES -->
+
+                <div class="opciones-premio">
+
+                    <strong>
+                        🎮 OPCIONES DEL JUEGO
+                    </strong>
+
+                    <label>
+
+                        <input
+                            type="radio"
+                            name="modoPremio1"
+                            value="cantidad"
+                            checked>
+
+                        Cantidad de juegos
+
+                    </label>
+
+                    <input
+                        type="number"
+                        id="cantidadPremio1"
+                        min="1"
+                        value="1"
+                        placeholder="Cantidad de juegos">
+
+
+                    <label>
+
+                        <input
+                            type="radio"
+                            name="modoPremio1"
+                            value="aleatorio">
+
+                        🎲 Juego aleatorio
+
+                    </label>
+
+                    <label>
+
+                        <input
+                            type="radio"
+                            name="modoPremio1"
+                            value="seleccionar">
+
+                        🎯 Seleccionar juego
+
+                    </label>
+
+                </div>
+
+            </div>
+
+
+            <!-- =================================================
+                 PREMIO 2
+            ================================================== -->
+
+            <div class="premio-ruleta">
+
+                <div class="numero-premio">2</div>
+
+                <select
+                    id="tipoPremio2"
+                    onchange="cambiarTipoPremio(2)">
+
+                    <option value="imagen">
+                        🖼️ IMAGEN
+                    </option>
+
+                    <option value="texto">
+                        📝 TEXTO
+                    </option>
+
+                </select>
+
+
+                <div
+                    id="configImagenPremio2"
+                    class="config-imagen-premio">
+
+                    <input
+                        type="file"
+                        id="imagenPremio2"
+                        accept="image/*"
+                        onchange="mostrarPreviewPremio(2)">
+
+                    <img
+                        id="previewPremio2"
+                        class="preview-imagen-premio"
+                        alt="Vista previa">
+
+                    <input
+                        type="text"
+                        id="nombrePremio2"
+                        placeholder="🏷️ Nombre del producto">
+
+                </div>
+
+
+                <div
+                    id="configTextoPremio2"
+                    class="config-texto-premio">
+
+                    <input
+                        type="text"
+                        id="textoPremio2"
+                        placeholder="📝 Escribe el premio">
+
+                </div>
+
+
+                <div class="opciones-premio">
+
+                    <strong>
+                        🎮 OPCIONES DEL JUEGO
+                    </strong>
+
+                    <label>
+
+                        <input
+                            type="radio"
+                            name="modoPremio2"
+                            value="cantidad"
+                            checked>
+
+                        Cantidad de juegos
+
+                    </label>
+
+                    <input
+                        type="number"
+                        id="cantidadPremio2"
+                        min="1"
+                        value="1"
+                        placeholder="Cantidad de juegos">
+
+
+                    <label>
+
+                        <input
+                            type="radio"
+                            name="modoPremio2"
+                            value="aleatorio">
+
+                        🎲 Juego aleatorio
+
+                    </label>
+
+                    <label>
+
+                        <input
+                            type="radio"
+                            name="modoPremio2"
+                            value="seleccionar">
+
+                        🎯 Seleccionar juego
+
+                    </label>
+
+                </div>
+
+            </div>
+
+
+            <!-- =================================================
+                 PREMIO 3
+            ================================================== -->
+
+            <div class="premio-ruleta">
+
+                <div class="numero-premio">3</div>
+
+                <select
+                    id="tipoPremio3"
+                    onchange="cambiarTipoPremio(3)">
+
+                    <option value="imagen">
+                        🖼️ IMAGEN
+                    </option>
+
+                    <option value="texto">
+                        📝 TEXTO
+                    </option>
+
+                </select>
+
+
+                <div
+                    id="configImagenPremio3"
+                    class="config-imagen-premio">
+
+                    <input
+                        type="file"
+                        id="imagenPremio3"
+                        accept="image/*"
+                        onchange="mostrarPreviewPremio(3)">
+
+                    <img
+                        id="previewPremio3"
+                        class="preview-imagen-premio"
+                        alt="Vista previa">
+
+                    <input
+                        type="text"
+                        id="nombrePremio3"
+                        placeholder="🏷️ Nombre del producto">
+
+                </div>
+
+
+                <div
+                    id="configTextoPremio3"
+                    class="config-texto-premio">
+
+                    <input
+                        type="text"
+                        id="textoPremio3"
+                        placeholder="📝 Escribe el premio">
+
+                </div>
+
+
+                <div class="opciones-premio">
+
+                    <strong>
+                        🎮 OPCIONES DEL JUEGO
+                    </strong>
+
+                    <label>
+
+                        <input
+                            type="radio"
+                            name="modoPremio3"
+                            value="cantidad"
+                            checked>
+
+                        Cantidad de juegos
+
+                    </label>
+
+                    <input
+                        type="number"
+                        id="cantidadPremio3"
+                        min="1"
+                        value="1"
+                        placeholder="Cantidad de juegos">
+
+
+                    <label>
+
+                        <input
+                            type="radio"
+                            name="modoPremio3"
+                            value="aleatorio">
+
+                        🎲 Juego aleatorio
+
+                    </label>
+
+                    <label>
+
+                        <input
+                            type="radio"
+                            name="modoPremio3"
+                            value="seleccionar">
+
+                        🎯 Seleccionar juego
+
+                    </label>
+
+                </div>
+
+            </div>
+
+
+            <!-- =================================================
+                 PREMIO 4
+            ================================================== -->
+
+            <div class="premio-ruleta">
+
+                <div class="numero-premio">4</div>
+
+                <select
+                    id="tipoPremio4"
+                    onchange="cambiarTipoPremio(4)">
+
+                    <option value="imagen">
+                        🖼️ IMAGEN
+                    </option>
+
+                    <option value="texto">
+                        📝 TEXTO
+                    </option>
+
+                </select>
+
+
+                <div
+                    id="configImagenPremio4"
+                    class="config-imagen-premio">
+
+                    <input
+                        type="file"
+                        id="imagenPremio4"
+                        accept="image/*"
+                        onchange="mostrarPreviewPremio(4)">
+
+                    <img
+                        id="previewPremio4"
+                        class="preview-imagen-premio"
+                        alt="Vista previa">
+
+                    <input
+                        type="text"
+                        id="nombrePremio4"
+                        placeholder="🏷️ Nombre del producto">
+
+                </div>
+
+
+                <div
+                    id="configTextoPremio4"
+                    class="config-texto-premio">
+
+                    <input
+                        type="text"
+                        id="textoPremio4"
+                        placeholder="📝 Escribe el premio">
+
+                </div>
+
+
+                <div class="opciones-premio">
+
+                    <strong>
+                        🎮 OPCIONES DEL JUEGO
+                    </strong>
+
+                    <label>
+
+                        <input
+                            type="radio"
+                            name="modoPremio4"
+                            value="cantidad"
+                            checked>
+
+                        Cantidad de juegos
+
+                    </label>
+
+                    <input
+                        type="number"
+                        id="cantidadPremio4"
+                        min="1"
+                        value="1"
+                        placeholder="Cantidad de juegos">
+
+
+                    <label>
+
+                        <input
+                            type="radio"
+                            name="modoPremio4"
+                            value="aleatorio">
+
+                        🎲 Juego aleatorio
+
+                    </label>
+
+                    <label>
+
+                        <input
+                            type="radio"
+                            name="modoPremio4"
+                            value="seleccionar">
+
+                        🎯 Seleccionar juego
+
+                    </label>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- =================================================
+             BOTONES
+        ================================================== -->
+
+        <div class="botones-ruleta">
+
+            <button
+                class="btn-guardar-ruleta"
+                onclick="guardarConfiguracionRuleta()">
+
+                💾 GUARDAR
+
+            </button>
+
+            <button
+                class="btn-atras-ruleta"
+                onclick="cerrarVentana('ventanaConfigRuleta')">
+
+                ↩️ ATRÁS
+
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- =====================================================
      SUPABASE
 ===================================================== -->
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
 
 <script>
 
@@ -2218,9 +3420,6 @@ function mostrarMenu(){
             "subMenuDashboard"
         );
 
-
-    /* Cierra Dashboard */
-
     if(dashboard){
 
         dashboard.classList.remove(
@@ -2228,7 +3427,6 @@ function mostrarMenu(){
         );
 
     }
-
 
     menu.style.display =
         menu.style.display === "block"
@@ -2254,9 +3452,6 @@ function toggleDashboard(){
             "menu"
         );
 
-
-    /* Cierra el menú normal */
-
     if(menu){
 
         menu.style.display =
@@ -2264,13 +3459,11 @@ function toggleDashboard(){
 
     }
 
-
     if(!submenu){
 
         return;
 
     }
-
 
     submenu.classList.toggle(
         "activo"
@@ -2278,6 +3471,704 @@ function toggleDashboard(){
 
 }
 
+
+/* =====================================================
+   OFERTAS
+===================================================== */
+
+function activarOfertas(){
+
+    const mensaje =
+        document.getElementById(
+            "mensajeOfertas"
+        );
+
+    mensaje.textContent =
+        "Función de ofertas preparada.";
+
+    mensaje.style.color =
+        "green";
+
+}
+
+
+function configurarOfertas(){
+
+    const mensaje =
+        document.getElementById(
+            "mensajeOfertas"
+        );
+
+    mensaje.textContent =
+        "Configuración de ofertas próximamente.";
+
+    mensaje.style.color =
+        "#333";
+
+}
+/* =====================================================
+   🎯 RULETA
+===================================================== */
+let ruletaActiva = false;
+
+let configuracionRuletaActual = [];
+
+const SUPABASE_URL_RULETA =
+    "https://yuivmqncvmsbtiigxsqt.supabase.co";
+
+const SUPABASE_KEY_RULETA =
+    "sb_publishable_r1ZMaIIEVcAt26_P-FBu9Q_DUenqDH_";
+
+const supabaseRuleta =
+    window.supabase.createClient(
+        SUPABASE_URL_RULETA,
+        SUPABASE_KEY_RULETA
+    );
+/* =====================================================
+   ACTIVAR / DESACTIVAR RULETA
+===================================================== */
+
+async function activarDesactivarRuleta(){
+
+    const nuevoEstado = !ruletaActiva;
+
+    try{
+
+        const { data, error } =
+            await supabaseRuleta
+                .from("configuracion_ruleta")
+                .select("id")
+                .order("id", { ascending: true })
+                .limit(1)
+                .maybeSingle();
+
+        if(error){
+            console.error("❌ Error buscando configuración:", error);
+            alert("❌ No se pudo acceder a la configuración de la ruleta.");
+            return;
+        }
+
+        if(!data){
+            alert("❌ No existe la fila de configuración de la ruleta.");
+            return;
+        }
+
+        const { error: errorActualizar } =
+            await supabaseRuleta
+                .from("configuracion_ruleta")
+                .update({
+                    activa: nuevoEstado,
+                    actualizado_en: new Date().toISOString()
+                })
+                .eq("id", data.id);
+
+        if(errorActualizar){
+            console.error("❌ Error actualizando estado:", errorActualizar);
+
+            alert(
+                "❌ No se pudo cambiar el estado.\n\n" +
+                "Verifica la política UPDATE y que el administrador haya iniciado sesión con Supabase."
+            );
+
+            return;
+        }
+
+        ruletaActiva = nuevoEstado;
+
+        actualizarEstadoRuleta();
+
+        const mensaje =
+            nuevoEstado
+                ? "🟢 Ruleta activada correctamente."
+                : "🔴 Ruleta desactivada correctamente.";
+
+        const elemento =
+            document.getElementById("mensajeRuleta");
+
+        if(elemento){
+            elemento.innerHTML = mensaje;
+            elemento.style.color =
+                nuevoEstado ? "#16a34a" : "#dc2626";
+        }
+
+        console.log(
+            "✅ Estado de la ruleta guardado en Supabase:",
+            nuevoEstado
+        );
+
+    }catch(error){
+
+        console.error(
+            "❌ Error activando/desactivando:",
+            error
+        );
+
+        alert(
+            "❌ Ocurrió un error al cambiar el estado de la ruleta."
+        );
+
+    }
+}
+
+/* =====================================================
+   ACTUALIZAR ESTADO
+===================================================== */
+
+function actualizarEstadoRuleta(){
+
+    const boton =
+        document.getElementById("btnEstadoRuleta");
+
+    if(!boton) return;
+
+
+    if(ruletaActiva){
+
+        boton.innerHTML =
+            "🟢 RULETA ACTIVADA";
+
+        boton.classList.add("activa");
+
+    }else{
+
+        boton.innerHTML =
+            "🔴 RULETA DESACTIVADA";
+
+        boton.classList.remove("activa");
+
+    }
+
+}
+
+
+/* =====================================================
+   ABRIR CONFIGURACIÓN
+===================================================== */
+
+function configurarRuleta(){
+
+    const ventana =
+        document.getElementById(
+            "ventanaConfigRuleta"
+        );
+
+    if(ventana){
+
+        ventana.style.display = "flex";
+
+    }
+
+    cargarConfiguracionRuletaAdmin();
+
+}
+
+
+/* =====================================================
+   CAMBIAR IMAGEN / TEXTO
+===================================================== */
+
+function cambiarTipoPremio(numero){
+
+    const tipo =
+        document.getElementById(
+            "tipoPremio" + numero
+        );
+
+    const bloqueImagen =
+        document.getElementById(
+            "configImagenPremio" + numero
+        );
+
+    const bloqueTexto =
+        document.getElementById(
+            "configTextoPremio" + numero
+        );
+
+
+    if(!tipo) return;
+
+
+    if(tipo.value === "imagen"){
+
+        if(bloqueImagen){
+
+            bloqueImagen.style.display = "block";
+
+        }
+
+        if(bloqueTexto){
+
+            bloqueTexto.style.display = "none";
+
+        }
+
+    }else{
+
+        if(bloqueImagen){
+
+            bloqueImagen.style.display = "none";
+
+        }
+
+        if(bloqueTexto){
+
+            bloqueTexto.style.display = "block";
+
+        }
+
+    }
+
+}
+
+
+/* =====================================================
+   PREVISUALIZAR IMAGEN
+===================================================== */
+
+function mostrarPreviewPremio(numero){
+
+    const input =
+        document.getElementById(
+            "imagenPremio" + numero
+        );
+
+    const preview =
+        document.getElementById(
+            "previewPremio" + numero
+        );
+
+
+    if(!input || !preview) return;
+
+
+    const archivo = input.files[0];
+
+    if(!archivo) return;
+
+
+    const lector = new FileReader();
+
+
+    lector.onload = function(evento){
+
+        preview.src =
+            evento.target.result;
+
+        preview.style.display =
+            "block";
+
+    };
+
+
+    lector.readAsDataURL(archivo);
+
+}
+
+
+/* =====================================================
+   GUARDAR CONFIGURACIÓN
+===================================================== */
+
+async function guardarConfiguracionRuleta(){
+
+    const premios = [];
+
+    for(let i = 1; i <= 4; i++){
+
+        const tipoElemento =
+            document.getElementById("tipoPremio" + i);
+
+        if(!tipoElemento){
+            console.error("No existe tipoPremio" + i);
+            continue;
+        }
+
+        const tipo = tipoElemento.value;
+
+        let nombre = "";
+        let texto = "";
+        let imagen = "";
+
+        if(tipo === "imagen"){
+
+            const nombreElemento =
+                document.getElementById("nombrePremio" + i);
+
+            const preview =
+                document.getElementById("previewPremio" + i);
+
+            if(nombreElemento){
+                nombre = nombreElemento.value.trim();
+            }
+
+            if(
+                preview &&
+                preview.src &&
+                preview.src.startsWith("data:image")
+            ){
+                imagen = preview.src;
+            }
+        }
+
+        if(tipo === "texto"){
+
+            const textoElemento =
+                document.getElementById("textoPremio" + i);
+
+            if(textoElemento){
+                texto = textoElemento.value.trim();
+            }
+
+            nombre = texto;
+        }
+
+        const radioSeleccionado =
+            document.querySelector(
+                'input[name="modoPremio' +
+                i +
+                '"]:checked'
+            );
+
+        const modo =
+            radioSeleccionado
+                ? radioSeleccionado.value
+                : "cantidad";
+
+        const cantidadElemento =
+            document.getElementById("cantidadPremio" + i);
+
+        const cantidad =
+            cantidadElemento
+                ? Number(cantidadElemento.value) || 0
+                : 0;
+
+        premios.push({
+
+            numero: i,
+
+            tipo: tipo,
+
+            nombre: nombre,
+
+            texto: texto,
+
+            imagen: imagen,
+
+            modo: modo,
+
+            cantidad: cantidad,
+
+            descripcion: ""
+
+        });
+    }
+
+    try{
+
+        const { data, error } =
+            await supabaseRuleta
+                .from("configuracion_ruleta")
+                .select("id")
+                .order("id", { ascending: true })
+                .limit(1)
+                .maybeSingle();
+
+        if(error){
+
+            console.error(
+                "❌ Error buscando configuración:",
+                error
+            );
+
+            alert(
+                "❌ No se pudo acceder a la configuración de la ruleta."
+            );
+
+            return;
+        }
+
+        if(!data){
+
+            alert(
+                "❌ No existe la configuración de la ruleta en Supabase."
+            );
+
+            return;
+        }
+
+        const { error: errorActualizar } =
+            await supabaseRuleta
+                .from("configuracion_ruleta")
+                .update({
+
+                    premios: premios,
+
+                    actualizado_en:
+                        new Date().toISOString()
+
+                })
+                .eq("id", data.id);
+
+        if(errorActualizar){
+
+            console.error(
+                "❌ Error guardando premios:",
+                errorActualizar
+            );
+
+            alert(
+                "❌ No se pudieron guardar los premios.\n\n" +
+                "Verifica la política UPDATE de Supabase."
+            );
+
+            return;
+        }
+
+        configuracionRuletaActual = premios;
+
+        const mensaje =
+            document.getElementById("mensajeRuleta");
+
+        if(mensaje){
+
+            mensaje.innerHTML =
+                "✅ Configuración guardada correctamente en Supabase.";
+
+            mensaje.style.color = "#16a34a";
+        }
+
+        alert(
+            "✅ Los 4 premios fueron guardados correctamente en Supabase."
+        );
+
+        console.log(
+            "✅ Premios guardados en Supabase:",
+            premios
+        );
+
+    }catch(error){
+
+        console.error(
+            "❌ Error guardando configuración:",
+            error
+        );
+
+        alert(
+            "❌ Ocurrió un error al guardar la configuración."
+        );
+    }
+}
+/* =====================================================
+   CARGAR CONFIGURACIÓN GUARDADA
+===================================================== */
+async function cargarConfiguracionRuletaAdmin(){
+
+    try{
+
+        const { data, error } =
+            await supabaseRuleta
+                .from("configuracion_ruleta")
+                .select("id, activa, premios")
+                .order("id", { ascending: true })
+                .limit(1)
+                .maybeSingle();
+
+        if(error){
+
+            console.error(
+                "❌ Error cargando configuración:",
+                error
+            );
+
+            return;
+        }
+
+        if(!data){
+
+            console.log(
+                "⚠️ No existe configuración de ruleta."
+            );
+
+            return;
+        }
+
+        ruletaActiva =
+            data.activa === true;
+
+        actualizarEstadoRuleta();
+
+        const premios = data.premios;
+
+        if(!Array.isArray(premios)){
+
+            console.log(
+                "⚠️ No hay premios configurados."
+            );
+
+            return;
+        }
+
+        configuracionRuletaActual =
+            premios;
+
+        premios.forEach(function(premio){
+
+            const numero =
+                premio.numero;
+
+            if(!numero) return;
+
+            const tipo =
+                document.getElementById(
+                    "tipoPremio" + numero
+                );
+
+            if(tipo){
+
+                tipo.value =
+                    premio.tipo || "texto";
+
+            }
+
+            const nombre =
+                document.getElementById(
+                    "nombrePremio" + numero
+                );
+
+            if(nombre){
+
+                nombre.value =
+                    premio.nombre || "";
+
+            }
+
+            const texto =
+                document.getElementById(
+                    "textoPremio" + numero
+                );
+
+            if(texto){
+
+                texto.value =
+                    premio.texto ||
+                    premio.nombre ||
+                    "";
+
+            }
+
+            const cantidad =
+                document.getElementById(
+                    "cantidadPremio" + numero
+                );
+
+            if(cantidad){
+
+                cantidad.value =
+                    premio.cantidad || 1;
+
+            }
+
+            if(premio.modo){
+
+                const radio =
+                    document.querySelector(
+                        'input[name="modoPremio' +
+                        numero +
+                        '"][value="' +
+                        premio.modo +
+                        '"]'
+                    );
+
+                if(radio){
+
+                    radio.checked = true;
+
+                }
+
+            }
+
+            const preview =
+                document.getElementById(
+                    "previewPremio" + numero
+                );
+
+            if(
+                preview &&
+                premio.imagen
+            ){
+
+                preview.src =
+                    premio.imagen;
+
+                preview.style.display =
+                    "block";
+
+            }
+
+            cambiarTipoPremio(numero);
+
+        });
+
+        console.log(
+            "✅ Configuración cargada desde Supabase:",
+            data
+        );
+
+    }catch(error){
+
+        console.error(
+            "❌ Error cargando configuración de ruleta:",
+            error
+        );
+
+    }
+
+}
+/* =====================================================
+   INICIAR
+===================================================== */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function(){
+
+        actualizarEstadoRuleta();
+
+        cargarConfiguracionRuletaAdmin();
+
+
+        /* ================================================
+           ACTIVAR PREVISUALIZACIÓN DE IMÁGENES
+        ================================================= */
+
+        for(let i = 1; i <= 4; i++){
+
+            const input =
+                document.getElementById(
+                    "imagenPremio" + i
+                );
+
+
+            if(input){
+
+                input.addEventListener(
+                    "change",
+                    function(){
+
+                        mostrarPreviewPremio(i);
+
+                    }
+                );
+
+            }
+
+
+            cambiarTipoPremio(i);
+
+        }
+
+    }
+);
 
 /* =====================================================
    REACCIÓN DASHBOARD
@@ -2292,10 +4183,8 @@ async function seleccionarReaccionDashboard(
             "mensajeConfiguracionDashboard"
         );
 
-
     mensaje.textContent =
         "Guardando...";
-
 
     const resultado =
         await guardarConfiguracion({
@@ -2304,7 +4193,6 @@ async function seleccionarReaccionDashboard(
                 reaccion
 
         });
-
 
     if(!resultado.ok){
 
@@ -2318,14 +4206,12 @@ async function seleccionarReaccionDashboard(
 
     }
 
-
     document
         .getElementById(
             "estadisticaDia"
         )
         .textContent =
         reaccion + " 0";
-
 
     document
         .getElementById(
@@ -2334,14 +4220,12 @@ async function seleccionarReaccionDashboard(
         .textContent =
         reaccion + " 0";
 
-
     document
         .getElementById(
             "estadisticaAno"
         )
         .textContent =
         reaccion + " 0";
-
 
     mensaje.textContent =
         "Reacción guardada correctamente.";
@@ -2366,14 +4250,12 @@ function abrirVentana(id){
             "subMenuDashboard"
         );
 
-
     if(menu){
 
         menu.style.display =
             "none";
 
     }
-
 
     if(dashboard){
 
@@ -2383,23 +4265,22 @@ function abrirVentana(id){
 
     }
 
-
     document
         .querySelectorAll(".fondo-ventana")
         .forEach(function(v){
 
-            v.style.display = "none";
+            v.style.display =
+                "none";
 
         });
-
 
     const ventana =
         document.getElementById(id);
 
-
     if(ventana){
 
-        ventana.style.display = "flex";
+        ventana.style.display =
+            "flex";
 
     }
 
@@ -2415,14 +4296,12 @@ function cerrarVentana(id){
     const ventana =
         document.getElementById(id);
 
-
     if(ventana){
 
         ventana.style.display =
             "none";
 
     }
-
 
     cerrarTodosLosMenusEditor();
 
@@ -2444,7 +4323,6 @@ function cerrarTodosLosMenusEditor(){
 
         });
 
-
     document
         .querySelectorAll(".menu-emoticon")
         .forEach(function(menu){
@@ -2454,12 +4332,10 @@ function cerrarTodosLosMenusEditor(){
 
         });
 
-
     const menuWhatsapp =
         document.getElementById(
             "menuEmoticonWhatsapp"
         );
-
 
     if(menuWhatsapp){
 
@@ -2482,20 +4358,16 @@ function alternarTipografias(id){
             "tipo-" + id
         );
 
-
     if(!menu){
 
         return;
 
     }
 
-
     const estabaAbierto =
         menu.style.display === "block";
 
-
     cerrarTodosLosMenusEditor();
-
 
     if(!estabaAbierto){
 
@@ -2519,21 +4391,17 @@ function seleccionarTipografia(
     const campo =
         document.getElementById(id);
 
-
     if(!campo){
 
         return;
 
     }
 
-
     campo.style.fontFamily =
         tipografia;
 
-
     campo.dataset.tipografia =
         tipografia;
-
 
     if(id === "nuevoTituloAdmin"){
 
@@ -2541,7 +4409,6 @@ function seleccionarTipografia(
             document.getElementById(
                 "tituloAdmin"
             );
-
 
         if(tituloAdmin){
 
@@ -2552,14 +4419,12 @@ function seleccionarTipografia(
 
     }
 
-
     if(id === "nuevoEsloganAdmin"){
 
         const esloganAdmin =
             document.getElementById(
                 "esloganAdmin"
             );
-
 
         if(esloganAdmin){
 
@@ -2569,7 +4434,6 @@ function seleccionarTipografia(
         }
 
     }
-
 
     cerrarTodosLosMenusEditor();
 
@@ -2587,20 +4451,16 @@ function alternarEmoticonos(id){
             "emoji-" + id
         );
 
-
     if(!menu){
 
         return;
 
     }
 
-
     const estabaAbierto =
         menu.style.display === "block";
 
-
     cerrarTodosLosMenusEditor();
-
 
     if(!estabaAbierto){
 
@@ -2620,13 +4480,11 @@ function agregarEmoticon(
     const campo =
         document.getElementById(id);
 
-
     if(!campo){
 
         return;
 
     }
-
 
     const inicio =
         campo.selectionStart;
@@ -2637,7 +4495,6 @@ function agregarEmoticon(
     const texto =
         campo.value;
 
-
     campo.value =
         texto.substring(0,inicio)
         +
@@ -2645,20 +4502,16 @@ function agregarEmoticon(
         +
         texto.substring(fin);
 
-
     campo.focus();
-
 
     const posicion =
         inicio +
         emoticon.length;
 
-
     campo.setSelectionRange(
         posicion,
         posicion
     );
-
 
     cerrarTodosLosMenusEditor();
 
@@ -2697,7 +4550,6 @@ async function cargarWhatsapp(){
             .select("*")
             .limit(1);
 
-
         if(error){
 
             console.error(
@@ -2709,17 +4561,14 @@ async function cargarWhatsapp(){
 
         }
 
-
         if(!data || data.length === 0){
 
             return;
 
         }
 
-
         const c =
             data[0];
-
 
         if(
             c.whatsapp_numero !== undefined &&
@@ -2740,7 +4589,6 @@ async function cargarWhatsapp(){
 
         }
 
-
         if(
             c.whatsapp_mensaje !== undefined &&
             c.whatsapp_mensaje !== null
@@ -2755,14 +4603,12 @@ async function cargarWhatsapp(){
 
         }
 
-
         if(
             c.whatsapp_negrita !== undefined
         ){
 
             const activa =
                 c.whatsapp_negrita === true;
-
 
             aplicarEstadoNegritaWhatsapp(
                 activa
@@ -2781,7 +4627,7 @@ async function cargarWhatsapp(){
 
 
 /* =====================================================
-   WHATSAPP - LIMPIAR NÚMERO
+   WHATSAPP - LIMPIAR NUMERO
 ===================================================== */
 
 function limpiarNumeroWhatsapp(input){
@@ -2805,23 +4651,19 @@ function alternarNegritaWhatsapp(){
             "mensajeWhatsapp"
         );
 
-
     const boton =
         document.getElementById(
             "btnNegritaWhatsapp"
         );
-
 
     const activa =
         boton.classList.contains(
             "negrita-activa"
         );
 
-
     aplicarEstadoNegritaWhatsapp(
         !activa
     );
-
 
     mensaje.focus();
 
@@ -2841,12 +4683,10 @@ function aplicarEstadoNegritaWhatsapp(
             "btnNegritaWhatsapp"
         );
 
-
     const mensaje =
         document.getElementById(
             "mensajeWhatsapp"
         );
-
 
     if(!boton || !mensaje){
 
@@ -2854,21 +4694,17 @@ function aplicarEstadoNegritaWhatsapp(
 
     }
 
-
     if(activa){
 
         boton.classList.add(
             "negrita-activa"
         );
 
-
         boton.style.fontWeight =
             "900";
 
-
         mensaje.style.fontWeight =
             "bold";
-
 
         mensaje.dataset.negrita =
             "true";
@@ -2880,14 +4716,11 @@ function aplicarEstadoNegritaWhatsapp(
             "negrita-activa"
         );
 
-
         boton.style.fontWeight =
             "bold";
 
-
         mensaje.style.fontWeight =
             "normal";
-
 
         mensaje.dataset.negrita =
             "false";
@@ -2908,20 +4741,16 @@ function alternarEmoticonosWhatsapp(){
             "menuEmoticonWhatsapp"
         );
 
-
     if(!menu){
 
         return;
 
     }
 
-
     const estabaAbierto =
         menu.style.display === "block";
 
-
     cerrarTodosLosMenusEditor();
-
 
     if(!estabaAbierto){
 
@@ -2946,13 +4775,11 @@ function agregarEmoticonWhatsapp(
             "mensajeWhatsapp"
         );
 
-
     if(!campo){
 
         return;
 
     }
-
 
     const inicio =
         campo.selectionStart;
@@ -2963,7 +4790,6 @@ function agregarEmoticonWhatsapp(
     const texto =
         campo.value;
 
-
     campo.value =
         texto.substring(0,inicio)
         +
@@ -2971,20 +4797,16 @@ function agregarEmoticonWhatsapp(
         +
         texto.substring(fin);
 
-
     campo.focus();
-
 
     const posicion =
         inicio +
         emoticon.length;
 
-
     campo.setSelectionRange(
         posicion,
         posicion
     );
-
 
     document
         .getElementById(
@@ -3010,7 +4832,6 @@ async function guardarWhatsapp(){
         .value
         .replace(/\D/g,"");
 
-
     const mensaje =
         document
         .getElementById(
@@ -3018,19 +4839,16 @@ async function guardarWhatsapp(){
         )
         .value;
 
-
     const boton =
         document
         .getElementById(
             "btnNegritaWhatsapp"
         );
 
-
     const negrita =
         boton.classList.contains(
             "negrita-activa"
         );
-
 
     const aviso =
         document
@@ -3038,29 +4856,23 @@ async function guardarWhatsapp(){
             "mensajeWhatsappGuardar"
         );
 
-
     if(numero.length !== 9){
 
         aviso.textContent =
             "Escribe un número peruano de 9 dígitos.";
 
-
         aviso.style.color =
             "red";
-
 
         return;
 
     }
 
-
     aviso.textContent =
         "Guardando WhatsApp...";
 
-
     aviso.style.color =
         "#333";
-
 
     const resultado =
         await guardarConfiguracion({
@@ -3076,7 +4888,6 @@ async function guardarWhatsapp(){
 
         });
 
-
     if(!resultado.ok){
 
         aviso.textContent =
@@ -3084,23 +4895,18 @@ async function guardarWhatsapp(){
             +
             resultado.error.message;
 
-
         aviso.style.color =
             "red";
-
 
         return;
 
     }
 
-
     aviso.textContent =
         "WhatsApp guardado correctamente.";
 
-
     aviso.style.color =
         "green";
-
 
     alert(
         "Configuración de WhatsApp guardada."
@@ -3128,14 +4934,12 @@ async function guardarConfiguracion(
             .select("*")
             .limit(1);
 
-
         if(error){
 
             console.error(
                 "Error buscando configuración:",
                 error
             );
-
 
             return {
                 ok:false,
@@ -3144,12 +4948,10 @@ async function guardarConfiguracion(
 
         }
 
-
         if(data && data.length > 0){
 
             const fila =
                 data[0];
-
 
             if(fila.id !== undefined){
 
@@ -3162,13 +4964,11 @@ async function guardarConfiguracion(
                             fila.id
                         );
 
-
                 if(resultado.error){
 
                     console.error(
                         resultado.error
                     );
-
 
                     return {
                         ok:false,
@@ -3185,7 +4985,6 @@ async function guardarConfiguracion(
                 const claves =
                     Object.keys(fila);
 
-
                 const clave =
                     claves.find(
                         function(k){
@@ -3198,7 +4997,6 @@ async function guardarConfiguracion(
                         }
                     );
 
-
                 if(clave){
 
                     const resultado =
@@ -3210,13 +5008,11 @@ async function guardarConfiguracion(
                                 fila[clave]
                             );
 
-
                     if(resultado.error){
 
                         console.error(
                             resultado.error
                         );
-
 
                         return {
                             ok:false,
@@ -3251,13 +5047,11 @@ async function guardarConfiguracion(
                     .from("configuracion_tienda")
                     .insert(config);
 
-
             if(resultado.error){
 
                 console.error(
                     resultado.error
                 );
-
 
                 return {
                     ok:false,
@@ -3269,17 +5063,14 @@ async function guardarConfiguracion(
 
         }
 
-
         return {
             ok:true
         };
-
 
     }
     catch(error){
 
         console.error(error);
-
 
         return {
             ok:false,
@@ -3308,7 +5099,6 @@ async function cargarConfiguracionSupabase(){
             .select("*")
             .limit(1);
 
-
         if(error){
 
             console.error(
@@ -3316,11 +5106,9 @@ async function cargarConfiguracionSupabase(){
                 error
             );
 
-
             return;
 
         }
-
 
         if(!data || data.length === 0){
 
@@ -3328,14 +5116,11 @@ async function cargarConfiguracionSupabase(){
 
         }
 
-
         configuracionActual =
             data[0];
 
-
         const c =
             configuracionActual;
-
 
         if(c.color_cliente){
 
@@ -3348,7 +5133,6 @@ async function cargarConfiguracionSupabase(){
 
         }
 
-
         if(c.color_administrador){
 
             document
@@ -3358,7 +5142,6 @@ async function cargarConfiguracionSupabase(){
                 .value =
                 c.color_administrador;
 
-
             document
                 .querySelector(
                     ".admin-header"
@@ -3367,7 +5150,6 @@ async function cargarConfiguracionSupabase(){
                 c.color_administrador;
 
         }
-
 
         if(c.titulo_cliente){
 
@@ -3380,7 +5162,6 @@ async function cargarConfiguracionSupabase(){
 
         }
 
-
         if(c.eslogan_cliente){
 
             document
@@ -3391,7 +5172,6 @@ async function cargarConfiguracionSupabase(){
                 c.eslogan_cliente;
 
         }
-
 
         if(c.pie_cliente){
 
@@ -3404,7 +5184,6 @@ async function cargarConfiguracionSupabase(){
 
         }
 
-
         if(c.titulo_admin){
 
             document
@@ -3414,7 +5193,6 @@ async function cargarConfiguracionSupabase(){
                 .value =
                 c.titulo_admin;
 
-
             document
                 .getElementById(
                     "tituloAdmin"
@@ -3423,7 +5201,6 @@ async function cargarConfiguracionSupabase(){
                 c.titulo_admin;
 
         }
-
 
         if(c.eslogan_admin){
 
@@ -3434,7 +5211,6 @@ async function cargarConfiguracionSupabase(){
                 .value =
                 c.eslogan_admin;
 
-
             document
                 .getElementById(
                     "esloganAdmin"
@@ -3444,36 +5220,30 @@ async function cargarConfiguracionSupabase(){
 
         }
 
-
         aplicarTipografiaGuardada(
             "tituloCliente",
             c.tipografia_titulo_cliente
         );
-
 
         aplicarTipografiaGuardada(
             "esloganCliente",
             c.tipografia_eslogan_cliente
         );
 
-
         aplicarTipografiaGuardada(
             "pieCliente",
             c.tipografia_pie_cliente
         );
-
 
         aplicarTipografiaGuardada(
             "nuevoTituloAdmin",
             c.tipografia_titulo_admin
         );
 
-
         aplicarTipografiaGuardada(
             "nuevoEsloganAdmin",
             c.tipografia_eslogan_admin
         );
-
 
         if(c.tipografia_titulo_admin){
 
@@ -3481,7 +5251,6 @@ async function cargarConfiguracionSupabase(){
                 document.getElementById(
                     "tituloAdmin"
                 );
-
 
             if(tituloAdmin){
 
@@ -3492,14 +5261,12 @@ async function cargarConfiguracionSupabase(){
 
         }
 
-
         if(c.tipografia_eslogan_admin){
 
             const esloganAdmin =
                 document.getElementById(
                     "esloganAdmin"
                 );
-
 
             if(esloganAdmin){
 
@@ -3510,7 +5277,6 @@ async function cargarConfiguracionSupabase(){
 
         }
 
-
         /* =================================================
            REACCIÓN DASHBOARD
         ================================================= */
@@ -3520,7 +5286,6 @@ async function cargarConfiguracionSupabase(){
             const reaccion =
                 c.reaccion_dashboard;
 
-
             document
                 .getElementById(
                     "estadisticaDia"
@@ -3528,14 +5293,12 @@ async function cargarConfiguracionSupabase(){
                 .textContent =
                 reaccion + " 0";
 
-
             document
                 .getElementById(
                     "estadisticaMes"
                 )
                 .textContent =
                 reaccion + " 0";
-
 
             document
                 .getElementById(
@@ -3545,7 +5308,6 @@ async function cargarConfiguracionSupabase(){
                 reaccion + " 0";
 
         }
-
 
         /* =================================================
            WHATSAPP
@@ -3570,7 +5332,6 @@ async function cargarConfiguracionSupabase(){
 
         }
 
-
         if(
             c.whatsapp_mensaje !== undefined &&
             c.whatsapp_mensaje !== null
@@ -3585,7 +5346,6 @@ async function cargarConfiguracionSupabase(){
 
         }
 
-
         if(
             c.whatsapp_negrita !== undefined
         ){
@@ -3595,7 +5355,6 @@ async function cargarConfiguracionSupabase(){
             );
 
         }
-
 
     }
     catch(error){
@@ -3622,10 +5381,8 @@ function aplicarTipografiaGuardada(
 
     }
 
-
     const campo =
         document.getElementById(id);
-
 
     if(!campo){
 
@@ -3633,10 +5390,8 @@ function aplicarTipografiaGuardada(
 
     }
 
-
     campo.style.fontFamily =
         tipografia;
-
 
     campo.dataset.tipografia =
         tipografia;
@@ -3657,21 +5412,17 @@ async function guardarColorCliente(){
         )
         .value;
 
-
     const mensaje =
         document
         .getElementById(
             "mensajeColorCliente"
         );
 
-
     mensaje.textContent =
         "Guardando...";
 
-
     mensaje.style.color =
         "#333";
-
 
     const resultado =
         await guardarConfiguracion({
@@ -3681,7 +5432,6 @@ async function guardarColorCliente(){
 
         });
 
-
     if(!resultado.ok){
 
         mensaje.textContent =
@@ -3689,23 +5439,18 @@ async function guardarColorCliente(){
             +
             resultado.error.message;
 
-
         mensaje.style.color =
             "red";
-
 
         return;
 
     }
 
-
     mensaje.textContent =
         "Color cliente guardado correctamente.";
 
-
     mensaje.style.color =
         "green";
-
 
     alert(
         "Color del cliente guardado."
@@ -3727,13 +5472,11 @@ async function guardarColorAdministrador(){
         )
         .value;
 
-
     const mensaje =
         document
         .getElementById(
             "mensajeColorAdmin"
         );
-
 
     document
         .querySelector(
@@ -3742,10 +5485,8 @@ async function guardarColorAdministrador(){
         .style.background =
         color;
 
-
     mensaje.textContent =
         "Guardando...";
-
 
     const resultado =
         await guardarConfiguracion({
@@ -3755,7 +5496,6 @@ async function guardarColorAdministrador(){
 
         });
 
-
     if(!resultado.ok){
 
         mensaje.textContent =
@@ -3763,23 +5503,18 @@ async function guardarColorAdministrador(){
             +
             resultado.error.message;
 
-
         mensaje.style.color =
             "red";
-
 
         return;
 
     }
 
-
     mensaje.textContent =
         "Color administrador guardado.";
 
-
     mensaje.style.color =
         "green";
-
 
     alert(
         "Color del administrador guardado."
@@ -3801,14 +5536,12 @@ async function guardarTituloCliente(){
         )
         .value;
 
-
     const eslogan =
         document
         .getElementById(
             "esloganCliente"
         )
         .value;
-
 
     const pie =
         document
@@ -3817,24 +5550,20 @@ async function guardarTituloCliente(){
         )
         .value;
 
-
     const tipografiaTitulo =
         obtenerTipografia(
             "tituloCliente"
         );
-
 
     const tipografiaEslogan =
         obtenerTipografia(
             "esloganCliente"
         );
 
-
     const tipografiaPie =
         obtenerTipografia(
             "pieCliente"
         );
-
 
     const mensaje =
         document
@@ -3842,14 +5571,11 @@ async function guardarTituloCliente(){
             "mensajeTituloCliente"
         );
 
-
     mensaje.textContent =
         "Guardando configuración...";
 
-
     mensaje.style.color =
         "#333";
-
 
     const resultado =
         await guardarConfiguracion({
@@ -3874,7 +5600,6 @@ async function guardarTituloCliente(){
 
         });
 
-
     if(!resultado.ok){
 
         mensaje.textContent =
@@ -3882,23 +5607,18 @@ async function guardarTituloCliente(){
             +
             resultado.error.message;
 
-
         mensaje.style.color =
             "red";
-
 
         return;
 
     }
 
-
     mensaje.textContent =
         "Configuración guardada correctamente.";
 
-
     mensaje.style.color =
         "green";
-
 
     alert(
         "Configuración del cliente guardada."
@@ -3920,7 +5640,6 @@ async function guardarTituloAdministrador(){
         )
         .value;
 
-
     const eslogan =
         document
         .getElementById(
@@ -3928,30 +5647,25 @@ async function guardarTituloAdministrador(){
         )
         .value;
 
-
     const tipografiaTitulo =
         obtenerTipografia(
             "nuevoTituloAdmin"
         );
-
 
     const tipografiaEslogan =
         obtenerTipografia(
             "nuevoEsloganAdmin"
         );
 
-
     const tituloVisible =
         document.getElementById(
             "tituloAdmin"
         );
 
-
     const esloganVisible =
         document.getElementById(
             "esloganAdmin"
         );
-
 
     if(tituloVisible){
 
@@ -3961,7 +5675,6 @@ async function guardarTituloAdministrador(){
 
     }
 
-
     if(esloganVisible){
 
         esloganVisible.textContent =
@@ -3970,14 +5683,12 @@ async function guardarTituloAdministrador(){
 
     }
 
-
     if(tituloVisible){
 
         tituloVisible.style.fontFamily =
             tipografiaTitulo;
 
     }
-
 
     if(esloganVisible){
 
@@ -3986,21 +5697,17 @@ async function guardarTituloAdministrador(){
 
     }
 
-
     const mensaje =
         document
         .getElementById(
             "mensajeTituloAdmin"
         );
 
-
     mensaje.textContent =
         "Guardando configuración...";
 
-
     mensaje.style.color =
         "#333";
-
 
     const resultado =
         await guardarConfiguracion({
@@ -4019,7 +5726,6 @@ async function guardarTituloAdministrador(){
 
         });
 
-
     if(!resultado.ok){
 
         mensaje.textContent =
@@ -4027,23 +5733,18 @@ async function guardarTituloAdministrador(){
             +
             resultado.error.message;
 
-
         mensaje.style.color =
             "red";
-
 
         return;
 
     }
 
-
     mensaje.textContent =
         "Configuración guardada correctamente.";
 
-
     mensaje.style.color =
         "green";
-
 
     alert(
         "Configuración del administrador guardada."
@@ -4061,13 +5762,11 @@ function obtenerTipografia(id){
     const campo =
         document.getElementById(id);
 
-
     if(!campo){
 
         return "Arial";
 
     }
-
 
     return (
         campo.dataset.tipografia ||
@@ -4088,34 +5787,28 @@ async function guardarProducto(){
         .getElementById("nombreProducto")
         .value.trim();
 
-
     const imagenInput =
         document
         .getElementById("imagenProducto");
-
 
     const color =
         document
         .getElementById("colorProducto")
         .value.trim();
 
-
     const talla =
         document
         .getElementById("tallaProducto")
         .value.trim();
-
 
     const precio =
         document
         .getElementById("precioProducto")
         .value;
 
-
     const mensaje =
         document
         .getElementById("mensaje");
-
 
     if(
         !nombre ||
@@ -4127,23 +5820,18 @@ async function guardarProducto(){
         mensaje.textContent =
             "Completa todos los campos.";
 
-
         mensaje.style.color =
             "red";
-
 
         return;
 
     }
 
-
     mensaje.textContent =
         "Guardando en Supabase...";
 
-
     mensaje.style.color =
         "#333";
-
 
     try{
 
@@ -4151,7 +5839,6 @@ async function guardarProducto(){
 
             let imagen =
                 productoEditando.imagen;
-
 
             if(
                 imagenInput.files.length > 0
@@ -4163,7 +5850,6 @@ async function guardarProducto(){
                     );
 
             }
-
 
             const {
                 error
@@ -4191,7 +5877,6 @@ async function guardarProducto(){
                     productoEditando.id
                 );
 
-
             if(error){
 
                 mensaje.textContent =
@@ -4199,27 +5884,21 @@ async function guardarProducto(){
                     +
                     error.message;
 
-
                 mensaje.style.color =
                     "red";
-
 
                 return;
 
             }
 
-
             mensaje.textContent =
                 "Producto actualizado correctamente.";
-
 
             mensaje.style.color =
                 "green";
 
-
             productoEditando =
                 null;
-
 
             document
                 .getElementById(
@@ -4228,9 +5907,7 @@ async function guardarProducto(){
                 .textContent =
                 "📷 SUBIR FOTO";
 
-
             await cargarProductos();
-
 
             setTimeout(
                 function(){
@@ -4243,11 +5920,9 @@ async function guardarProducto(){
                 700
             );
 
-
             return;
 
         }
-
 
         if(
             imagenInput.files.length === 0
@@ -4256,25 +5931,20 @@ async function guardarProducto(){
             mensaje.textContent =
                 "Selecciona una imagen.";
 
-
             mensaje.style.color =
                 "red";
-
 
             return;
 
         }
-
 
         const imagen =
             await convertirImagen(
                 imagenInput.files[0]
             );
 
-
         const creadoEn =
             new Date().toISOString();
-
 
         const {
             error
@@ -4301,7 +5971,6 @@ async function guardarProducto(){
 
             });
 
-
         if(error){
 
             mensaje.textContent =
@@ -4309,29 +5978,22 @@ async function guardarProducto(){
                 +
                 error.message;
 
-
             mensaje.style.color =
                 "red";
-
 
             return;
 
         }
 
-
         mensaje.textContent =
             "Producto publicado correctamente.";
-
 
         mensaje.style.color =
             "green";
 
-
         limpiarFormulario();
 
-
         await cargarProductos();
-
 
         setTimeout(
             function(){
@@ -4344,18 +6006,15 @@ async function guardarProducto(){
             700
         );
 
-
     }
     catch(error){
 
         console.error(error);
 
-
         mensaje.textContent =
             "Ocurrió un error: "
             +
             error.message;
-
 
         mensaje.style.color =
             "red";
@@ -4377,7 +6036,6 @@ function convertirImagen(archivo){
             const lector =
                 new FileReader();
 
-
             lector.onload =
                 function(){
 
@@ -4387,7 +6045,6 @@ function convertirImagen(archivo){
 
                 };
 
-
             lector.onerror =
                 function(){
 
@@ -4396,7 +6053,6 @@ function convertirImagen(archivo){
                     );
 
                 };
-
 
             lector.readAsDataURL(
                 archivo
@@ -4419,10 +6075,8 @@ async function cargarProductos(){
             "listaProductos"
         );
 
-
     contenedor.innerHTML =
         "<p>Cargando productos...</p>";
-
 
     try{
 
@@ -4445,24 +6099,19 @@ async function cargarProductos(){
             )
             .limit(100);
 
-
         if(error){
 
             console.error(error);
 
-
             contenedor.innerHTML =
                 "<p style='color:red'>Error al cargar productos.</p>";
-
 
             return;
 
         }
 
-
         contenedor.innerHTML =
             "";
-
 
         if(
             !data ||
@@ -4472,11 +6121,9 @@ async function cargarProductos(){
             contenedor.innerHTML =
                 "<p>Todavía no hay productos publicados.</p>";
 
-
             return;
 
         }
-
 
         data.forEach(
             function(producto){
@@ -4486,15 +6133,12 @@ async function cargarProductos(){
                         "div"
                     );
 
-
                 tarjeta.className =
                     "producto";
-
 
                 const imagen =
                     producto.imagen ||
                     "";
-
 
                 tarjeta.innerHTML = `
 
@@ -4560,7 +6204,6 @@ async function cargarProductos(){
 
                 `;
 
-
                 contenedor.appendChild(
                     tarjeta
                 );
@@ -4568,12 +6211,10 @@ async function cargarProductos(){
             }
         );
 
-
     }
     catch(error){
 
         console.error(error);
-
 
         contenedor.innerHTML =
             "<p style='color:red'>No se pudo conectar con la base de datos.</p>";
@@ -4594,10 +6235,8 @@ function escapeHTML(texto){
             "div"
         );
 
-
     div.textContent =
         texto;
-
 
     return div.innerHTML;
 
@@ -4625,22 +6264,18 @@ async function editarProducto(id){
             )
             .single();
 
-
         if(error){
 
             alert(
                 "No se pudo cargar el producto."
             );
 
-
             return;
 
         }
 
-
         productoEditando =
             data;
-
 
         document
             .getElementById(
@@ -4650,7 +6285,6 @@ async function editarProducto(id){
             data.nombre ||
             "";
 
-
         document
             .getElementById(
                 "colorProducto"
@@ -4658,7 +6292,6 @@ async function editarProducto(id){
             .value =
             data.color ||
             "";
-
 
         document
             .getElementById(
@@ -4668,7 +6301,6 @@ async function editarProducto(id){
             data.talla ||
             "";
 
-
         document
             .getElementById(
                 "precioProducto"
@@ -4677,14 +6309,12 @@ async function editarProducto(id){
             data.precio ||
             "";
 
-
         document
             .getElementById(
                 "imagenProducto"
             )
             .value =
             "";
-
 
         document
             .getElementById(
@@ -4693,11 +6323,9 @@ async function editarProducto(id){
             .textContent =
             "✏️ EDITAR PRODUCTO";
 
-
         abrirVentana(
             "ventanaSubir"
         );
-
 
     }
     catch(error){
@@ -4720,13 +6348,11 @@ async function eliminarProducto(id){
             "¿Quieres eliminar este producto?"
         );
 
-
     if(!confirmar){
 
         return;
 
     }
-
 
     try{
 
@@ -4745,27 +6371,22 @@ async function eliminarProducto(id){
                 id
             );
 
-
         if(error){
 
             alert(
                 "No se pudo eliminar el producto."
             );
 
-
             return;
 
         }
 
-
         await cargarProductos();
-
 
     }
     catch(error){
 
         console.error(error);
-
 
         alert(
             "Error al eliminar."
@@ -4789,14 +6410,12 @@ function limpiarFormulario(){
         .value =
         "";
 
-
     document
         .getElementById(
             "imagenProducto"
         )
         .value =
         "";
-
 
     document
         .getElementById(
@@ -4805,14 +6424,12 @@ function limpiarFormulario(){
         .value =
         "";
 
-
     document
         .getElementById(
             "tallaProducto"
         )
         .value =
         "";
-
 
     document
         .getElementById(
@@ -4833,7 +6450,6 @@ async function salirDeAdmin(){
     await supabaseClient
         .auth
         .signOut();
-
 
     window.location.href =
         "index.html";
@@ -4906,12 +6522,16 @@ async function iniciarAdmin(){
     }
 
     await cargarProductos();
+
     await cargarConfiguracionSupabase();
+
 }
+
 
 /* =====================================================
    INICIAR
 ===================================================== */
+
 iniciarAdmin();
 
 </script>
