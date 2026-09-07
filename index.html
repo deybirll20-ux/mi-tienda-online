@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="es">
 
 <head>
@@ -7,16 +6,655 @@
 <meta charset="UTF-8">
 
 <meta name="viewport"
-   content="width=device-width, initial-scale=1.0">
+      content="width=device-width, initial-scale=1.0">
 
 <title>Mi Tienda</title>
 
 <link rel="stylesheet"
       href="estilos.css">
 
+<style>
+
+/* =====================================================
+   BOTÓN OFERTAS
+===================================================== */
+
+.zona-ofertas {
+
+    width: 100%;
+
+    display: flex;
+
+    justify-content: flex-start;
+
+    align-items: flex-start;
+
+    margin-top: 0;
+
+    padding: 4px 0 4px 12px;
+
+    background: transparent;
+}
+
+#btnOfertas {
+
+    background: #16a34a;
+
+    color: white;
+
+    border: none;
+
+    border-radius: 6px;
+
+    padding: 7px 14px;
+
+    font-size: 13px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 2px 4px rgba(0,0,0,0.15);
+
+    transition:
+        transform 0.2s ease,
+        background 0.2s ease;
+}
+
+#btnOfertas:hover {
+
+    transform: scale(1.04);
+
+    background: #12823b;
+}
+
+#btnOfertas:active {
+
+    transform: scale(0.96);
+}
+
+
+/* =====================================================
+   VENTANA OFERTAS
+===================================================== */
+
+#ventanaOfertas {
+
+    display: none;
+
+    position: fixed;
+
+    top: 50%;
+
+    left: 50%;
+
+    transform: translate(-50%, -50%);
+
+    width: 90%;
+
+    max-width: 600px;
+
+    max-height: 80vh;
+
+    overflow-y: auto;
+
+    background: white;
+
+    border-radius: 12px;
+
+    padding: 20px;
+
+    box-shadow:
+        0 10px 35px rgba(0,0,0,0.30);
+
+    z-index: 9999;
+}
+
+.encabezado-ofertas {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    margin-bottom: 15px;
+}
+
+.encabezado-ofertas h2 {
+
+    margin: 0;
+
+    font-size: 20px;
+}
+
+#cerrarOfertas {
+
+    border: none;
+
+    background: #dc2626;
+
+    color: white;
+
+    border-radius: 6px;
+
+    padding: 6px 10px;
+
+    cursor: pointer;
+
+    font-weight: bold;
+}
+
+#fondoOfertas {
+
+    display: none;
+
+    position: fixed;
+
+    inset: 0;
+
+    background: rgba(0,0,0,0.45);
+
+    z-index: 9998;
+}
+
+
+/* =====================================================
+   PRODUCTOS
+===================================================== */
+
+.contenido-cliente {
+
+    padding-top: 4px;
+}
+
+
+/* =====================================================
+   ❤️ EFECTO DEL CORAZÓN
+===================================================== */
+
+#btnCalificar {
+
+    cursor: pointer;
+
+    transition:
+        transform 0.15s ease;
+}
+
+#btnCalificar.corazon-latiendo {
+
+    animation:
+        latidoCorazon 0.45s ease;
+}
+
+@keyframes latidoCorazon {
+
+    0% {
+        transform: scale(1);
+    }
+
+    30% {
+        transform: scale(1.45);
+    }
+
+    55% {
+        transform: scale(1.15);
+    }
+
+    75% {
+        transform: scale(1.35);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+
+/* =====================================================
+   🎯 RULETA
+===================================================== */
+
+#fondoRuleta {
+
+    display: none;
+
+    position: fixed;
+
+    inset: 0;
+
+    background: rgba(0,0,0,0.70);
+
+    z-index: 19998;
+}
+
+
+/* =====================================================
+   VENTANA RULETA CENTRADA
+===================================================== */
+
+#ventanaRuletaCliente {
+
+    display: none;
+
+    position: fixed;
+
+    top: 50%;
+
+    left: 50%;
+
+    transform: translate(-50%, -50%);
+
+    width: 94%;
+
+    max-width: 560px;
+
+    max-height: 94vh;
+
+    overflow-y: auto;
+
+    background: white;
+
+    border-radius: 20px;
+
+    padding: 20px;
+
+    box-shadow:
+        0 15px 50px rgba(0,0,0,0.40);
+
+    z-index: 19999;
+
+    text-align: center;
+
+    margin: 0;
+}
+
+
+/* =====================================================
+   ENCABEZADO RULETA
+===================================================== */
+
+.encabezado-ruleta-cliente {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    margin-bottom: 10px;
+}
+
+.encabezado-ruleta-cliente h2 {
+
+    margin: 0;
+
+    font-size: 22px;
+
+    color: #222;
+}
+
+
+/* =====================================================
+   BOTÓN CERRAR
+===================================================== */
+
+#btnCerrarRuletaCliente {
+
+    border: none;
+
+    background: #dc2626;
+
+    color: white;
+
+    width: 34px;
+
+    height: 34px;
+
+    border-radius: 50%;
+
+    font-size: 18px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+}
+
+
+/* =====================================================
+   TEXTO RULETA
+===================================================== */
+
+.texto-ruleta {
+
+    margin: 5px 0 15px;
+
+    font-size: 14px;
+
+    color: #555;
+}
+
+
+/* =====================================================
+   CONTENEDOR RULETA
+===================================================== */
+
+.contenedor-ruleta-circular {
+
+    position: relative;
+
+    width: min(86vw, 420px);
+
+    height: min(86vw, 420px);
+
+    max-width: 420px;
+
+    max-height: 420px;
+
+    margin: 10px auto 20px;
+}
+
+
+/* =====================================================
+   CANVAS
+===================================================== */
+
+#canvasRuleta {
+
+    width: 100%;
+
+    height: 100%;
+
+    display: block;
+
+    border-radius: 50%;
+
+    transform: rotate(0deg);
+
+    transition:
+        transform 5s cubic-bezier(
+            0.12,
+            0.72,
+            0.12,
+            1
+        );
+
+    box-shadow:
+        0 5px 20px rgba(0,0,0,0.25);
+}
+
+
+/* =====================================================
+   PUNTERO
+===================================================== */
+
+.puntero-ruleta {
+
+    position: absolute;
+
+    top: -5px;
+
+    left: 50%;
+
+    transform: translateX(-50%);
+
+    width: 0;
+
+    height: 0;
+
+    border-left: 18px solid transparent;
+
+    border-right: 18px solid transparent;
+
+    border-top: 35px solid #dc2626;
+
+    z-index: 10;
+
+    filter:
+        drop-shadow(
+            0 2px 2px rgba(0,0,0,0.30)
+        );
+}
+
+
+/* =====================================================
+   CENTRO DE LA RULETA
+===================================================== */
+
+.centro-ruleta {
+
+    position: absolute;
+
+    top: 50%;
+
+    left: 50%;
+
+    transform: translate(-50%, -50%);
+
+    width: 70px;
+
+    height: 70px;
+
+    background: white;
+
+    border: 7px solid #ff7a00;
+
+    border-radius: 50%;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    font-size: 25px;
+
+    z-index: 5;
+
+    box-shadow:
+        0 3px 10px rgba(0,0,0,0.25);
+}
+
+
+/* =====================================================
+   BOTÓN JUGAR
+===================================================== */
+
+#btnGirarRuleta {
+
+    width: 90%;
+
+    max-width: 350px;
+
+    border: none;
+
+    border-radius: 10px;
+
+    padding: 13px;
+
+    background: #16a34a;
+
+    color: white;
+
+    font-size: 17px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 4px 10px rgba(0,0,0,0.20);
+
+    transition:
+        transform 0.15s ease,
+        background 0.2s ease;
+}
+
+#btnGirarRuleta:hover {
+
+    background: #12823b;
+
+    transform: scale(1.03);
+}
+
+#btnGirarRuleta:active {
+
+    transform: scale(0.97);
+}
+
+#btnGirarRuleta:disabled {
+
+    background: #999;
+
+    cursor: not-allowed;
+
+    transform: none;
+}
+
+
+/* =====================================================
+   RESULTADO
+===================================================== */
+
+#resultadoRuleta {
+
+    min-height: 30px;
+
+    margin-top: 15px;
+
+    padding: 10px;
+
+    border-radius: 10px;
+
+    background: #f3f4f6;
+
+    font-size: 15px;
+
+    font-weight: bold;
+
+    color: #222;
+}
+
+
+/* =====================================================
+   DETALLE DEL PREMIO
+===================================================== */
+
+#detallePremioRuleta {
+
+    display: none;
+
+    margin-top: 12px;
+
+    padding: 15px;
+
+    border-radius: 12px;
+
+    background: #fff7ed;
+
+    border: 1px solid #fed7aa;
+}
+
+#detallePremioRuleta h3 {
+
+    margin: 0 0 7px;
+
+    color: #ea580c;
+}
+
+#detallePremioRuleta p {
+
+    margin: 5px 0;
+
+    font-size: 14px;
+}
+
+
+/* =====================================================
+   IMAGEN DEL PREMIO GANADOR
+===================================================== */
+
+#imagenPremioResultado {
+
+    display: none;
+
+    width: 150px;
+
+    height: 150px;
+
+    object-fit: contain;
+
+    margin: 10px auto;
+
+    border-radius: 12px;
+
+    border: 2px solid #ff7a00;
+
+    background: white;
+}
+
+
+/* =====================================================
+   RESPONSIVE RULETA
+===================================================== */
+
+@media (max-width: 500px) {
+
+    #ventanaRuletaCliente {
+
+        width: 96%;
+
+        padding: 15px;
+
+        border-radius: 16px;
+    }
+
+    .encabezado-ruleta-cliente h2 {
+
+        font-size: 19px;
+    }
+
+    .texto-ruleta {
+
+        font-size: 13px;
+    }
+
+    .centro-ruleta {
+
+        width: 58px;
+
+        height: 58px;
+
+        border-width: 6px;
+
+        font-size: 21px;
+    }
+
+    .puntero-ruleta {
+
+        border-left-width: 15px;
+
+        border-right-width: 15px;
+
+        border-top-width: 30px;
+    }
+
+    #imagenPremioResultado {
+
+        width: 120px;
+
+        height: 120px;
+    }
+}
+
+</style>
+
 </head>
 
+
 <body>
+
 
 <!-- =====================================================
      ENCABEZADO CLIENTE
@@ -24,45 +662,66 @@
 
 <header class="encabezado-cliente">
 
+    <!-- ❤️ CALIFICAR TIENDA -->
 
-<!-- ❤️ CALIFICAR TIENDA -->
+    <button
+        id="btnCalificar"
+        onclick="calificarTienda()">
 
-<button
-    id="btnCalificar"
-    onclick="calificarTienda()">
+        ❤️
 
-    ❤️
-
-</button>
+    </button>
 
 
-<!-- TÍTULO CENTRAL -->
+    <!-- TÍTULO CENTRAL -->
 
-<div class="titulo-tienda">
+    <div class="titulo-tienda">
 
-    <h1 id="tituloCliente">
-        MI TIENDA
-    </h1>
+        <h1 id="tituloCliente">
 
-    <p id="esloganCliente">
-        COMPRA FÁCIL, LUCE INCREÍBLE
-    </p>
+            MI TIENDA
+
+        </h1>
+
+
+        <p id="esloganCliente">
+
+            COMPRA FÁCIL, LUCE INCREÍBLE
+
+        </p>
+
+    </div>
+
+
+    <!-- ADMIN -->
+
+    <button
+        id="btnAdmin"
+        onclick="irAlAdmin()">
+
+        ADMIN
+
+    </button>
+
+</header>
+
+
+<!-- =====================================================
+     BOTÓN OFERTAS
+===================================================== -->
+
+<div class="zona-ofertas">
+
+    <button
+        id="btnOfertas"
+        onclick="abrirOfertas()">
+
+        🏷️ OFERTAS
+
+    </button>
 
 </div>
 
-
-<!-- ADMIN -->
-
-<button
-    id="btnAdmin"
-    onclick="irAlAdmin()">
-
-    ADMIN
-
-</button>
-
-
-</header>
 
 <!-- =====================================================
      PRODUCTOS
@@ -70,18 +729,198 @@
 
 <main class="contenido-cliente">
 
-<div
-    id="productos"
-    class="productos">
+    <div
+        id="productos"
+        class="productos">
 
-    <p class="mensaje-cargando">
-        Cargando productos...
-    </p>
+        <p class="mensaje-cargando">
+
+            Cargando productos...
+
+        </p>
+
+    </div>
+
+</main>
+
+
+<!-- =====================================================
+     FONDO OFERTAS
+===================================================== -->
+
+<div
+    id="fondoOfertas"
+    onclick="cerrarOfertas()">
 
 </div>
 
 
-</main>
+<!-- =====================================================
+     VENTANA OFERTAS
+===================================================== -->
+
+<div id="ventanaOfertas">
+
+    <div class="encabezado-ofertas">
+
+        <h2>
+
+            🏷️ OFERTAS
+
+        </h2>
+
+
+        <button
+            id="cerrarOfertas"
+            onclick="cerrarOfertas()">
+
+            ✖
+
+        </button>
+
+    </div>
+
+
+    <div id="listaOfertas">
+
+        <p>
+
+            Próximamente aparecerán aquí
+            los productos en oferta.
+
+        </p>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     🎯 FONDO RULETA
+===================================================== -->
+
+<div
+    id="fondoRuleta"
+    onclick="cerrarRuletaCliente()">
+
+</div>
+
+
+<!-- =====================================================
+     🎯 RULETA CLIENTE
+===================================================== -->
+
+<div
+    id="ventanaRuletaCliente">
+
+
+    <!-- ENCABEZADO -->
+
+    <div class="encabezado-ruleta-cliente">
+
+        <h2>
+
+            🎯 RULETA DE PREMIOS
+
+        </h2>
+
+
+        <button
+            id="btnCerrarRuletaCliente"
+            onclick="cerrarRuletaCliente()">
+
+            ✕
+
+        </button>
+
+    </div>
+
+
+    <p class="texto-ruleta">
+
+        ¡Gira la ruleta y descubre tu premio! 🎁
+
+    </p>
+
+
+    <!-- RULETA CIRCULAR -->
+
+    <div class="contenedor-ruleta-circular">
+
+        <div class="puntero-ruleta">
+
+        </div>
+
+
+        <canvas
+            id="canvasRuleta"
+            width="600"
+            height="600">
+
+        </canvas>
+
+
+        <div class="centro-ruleta">
+
+            🎯
+
+        </div>
+
+    </div>
+
+
+    <!-- BOTÓN JUGAR -->
+
+    <button
+        id="btnGirarRuleta"
+        type="button"
+        onclick="girarRuletaCliente()">
+
+        ▶️ JUGAR
+
+    </button>
+
+
+    <!-- RESULTADO -->
+
+    <div
+        id="resultadoRuleta">
+
+        ¡Mucha suerte! 🍀
+
+    </div>
+
+
+    <!-- DETALLE PREMIO -->
+
+    <div
+        id="detallePremioRuleta">
+
+
+        <!-- IMAGEN DEL GANADOR -->
+
+        <img
+            id="imagenPremioResultado"
+            alt="Premio ganado">
+
+
+        <h3
+            id="nombrePremioResultado">
+
+            🎁 Premio
+
+        </h3>
+
+
+        <p
+            id="descripcionPremioResultado">
+
+        </p>
+
+    </div>
+
+</div>
+
 
 <!-- =====================================================
      PIE DE PÁGINA
@@ -89,19 +928,21 @@
 
 <footer class="pie-cliente">
 
+    <p id="pieCliente">
 
-<p id="pieCliente">
-    MI TIENDA ONLINE
-</p>
+        MI TIENDA ONLINE
 
+    </p>
 
 </footer>
+
 
 <!-- =====================================================
      SUPABASE
 ===================================================== -->
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
 
 <script>
 
@@ -125,7 +966,6 @@ const supabaseClient =
     );
 
 
-
 // =====================================================
 // DATOS WHATSAPP
 // =====================================================
@@ -133,7 +973,6 @@ const supabaseClient =
 let numeroWhatsApp = "";
 
 let mensajeWhatsAppGuardado = "";
-
 
 
 // =====================================================
@@ -144,23 +983,135 @@ function irAlAdmin() {
 
     window.location.href =
         "admin-login.html";
-
 }
 
 
-
 // =====================================================
-// CALIFICAR TIENDA
+// ❤️ CALIFICAR TIENDA
 // =====================================================
 
 function calificarTienda() {
+
+    const corazon =
+        document.getElementById(
+            "btnCalificar"
+        );
+
+    if (!corazon) {
+        return;
+    }
+
+    corazon.classList.remove(
+        "corazon-latiendo"
+    );
+
+    void corazon.offsetWidth;
+
+    corazon.classList.add(
+        "corazon-latiendo"
+    );
 
     alert(
         "Gracias por calificar nuestra tienda ❤️"
     );
 
+    setTimeout(
+        function() {
+
+            corazon.classList.remove(
+                "corazon-latiendo"
+            );
+
+        },
+        500
+    );
 }
 
+
+// =====================================================
+// ABRIR OFERTAS
+// =====================================================
+
+function abrirOfertas() {
+
+    const ventana =
+        document.getElementById(
+            "ventanaOfertas"
+        );
+
+    const fondo =
+        document.getElementById(
+            "fondoOfertas"
+        );
+
+    if (ventana) {
+
+        ventana.style.display =
+            "block";
+    }
+
+    if (fondo) {
+
+        fondo.style.display =
+            "block";
+    }
+
+    cargarOfertas();
+}
+
+
+// =====================================================
+// CERRAR OFERTAS
+// =====================================================
+
+function cerrarOfertas() {
+
+    const ventana =
+        document.getElementById(
+            "ventanaOfertas"
+        );
+
+    const fondo =
+        document.getElementById(
+            "fondoOfertas"
+        );
+
+    if (ventana) {
+
+        ventana.style.display =
+            "none";
+    }
+
+    if (fondo) {
+
+        fondo.style.display =
+            "none";
+    }
+}
+
+
+// =====================================================
+// CARGAR OFERTAS
+// =====================================================
+
+async function cargarOfertas() {
+
+    const lista =
+        document.getElementById(
+            "listaOfertas"
+        );
+
+    if (!lista) {
+        return;
+    }
+
+    lista.innerHTML = `
+        <p>
+            Próximamente aparecerán aquí
+            los productos en oferta.
+        </p>
+    `;
+}
 
 
 // =====================================================
@@ -170,20 +1121,11 @@ function calificarTienda() {
 function prepararNumeroWhatsApp(numero) {
 
     if (!numero) {
-
         return "";
-
     }
-
-
-    // Convertir a texto
 
     numero =
         String(numero).trim();
-
-
-    // Quitar espacios, guiones,
-    // paréntesis y otros caracteres
 
     numero =
         numero.replace(
@@ -191,37 +1133,26 @@ function prepararNumeroWhatsApp(numero) {
             ""
         );
 
-
-    // Si ya tiene código de Perú
-
     if (
         numero.startsWith("51")
     ) {
 
         return numero;
-
     }
-
-
-    // Si es celular peruano de 9 dígitos
 
     if (
         numero.length === 9
     ) {
 
         return "51" + numero;
-
     }
 
-
     return numero;
-
 }
 
 
-
 // =====================================================
-// CARGAR CONFIGURACIÓN DESDE SUPABASE
+// CARGAR CONFIGURACIÓN
 // =====================================================
 
 async function cargarConfiguracionCliente() {
@@ -231,21 +1162,13 @@ async function cargarConfiguracionCliente() {
         const {
             data,
             error
-        } = await supabaseClient
+        } =
+            await supabaseClient
+                .from("configuracion_tienda")
+                .select("*")
+                .limit(1)
+                .maybeSingle();
 
-            .from("configuracion_tienda")
-
-            .select("*")
-
-            .limit(1)
-
-            .maybeSingle();
-
-
-
-        // =================================================
-        // ERROR
-        // =================================================
 
         if (error) {
 
@@ -255,52 +1178,27 @@ async function cargarConfiguracionCliente() {
             );
 
             return;
-
         }
-
 
 
         if (!data) {
-
-            console.log(
-                "No existe configuración en configuracion_tienda."
-            );
-
             return;
-
         }
 
 
-
-        console.log(
-            "Configuración cliente:",
-            data
-        );
-
-
-
         // =================================================
-        // NÚMERO WHATSAPP
+        // WHATSAPP
         // =================================================
 
         const whatsapp =
-
             data.whatsapp ||
-
             data.whatsapp_numero ||
-
             data.numero_whatsapp ||
-
             data.telefono_whatsapp ||
-
             data.telefono ||
-
             data.celular ||
-
             data.numero ||
-
             "";
-
 
 
         numeroWhatsApp =
@@ -309,59 +1207,30 @@ async function cargarConfiguracionCliente() {
             );
 
 
-
-        console.log(
-            "WhatsApp tienda:",
-            numeroWhatsApp
-        );
-
-
-
         // =================================================
-        // MENSAJE WHATSAPP GUARDADO
+        // MENSAJE WHATSAPP
         // =================================================
 
         mensajeWhatsAppGuardado =
-
             data.whatsapp_mensaje ||
-
             data.mensaje_whatsapp ||
-
             data.mensaje ||
-
             data.mensajeWhatsApp ||
-
             data.texto_whatsapp ||
-
             data.textoWhatsApp ||
-
             "";
 
 
-
-        console.log(
-            "Mensaje WhatsApp guardado:",
-            mensajeWhatsAppGuardado
-        );
-
-
-
         // =================================================
-        // TÍTULO CLIENTE
+        // TÍTULO
         // =================================================
 
         const titulo =
-
             data.titulo_cliente ||
-
             data.tituloCliente ||
-
             data.titulo_cliente_tienda ||
-
             data.titulo ||
-
             null;
-
 
 
         if (titulo) {
@@ -371,36 +1240,25 @@ async function cargarConfiguracionCliente() {
                     "tituloCliente"
                 );
 
-
             if (elemento) {
 
                 elemento.textContent =
                     titulo;
-
             }
-
         }
 
 
-
         // =================================================
-        // ESLOGAN CLIENTE
+        // ESLOGAN
         // =================================================
 
         const eslogan =
-
             data.eslogan_cliente ||
-
             data.esloganCliente ||
-
             data.slogan_cliente ||
-
             data.eslogan ||
-
             data.slogan ||
-
             null;
-
 
 
         if (eslogan) {
@@ -410,34 +1268,24 @@ async function cargarConfiguracionCliente() {
                     "esloganCliente"
                 );
 
-
             if (elemento) {
 
                 elemento.textContent =
                     eslogan;
-
             }
-
         }
 
 
-
         // =================================================
-        // PIE CLIENTE
+        // PIE
         // =================================================
 
         const pie =
-
             data.pie_cliente ||
-
             data.pieCliente ||
-
             data.footer_cliente ||
-
             data.footer ||
-
             null;
-
 
 
         if (pie) {
@@ -447,16 +1295,12 @@ async function cargarConfiguracionCliente() {
                     "pieCliente"
                 );
 
-
             if (elemento) {
 
                 elemento.textContent =
                     pie;
-
             }
-
         }
-
 
 
         // =================================================
@@ -464,17 +1308,11 @@ async function cargarConfiguracionCliente() {
         // =================================================
 
         const color =
-
             data.color_cliente ||
-
             data.colorCliente ||
-
             data.color_tienda ||
-
             data.color ||
-
             null;
-
 
 
         if (color) {
@@ -482,9 +1320,7 @@ async function cargarConfiguracionCliente() {
             aplicarColorCliente(
                 color
             );
-
         }
-
 
 
         // =================================================
@@ -492,17 +1328,11 @@ async function cargarConfiguracionCliente() {
         // =================================================
 
         const tipografiaTitulo =
-
             data.tipografia_titulo_cliente ||
-
             data.tipografiaTituloCliente ||
-
             data.tipografia_titulo ||
-
             data.tipografia_cliente_titulo ||
-
             null;
-
 
 
         if (tipografiaTitulo) {
@@ -512,16 +1342,12 @@ async function cargarConfiguracionCliente() {
                     "tituloCliente"
                 );
 
-
             if (elemento) {
 
                 elemento.style.fontFamily =
                     tipografiaTitulo;
-
             }
-
         }
-
 
 
         // =================================================
@@ -529,17 +1355,11 @@ async function cargarConfiguracionCliente() {
         // =================================================
 
         const tipografiaEslogan =
-
             data.tipografia_eslogan_cliente ||
-
             data.tipografiaEsloganCliente ||
-
             data.tipografia_eslogan ||
-
             data.tipografia_cliente_eslogan ||
-
             null;
-
 
 
         if (tipografiaEslogan) {
@@ -549,16 +1369,12 @@ async function cargarConfiguracionCliente() {
                     "esloganCliente"
                 );
 
-
             if (elemento) {
 
                 elemento.style.fontFamily =
                     tipografiaEslogan;
-
             }
-
         }
-
 
 
         // =================================================
@@ -566,17 +1382,11 @@ async function cargarConfiguracionCliente() {
         // =================================================
 
         const tipografiaPie =
-
             data.tipografia_pie_cliente ||
-
             data.tipografiaPieCliente ||
-
             data.tipografia_pie ||
-
             data.tipografia_cliente_pie ||
-
             null;
-
 
 
         if (tipografiaPie) {
@@ -586,53 +1396,40 @@ async function cargarConfiguracionCliente() {
                     "pieCliente"
                 );
 
-
             if (elemento) {
 
                 elemento.style.fontFamily =
                     tipografiaPie;
-
             }
-
         }
 
 
-
         // =================================================
-        // TIPOGRAFÍA GENERAL CLIENTE
+        // TIPOGRAFÍA GENERAL
         // =================================================
 
         const tipografiaGeneral =
-
             data.tipografia_cliente ||
-
             data.tipografiaCliente ||
-
             null;
-
 
 
         if (tipografiaGeneral) {
 
             document.body.style.fontFamily =
                 tipografiaGeneral;
-
         }
-
 
     }
 
     catch(error) {
 
         console.error(
-            "Error inesperado cargando configuración:",
+            "Error inesperado:",
             error
         );
-
     }
-
 }
-
 
 
 // =====================================================
@@ -646,7 +1443,6 @@ function aplicarColorCliente(color) {
             ".encabezado-cliente"
         );
 
-
     const pie =
         document.querySelector(
             ".pie-cliente"
@@ -657,7 +1453,6 @@ function aplicarColorCliente(color) {
 
         encabezado.style.background =
             color;
-
     }
 
 
@@ -665,11 +1460,8 @@ function aplicarColorCliente(color) {
 
         pie.style.background =
             color;
-
     }
-
 }
-
 
 
 // =====================================================
@@ -678,11 +1470,6 @@ function aplicarColorCliente(color) {
 
 function crearPedidoWhatsApp(producto) {
 
-
-    // =================================================
-    // VERIFICAR NÚMERO
-    // =================================================
-
     if (!numeroWhatsApp) {
 
         alert(
@@ -690,82 +1477,82 @@ function crearPedidoWhatsApp(producto) {
         );
 
         return;
-
     }
 
 
-
-    // =================================================
-    // DATOS DEL PRODUCTO
-    // =================================================
-
     const nombre =
-
         producto.nombre ||
-
         "Producto";
 
 
     const talla =
-
         producto.talla ||
-
         "-";
 
 
     const color =
-
         producto.color ||
-
         "-";
 
 
-
-    // =================================================
-    // MENSAJE GUARDADO
-    // =================================================
-
     const mensajeBase =
-
         mensajeWhatsAppGuardado ||
-
         "Hola, quiero pedir este producto.";
 
 
+    // =================================================
+    // PREMIO GANADO
+    // =================================================
+
+    let premioGanado = "";
+
+
+    try {
+
+        premioGanado =
+            sessionStorage.getItem(
+                "premioGanadoRuleta"
+            ) || "";
+
+    }
+
+    catch(error) {
+
+        console.error(
+            "Error leyendo premio ganado:",
+            error
+        );
+    }
+
 
     // =================================================
-    // MENSAJE FINAL
+    // CREAR MENSAJE
     // =================================================
 
-    const mensaje =
-
+    let mensaje =
         mensajeBase +
-
         "\n\n" +
-
         "Producto: " +
-
         nombre +
-
         "\n" +
-
         "Talla: " +
-
         talla +
-
         "\n" +
-
         "Color: " +
-
         color;
 
 
+    // =================================================
+    // AGREGAR PREMIO
+    // =================================================
 
-    console.log(
-        "Mensaje final:",
-        mensaje
-    );
+    if (premioGanado) {
 
+        mensaje +=
+            "\n" +
+            "🎁 Premio ganado en la ruleta: " +
+            premioGanado;
+    }
 
 
     // =================================================
@@ -773,34 +1560,23 @@ function crearPedidoWhatsApp(producto) {
     // =================================================
 
     const enlace =
-
         "https://wa.me/" +
-
         numeroWhatsApp +
-
         "?text=" +
-
         encodeURIComponent(
             mensaje
         );
 
 
-
-    // =================================================
-    // ABRIR WHATSAPP
-    // =================================================
-
     window.open(
         enlace,
         "_blank"
     );
-
 }
 
 
-
 // =====================================================
-// CARGAR PRODUCTOS DESDE SUPABASE
+// CARGAR PRODUCTOS
 // =====================================================
 
 async function cargarProductosCliente() {
@@ -812,21 +1588,15 @@ async function cargarProductosCliente() {
 
 
     if (!contenedor) {
-
         return;
-
     }
 
 
-
     contenedor.innerHTML = `
-
         <p class="mensaje-cargando">
             Cargando productos...
         </p>
-
     `;
-
 
 
     try {
@@ -834,29 +1604,21 @@ async function cargarProductosCliente() {
         const {
             data,
             error
-        } = await supabaseClient
+        } =
+            await supabaseClient
+                .from("productos")
+                .select("*")
+                .eq(
+                    "activo",
+                    true
+                )
+                .order(
+                    "creado_en",
+                    {
+                        ascending: false
+                    }
+                );
 
-            .from("productos")
-
-            .select("*")
-
-            .eq(
-                "activo",
-                true
-            )
-
-            .order(
-                "creado_en",
-                {
-                    ascending: false
-                }
-            );
-
-
-
-        // =================================================
-        // ERROR
-        // =================================================
 
         if (error) {
 
@@ -867,30 +1629,18 @@ async function cargarProductosCliente() {
 
 
             contenedor.innerHTML = `
-
                 <p class="mensaje-error">
                     No se pudieron cargar los productos.
                 </p>
-
             `;
 
-            return;
 
+            return;
         }
 
 
-
-        // =================================================
-        // LIMPIAR
-        // =================================================
-
         contenedor.innerHTML = "";
 
-
-
-        // =================================================
-        // NO HAY PRODUCTOS
-        // =================================================
 
         if (
             !data ||
@@ -898,26 +1648,18 @@ async function cargarProductosCliente() {
         ) {
 
             contenedor.innerHTML = `
-
                 <p class="mensaje-vacio">
                     Todavía no hay productos publicados.
                 </p>
-
             `;
 
-            return;
 
+            return;
         }
 
 
-
-        // =================================================
-        // CREAR PRODUCTOS
-        // =================================================
-
         data.forEach(
             function(producto) {
-
 
                 const tarjeta =
                     document.createElement(
@@ -929,10 +1671,7 @@ async function cargarProductosCliente() {
                     "producto";
 
 
-
-                // =========================================
                 // IMAGEN
-                // =========================================
 
                 const imagen =
                     document.createElement(
@@ -941,8 +1680,7 @@ async function cargarProductosCliente() {
 
 
                 imagen.src =
-                    producto.imagen ||
-                    "";
+                    producto.imagen || "";
 
 
                 imagen.alt =
@@ -950,10 +1688,7 @@ async function cargarProductosCliente() {
                     "Producto";
 
 
-
-                // =========================================
                 // NOMBRE
-                // =========================================
 
                 const nombre =
                     document.createElement(
@@ -966,10 +1701,7 @@ async function cargarProductosCliente() {
                     "Producto";
 
 
-
-                // =========================================
                 // PRECIO
-                // =========================================
 
                 const precio =
                     document.createElement(
@@ -983,18 +1715,13 @@ async function cargarProductosCliente() {
 
                 precio.textContent =
                     "S/ " +
-
                     (
                         producto.precio ??
-
                         "0.00"
                     );
 
 
-
-                // =========================================
                 // COLOR
-                // =========================================
 
                 const color =
                     document.createElement(
@@ -1008,18 +1735,13 @@ async function cargarProductosCliente() {
 
                 color.textContent =
                     "Color: " +
-
                     (
                         producto.color ||
-
                         "-"
                     );
 
 
-
-                // =========================================
                 // TALLA
-                // =========================================
 
                 const talla =
                     document.createElement(
@@ -1033,56 +1755,13 @@ async function cargarProductosCliente() {
 
                 talla.textContent =
                     "Talla: " +
-
                     (
                         producto.talla ||
-
                         "-"
                     );
 
 
-
-                // =========================================
-                // DESCRIPCIÓN
-                // =========================================
-
-                if (
-
-                    producto.descripción ||
-
-                    producto.descripcion
-
-                ) {
-
-
-                    const descripcion =
-                        document.createElement(
-                            "p"
-                        );
-
-
-                    descripcion.className =
-                        "descripcion-producto";
-
-
-                    descripcion.textContent =
-
-                        producto.descripción ||
-
-                        producto.descripcion;
-
-
-                    tarjeta.appendChild(
-                        descripcion
-                    );
-
-                }
-
-
-
-                // =========================================
                 // BOTÓN PEDIR
-                // =========================================
 
                 const pedir =
                     document.createElement(
@@ -1102,15 +1781,8 @@ async function cargarProductosCliente() {
                     "button";
 
 
-
-                // =========================================
-                // EVENTO PEDIR
-                // =========================================
-
                 pedir.addEventListener(
-
                     "click",
-
                     function() {
 
                         crearPedidoWhatsApp(
@@ -1118,14 +1790,10 @@ async function cargarProductosCliente() {
                         );
 
                     }
-
                 );
 
 
-
-                // =========================================
-                // AGREGAR ELEMENTOS
-                // =========================================
+                // AGREGAR
 
                 tarjeta.appendChild(
                     imagen
@@ -1157,24 +1825,16 @@ async function cargarProductosCliente() {
                 );
 
 
-
-                // =========================================
-                // MOSTRAR
-                // =========================================
-
                 contenedor.appendChild(
                     tarjeta
                 );
 
             }
-
         );
-
 
     }
 
     catch(error) {
-
 
         console.error(
             "Error inesperado:",
@@ -1183,17 +1843,1474 @@ async function cargarProductosCliente() {
 
 
         contenedor.innerHTML = `
-
             <p class="mensaje-error">
                 Error al conectar con la tienda.
             </p>
-
         `;
+    }
+}
+
+
+/* =====================================================
+   🎯 RULETA CON SUPABASE
+===================================================== */
+
+
+// =====================================================
+// PREMIOS POR DEFECTO
+// =====================================================
+
+let premiosRuleta = [
+
+    {
+        numero: 1,
+        tipo: "texto",
+        nombre: "PREMIO 1",
+        texto: "PREMIO 1",
+        imagen: "",
+        modo: "cantidad",
+        cantidad: 1,
+        descripcion: ""
+    },
+
+    {
+        numero: 2,
+        tipo: "texto",
+        nombre: "PREMIO 2",
+        texto: "PREMIO 2",
+        imagen: "",
+        modo: "cantidad",
+        cantidad: 1,
+        descripcion: ""
+    },
+
+    {
+        numero: 3,
+        tipo: "texto",
+        nombre: "PREMIO 3",
+        texto: "PREMIO 3",
+        imagen: "",
+        modo: "cantidad",
+        cantidad: 1,
+        descripcion: ""
+    },
+
+    {
+        numero: 4,
+        tipo: "texto",
+        nombre: "PREMIO 4",
+        texto: "PREMIO 4",
+        imagen: "",
+        modo: "cantidad",
+        cantidad: 1,
+        descripcion: ""
+    }
+
+];
+
+
+let ruletaActivaCliente = false;
+
+let rotacionRuleta = 0;
+
+let ruletaGirando = false;
+
+let premioGanadoRuleta = "";
+
+
+// =====================================================
+// CARGAR RULETA DESDE SUPABASE
+// =====================================================
+
+async function cargarConfiguracionRuletaCliente() {
+
+    try {
+
+        const {
+            data,
+            error
+        } =
+            await supabaseClient
+                .from("configuracion_ruleta")
+                .select(
+                    "id, activa, premios, actualizado_en"
+                )
+                .order(
+                    "id",
+                    {
+                        ascending: true
+                    }
+                )
+                .limit(1)
+                .maybeSingle();
+
+
+        if (error) {
+
+            console.error(
+                "❌ Error cargando ruleta desde Supabase:",
+                error
+            );
+
+            return false;
+        }
+
+
+        if (!data) {
+
+            console.warn(
+                "⚠️ No existe configuración de ruleta."
+            );
+
+            ruletaActivaCliente = false;
+
+            return false;
+        }
+
+
+        // =================================================
+        // ESTADO
+        // =================================================
+
+        ruletaActivaCliente =
+            data.activa === true;
+
+
+        console.log(
+            "🎯 Estado ruleta desde Supabase:",
+            ruletaActivaCliente
+        );
+
+
+        // =================================================
+        // PREMIOS
+        // =================================================
+
+        if (
+            Array.isArray(
+                data.premios
+            )
+        ) {
+
+            premiosRuleta =
+                data.premios
+                    .slice(0, 4)
+                    .map(
+                        function(
+                            premio,
+                            indice
+                        ) {
+
+                            return {
+
+                                numero:
+                                    premio.numero ||
+                                    indice + 1,
+
+                                tipo:
+                                    premio.tipo ===
+                                    "imagen"
+                                        ? "imagen"
+                                        : "texto",
+
+                                nombre:
+                                    premio.nombre ||
+                                    premio.texto ||
+                                    "PREMIO " +
+                                    (
+                                        indice + 1
+                                    ),
+
+                                texto:
+                                    premio.texto ||
+                                    premio.nombre ||
+                                    "PREMIO " +
+                                    (
+                                        indice + 1
+                                    ),
+
+                                imagen:
+                                    premio.imagen ||
+                                    "",
+
+                                modo:
+                                    premio.modo ||
+                                    "cantidad",
+
+                                cantidad:
+                                    Number(
+                                        premio.cantidad
+                                    ) || 1,
+
+                                descripcion:
+                                    premio.descripcion ||
+                                    ""
+
+                            };
+
+                        }
+                    );
+        }
+
+
+        // =================================================
+        // COMPLETAR HASTA 4 PREMIOS
+        // =================================================
+
+        while (
+            premiosRuleta.length < 4
+        ) {
+
+            const numero =
+                premiosRuleta.length + 1;
+
+
+            premiosRuleta.push({
+
+                numero:
+                    numero,
+
+                tipo:
+                    "texto",
+
+                nombre:
+                    "PREMIO " +
+                    numero,
+
+                texto:
+                    "PREMIO " +
+                    numero,
+
+                imagen:
+                    "",
+
+                modo:
+                    "cantidad",
+
+                cantidad:
+                    1,
+
+                descripcion:
+                    ""
+
+            });
+
+        }
+
+
+        console.log(
+            "🎁 Premios cargados desde Supabase:",
+            premiosRuleta
+        );
+
+
+        return true;
 
     }
 
+    catch(error) {
+
+        console.error(
+            "❌ Error inesperado cargando ruleta:",
+            error
+        );
+
+        return false;
+    }
 }
 
+
+// =====================================================
+// OBTENER NOMBRE DEL PREMIO
+// =====================================================
+
+function obtenerNombrePremio(
+    premio,
+    numero
+) {
+
+    if (!premio) {
+
+        return "PREMIO " +
+            numero;
+    }
+
+
+    return (
+
+        premio.nombre ||
+
+        premio.texto ||
+
+        "PREMIO " +
+        numero
+
+    );
+}
+
+
+// =====================================================
+// CARGAR IMAGEN DE LA RULETA
+// =====================================================
+
+function cargarImagenRuleta(src) {
+
+    return new Promise(
+        function(resolve) {
+
+            if (!src) {
+
+                resolve(null);
+
+                return;
+            }
+
+
+            const imagen =
+                new Image();
+
+
+            imagen.onload =
+                function() {
+
+                    resolve(
+                        imagen
+                    );
+
+                };
+
+
+            imagen.onerror =
+                function() {
+
+                    console.warn(
+                        "❌ No se pudo cargar la imagen de la ruleta"
+                    );
+
+                    resolve(null);
+
+                };
+
+
+            imagen.src =
+                src;
+
+        }
+    );
+}
+
+
+// =====================================================
+// DIBUJAR RULETA
+// =====================================================
+
+async function dibujarRuleta() {
+
+    const canvas =
+        document.getElementById(
+            "canvasRuleta"
+        );
+
+
+    if (!canvas) {
+        return;
+    }
+
+
+    const ctx =
+        canvas.getContext(
+            "2d"
+        );
+
+
+    const centroX =
+        canvas.width / 2;
+
+
+    const centroY =
+        canvas.height / 2;
+
+
+    const radio =
+        285;
+
+
+    const cantidad =
+        4;
+
+
+    const angulo =
+        (Math.PI * 2) /
+        cantidad;
+
+
+    ctx.clearRect(
+        0,
+        0,
+        canvas.width,
+        canvas.height
+    );
+
+
+    const colores = [
+
+        "#ff7a00",
+
+        "#2563eb",
+
+        "#16a34a",
+
+        "#dc2626"
+
+    ];
+
+
+    // =================================================
+    // DIBUJAR LOS 4 PREMIOS
+    // =================================================
+
+    for (
+        let i = 0;
+        i < cantidad;
+        i++
+    ) {
+
+        const inicio =
+            -Math.PI / 2 +
+            i * angulo;
+
+
+        const fin =
+            inicio +
+            angulo;
+
+
+        const premio =
+            premiosRuleta[i] || {
+
+                numero:
+                    i + 1,
+
+                tipo:
+                    "texto",
+
+                nombre:
+                    "PREMIO " +
+                    (i + 1),
+
+                texto:
+                    "PREMIO " +
+                    (i + 1),
+
+                imagen:
+                    ""
+
+            };
+
+
+        // =================================================
+        // SECTOR
+        // =================================================
+
+        ctx.beginPath();
+
+
+        ctx.moveTo(
+            centroX,
+            centroY
+        );
+
+
+        ctx.arc(
+            centroX,
+            centroY,
+            radio,
+            inicio,
+            fin
+        );
+
+
+        ctx.closePath();
+
+
+        ctx.fillStyle =
+            colores[
+                i % colores.length
+            ];
+
+
+        ctx.fill();
+
+
+        ctx.strokeStyle =
+            "#ffffff";
+
+
+        ctx.lineWidth =
+            7;
+
+
+        ctx.stroke();
+
+
+        // =================================================
+        // CENTRO DEL SECTOR
+        // =================================================
+
+        const anguloCentro =
+            inicio +
+            angulo / 2;
+
+
+        const contenidoX =
+            centroX +
+            Math.cos(
+                anguloCentro
+            ) * 175;
+
+
+        const contenidoY =
+            centroY +
+            Math.sin(
+                anguloCentro
+            ) * 175;
+
+
+        // =================================================
+        // PREMIO CON IMAGEN
+        // =================================================
+
+        if (
+            premio.tipo === "imagen" &&
+            premio.imagen
+        ) {
+
+            const imagen =
+                await cargarImagenRuleta(
+                    premio.imagen
+                );
+
+
+            if (imagen) {
+
+                ctx.save();
+
+
+                ctx.beginPath();
+
+
+                ctx.arc(
+                    contenidoX,
+                    contenidoY,
+                    58,
+                    0,
+                    Math.PI * 2
+                );
+
+
+                ctx.clip();
+
+
+                ctx.drawImage(
+                    imagen,
+                    contenidoX - 58,
+                    contenidoY - 58,
+                    116,
+                    116
+                );
+
+
+                ctx.restore();
+
+
+                // BORDE
+
+                ctx.beginPath();
+
+
+                ctx.arc(
+                    contenidoX,
+                    contenidoY,
+                    58,
+                    0,
+                    Math.PI * 2
+                );
+
+
+                ctx.strokeStyle =
+                    "#ffffff";
+
+
+                ctx.lineWidth =
+                    5;
+
+
+                ctx.stroke();
+
+            }
+
+
+            // NOMBRE
+
+            let texto =
+                obtenerNombrePremio(
+                    premio,
+                    i + 1
+                );
+
+
+            if (
+                texto.length > 15
+            ) {
+
+                texto =
+                    texto.substring(
+                        0,
+                        15
+                    ) +
+                    "...";
+            }
+
+
+            ctx.save();
+
+
+            ctx.fillStyle =
+                "#ffffff";
+
+
+            ctx.font =
+                "bold 17px Arial";
+
+
+            ctx.textAlign =
+                "center";
+
+
+            ctx.textBaseline =
+                "middle";
+
+
+            ctx.fillText(
+                texto,
+                contenidoX,
+                contenidoY + 78
+            );
+
+
+            ctx.restore();
+
+        }
+
+
+        // =================================================
+        // PREMIO TEXTO
+        // =================================================
+
+        else {
+
+            let texto =
+                obtenerNombrePremio(
+                    premio,
+                    i + 1
+                );
+
+
+            if (
+                texto.length > 20
+            ) {
+
+                texto =
+                    texto.substring(
+                        0,
+                        20
+                    ) +
+                    "...";
+            }
+
+
+            ctx.save();
+
+
+            ctx.translate(
+                contenidoX,
+                contenidoY
+            );
+
+
+            ctx.rotate(
+                anguloCentro
+            );
+
+
+            ctx.fillStyle =
+                "#ffffff";
+
+
+            ctx.font =
+                "bold 21px Arial";
+
+
+            ctx.textAlign =
+                "center";
+
+
+            ctx.textBaseline =
+                "middle";
+
+
+            ctx.fillText(
+                texto,
+                0,
+                0
+            );
+
+
+            ctx.restore();
+
+        }
+
+    }
+
+
+    // =================================================
+    // BORDE EXTERIOR
+    // =================================================
+
+    ctx.beginPath();
+
+
+    ctx.arc(
+        centroX,
+        centroY,
+        radio,
+        0,
+        Math.PI * 2
+    );
+
+
+    ctx.strokeStyle =
+        "#222";
+
+
+    ctx.lineWidth =
+        8;
+
+
+    ctx.stroke();
+}
+
+
+// =====================================================
+// ABRIR RULETA CLIENTE
+// =====================================================
+
+async function abrirRuletaCliente() {
+
+    // =================================================
+    // ACTUALIZAR DESDE SUPABASE
+    // =================================================
+
+    const cargada =
+        await cargarConfiguracionRuletaCliente();
+
+
+    if (!cargada) {
+
+        return;
+    }
+
+
+    // =================================================
+    // SI ESTÁ DESACTIVADA, NO ABRIR
+    // =================================================
+
+    if (!ruletaActivaCliente) {
+
+        cerrarRuletaCliente();
+
+        return;
+    }
+
+
+    // =================================================
+    // ELIMINAR PREMIO ANTERIOR
+    // =================================================
+
+    premioGanadoRuleta = "";
+
+
+    try {
+
+        sessionStorage.removeItem(
+            "premioGanadoRuleta"
+        );
+
+    }
+
+    catch(error) {
+
+        console.error(
+            "Error limpiando premio anterior:",
+            error
+        );
+    }
+
+
+    const ventana =
+        document.getElementById(
+            "ventanaRuletaCliente"
+        );
+
+
+    const fondo =
+        document.getElementById(
+            "fondoRuleta"
+        );
+
+
+    const boton =
+        document.getElementById(
+            "btnGirarRuleta"
+        );
+
+
+    const resultado =
+        document.getElementById(
+            "resultadoRuleta"
+        );
+
+
+    const detalle =
+        document.getElementById(
+            "detallePremioRuleta"
+        );
+
+
+    const imagenResultado =
+        document.getElementById(
+            "imagenPremioResultado"
+        );
+
+
+    ruletaGirando =
+        false;
+
+
+    rotacionRuleta =
+        0;
+
+
+    // =================================================
+    // MOSTRAR
+    // =================================================
+
+    if (fondo) {
+
+        fondo.style.display =
+            "block";
+    }
+
+
+    if (ventana) {
+
+        ventana.style.display =
+            "block";
+    }
+
+
+    // =================================================
+    // REINICIAR CANVAS
+    // =================================================
+
+    const canvas =
+        document.getElementById(
+            "canvasRuleta"
+        );
+
+
+    if (canvas) {
+
+        canvas.style.transition =
+            "none";
+
+
+        canvas.style.transform =
+            "rotate(0deg)";
+
+
+        void canvas.offsetWidth;
+
+
+        canvas.style.transition =
+            "transform 5s cubic-bezier(0.12,0.72,0.12,1)";
+    }
+
+
+    // =================================================
+    // RESULTADO
+    // =================================================
+
+    if (resultado) {
+
+        resultado.textContent =
+            "¡Mucha suerte! 🍀";
+    }
+
+
+    if (detalle) {
+
+        detalle.style.display =
+            "none";
+    }
+
+
+    if (imagenResultado) {
+
+        imagenResultado.style.display =
+            "none";
+
+
+        imagenResultado.removeAttribute(
+            "src"
+        );
+    }
+
+
+    if (boton) {
+
+        boton.disabled =
+            false;
+
+
+        boton.textContent =
+            "▶️ JUGAR";
+    }
+
+
+    // =================================================
+    // DIBUJAR
+    // =================================================
+
+    await dibujarRuleta();
+}
+
+
+// =====================================================
+// CERRAR RULETA
+// =====================================================
+
+function cerrarRuletaCliente() {
+
+    const ventana =
+        document.getElementById(
+            "ventanaRuletaCliente"
+        );
+
+
+    const fondo =
+        document.getElementById(
+            "fondoRuleta"
+        );
+
+
+    if (ventana) {
+
+        ventana.style.display =
+            "none";
+    }
+
+
+    if (fondo) {
+
+        fondo.style.display =
+            "none";
+    }
+}
+
+
+// =====================================================
+// GIRAR RULETA
+// =====================================================
+
+function girarRuletaCliente() {
+
+    if (ruletaGirando) {
+        return;
+    }
+
+
+    if (!ruletaActivaCliente) {
+
+        return;
+    }
+
+
+    const canvas =
+        document.getElementById(
+            "canvasRuleta"
+        );
+
+
+    const boton =
+        document.getElementById(
+            "btnGirarRuleta"
+        );
+
+
+    const resultado =
+        document.getElementById(
+            "resultadoRuleta"
+        );
+
+
+    const detalle =
+        document.getElementById(
+            "detallePremioRuleta"
+        );
+
+
+    const nombreResultado =
+        document.getElementById(
+            "nombrePremioResultado"
+        );
+
+
+    const descripcionResultado =
+        document.getElementById(
+            "descripcionPremioResultado"
+        );
+
+
+    const imagenResultado =
+        document.getElementById(
+            "imagenPremioResultado"
+        );
+
+
+    if (!canvas) {
+        return;
+    }
+
+
+    ruletaGirando =
+        true;
+
+
+    // =================================================
+    // DESACTIVAR BOTÓN
+    // =================================================
+
+    if (boton) {
+
+        boton.disabled =
+            true;
+
+
+        boton.textContent =
+            "🎡 GIRANDO...";
+    }
+
+
+    if (detalle) {
+
+        detalle.style.display =
+            "none";
+    }
+
+
+    // =================================================
+    // ELEGIR GANADOR
+    // =================================================
+
+    const cantidad =
+        premiosRuleta.length;
+
+
+    const premioGanador =
+        Math.floor(
+            Math.random() *
+            cantidad
+        );
+
+
+    const gradosPorPremio =
+        360 /
+        cantidad;
+
+
+    const centroPremio =
+        premioGanador *
+        gradosPorPremio +
+        gradosPorPremio / 2;
+
+
+    const actual =
+        (
+            (
+                rotacionRuleta %
+                360
+            ) +
+            360
+        ) %
+        360;
+
+
+    let ajuste =
+        360 -
+        centroPremio -
+        actual;
+
+
+    if (ajuste < 0) {
+
+        ajuste += 360;
+    }
+
+
+    const vueltas =
+        5 +
+        Math.floor(
+            Math.random() * 3
+        );
+
+
+    rotacionRuleta +=
+        vueltas * 360 +
+        ajuste;
+
+
+    canvas.style.transform =
+        "rotate(" +
+        rotacionRuleta +
+        "deg)";
+
+
+    // =================================================
+    // ESPERAR FIN DEL GIRO
+    // =================================================
+
+    setTimeout(
+        function() {
+
+            ruletaGirando =
+                false;
+
+
+            const premio =
+                premiosRuleta[
+                    premioGanador
+                ];
+
+
+            const nombre =
+                obtenerNombrePremio(
+                    premio,
+                    premioGanador + 1
+                );
+
+
+            const texto =
+                premio &&
+                premio.texto
+                    ? premio.texto
+                    : nombre;
+
+
+            // =================================================
+            // GUARDAR PREMIO GANADO
+            // =================================================
+
+            premioGanadoRuleta =
+                nombre;
+
+
+            try {
+
+                sessionStorage.setItem(
+                    "premioGanadoRuleta",
+                    nombre
+                );
+
+
+                console.log(
+                    "🎁 Premio guardado:",
+                    nombre
+                );
+
+            }
+
+            catch(error) {
+
+                console.error(
+                    "No se pudo guardar el premio ganado:",
+                    error
+                );
+            }
+
+
+            // =================================================
+            // RESULTADO
+            // =================================================
+
+            if (resultado) {
+
+                resultado.textContent =
+                    "🎉 ¡GANASTE: " +
+                    nombre +
+                    "!";
+            }
+
+
+            // =================================================
+            // NOMBRE
+            // =================================================
+
+            if (nombreResultado) {
+
+                nombreResultado.textContent =
+                    "🎁 " +
+                    nombre;
+            }
+
+
+            // =================================================
+            // DESCRIPCIÓN
+            // =================================================
+
+            if (descripcionResultado) {
+
+                descripcionResultado.textContent =
+                    premio &&
+                    premio.descripcion
+                        ? premio.descripcion
+                        : texto;
+            }
+
+
+            // =================================================
+            // IMAGEN
+            // =================================================
+
+            if (
+                imagenResultado &&
+                premio &&
+                premio.tipo === "imagen" &&
+                premio.imagen
+            ) {
+
+                imagenResultado.onload =
+                    function() {
+
+                        imagenResultado.style.display =
+                            "block";
+                    };
+
+
+                imagenResultado.onerror =
+                    function() {
+
+                        imagenResultado.style.display =
+                            "none";
+                    };
+
+
+                imagenResultado.src =
+                    premio.imagen;
+            }
+
+            else if (imagenResultado) {
+
+                imagenResultado.style.display =
+                    "none";
+
+
+                imagenResultado.removeAttribute(
+                    "src"
+                );
+            }
+
+
+            // =================================================
+            // MOSTRAR DETALLE
+            // =================================================
+
+            if (detalle) {
+
+                detalle.style.display =
+                    "block";
+            }
+
+
+            // =================================================
+            // CERRAR AUTOMÁTICAMENTE
+            // =================================================
+
+            setTimeout(
+                function() {
+
+                    cerrarRuletaCliente();
+
+                },
+                3000
+            );
+
+        },
+        5200
+    );
+}
+
+
+// =====================================================
+// COMPROBAR ESTADO DE LA RULETA
+// =====================================================
+
+async function comprobarEstadoRuleta() {
+
+    const cargada =
+        await cargarConfiguracionRuletaCliente();
+
+
+    if (!cargada) {
+
+        cerrarRuletaCliente();
+
+        return;
+    }
+
+
+    console.log(
+        "🎯 Estado ruleta:",
+        ruletaActivaCliente
+    );
+
+
+    if (ruletaActivaCliente) {
+
+        await abrirRuletaCliente();
+
+    }
+
+    else {
+
+        cerrarRuletaCliente();
+
+    }
+}
+
+
+// =====================================================
+// ACTUALIZAR RULETA AUTOMÁTICAMENTE
+// =====================================================
+
+let intervaloRuletaSupabase = null;
+
+
+function iniciarActualizacionRuleta() {
+
+    if (intervaloRuletaSupabase) {
+
+        clearInterval(
+            intervaloRuletaSupabase
+        );
+    }
+
+
+    intervaloRuletaSupabase =
+        setInterval(
+            async function() {
+
+                try {
+
+                    const estadoAnterior =
+                        ruletaActivaCliente;
+
+
+                    const cargada =
+                        await cargarConfiguracionRuletaCliente();
+
+
+                    if (!cargada) {
+
+                        return;
+                    }
+
+
+                    // =============================================
+                    // CAMBIÓ EL ESTADO
+                    // =============================================
+
+                    if (
+                        estadoAnterior !==
+                        ruletaActivaCliente
+                    ) {
+
+                        if (
+                            ruletaActivaCliente
+                        ) {
+
+                            console.log(
+                                "🟢 La ruleta fue activada desde ADMIN."
+                            );
+
+
+                            await abrirRuletaCliente();
+
+                        }
+
+                        else {
+
+                            console.log(
+                                "🔴 La ruleta fue desactivada desde ADMIN."
+                            );
+
+
+                            cerrarRuletaCliente();
+                        }
+
+                    }
+
+                    // =============================================
+                    // SI ESTÁ ABIERTA Y CAMBIARON PREMIOS
+                    // =============================================
+
+                    else if (
+                        ruletaActivaCliente &&
+                        !ruletaGirando
+                    ) {
+
+                        const ventana =
+                            document.getElementById(
+                                "ventanaRuletaCliente"
+                            );
+
+
+                        if (
+                            ventana &&
+                            ventana.style.display ===
+                            "block"
+                        ) {
+
+                            await dibujarRuleta();
+                        }
+
+                    }
+
+                }
+
+                catch(error) {
+
+                    console.error(
+                        "❌ Error actualizando ruleta:",
+                        error
+                    );
+
+                }
+
+            },
+            5000
+        );
+}
 
 
 // =====================================================
@@ -1201,29 +3318,33 @@ async function cargarProductosCliente() {
 // =====================================================
 
 document.addEventListener(
-
     "DOMContentLoaded",
-
     async function() {
 
-
-        // Primero configuración
+        // SUPABASE
 
         await cargarConfiguracionCliente();
 
 
-
-        // Después productos
+        // PRODUCTOS
 
         await cargarProductosCliente();
 
 
-    }
+        // RULETA
 
+        await comprobarEstadoRuleta();
+
+
+        // ACTUALIZACIÓN AUTOMÁTICA
+
+        iniciarActualizacionRuleta();
+
+    }
 );
 
-
 </script>
+
 
 </body>
 
