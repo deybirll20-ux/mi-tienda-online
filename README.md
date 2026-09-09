@@ -1,0 +1,1707 @@
+[ofertas.html](https://github.com/user-attachments/files/31987319/ofertas.html)
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Ofertas</title>
+
+<style>
+
+/* =====================================================
+   GENERAL
+===================================================== */
+
+*{
+    box-sizing:border-box;
+}
+
+body{
+    margin:0;
+    padding:0;
+    font-family:Arial, sans-serif;
+    background:#f5f5f5;
+}
+
+
+/* =====================================================
+   ENCABEZADO
+===================================================== */
+
+header{
+    height:55px;
+    background:#ec4a0a;
+    color:white;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:22px;
+    font-weight:bold;
+}
+
+
+/* =====================================================
+   MENÚ
+===================================================== */
+
+.menu-bar{
+    padding:15px 30px;
+    margin-bottom:20px;
+}
+
+.btn-menu{
+    background:#ec4a0a;
+    color:white;
+    border:none;
+    border-radius:5px;
+    padding:6px 11px;
+    font-size:11px;
+    cursor:pointer;
+}
+
+.btn-menu:hover{
+    opacity:.9;
+}
+
+.menu-contenido{
+    display:none;
+    width:145px;
+    margin-top:7px;
+    background:white;
+    border:1px solid #ddd;
+    border-radius:6px;
+    box-shadow:0 3px 10px rgba(0,0,0,.15);
+    overflow:hidden;
+}
+
+.menu-contenido button{
+    width:100%;
+    border:none;
+    background:white;
+    padding:10px;
+    text-align:left;
+    font-size:11px;
+    cursor:pointer;
+}
+
+.menu-contenido button:hover{
+    background:#f2f2f2;
+}
+
+
+/* =====================================================
+   CONTENEDOR
+===================================================== */
+
+.ofertas-container{
+    width:100%;
+    max-width:1200px;
+    margin:auto;
+    padding:0 20px 30px;
+}
+
+
+/* =====================================================
+   GRID
+===================================================== */
+
+.ofertas-grid{
+    display:grid;
+    grid-template-columns:repeat(4,160px);
+    column-gap:18px;
+    row-gap:22px;
+    justify-content:center;
+}
+
+
+/* =====================================================
+   TARJETA
+===================================================== */
+
+.oferta-card{
+    width:160px;
+    padding:5px;
+    border:1px solid #ddd;
+    border-radius:8px;
+    background:white;
+    text-align:center;
+    box-shadow:0 2px 6px rgba(0,0,0,.08);
+}
+
+
+/* =====================================================
+   IMAGEN
+===================================================== */
+
+.oferta-card img{
+    width:150px;
+    height:140px;
+    object-fit:contain;
+    display:block;
+    margin:0 auto;
+    background:#fafafa;
+    border-radius:5px;
+}
+
+
+/* =====================================================
+   INFORMACIÓN
+===================================================== */
+
+.oferta-info{
+    width:100%;
+    text-align:center;
+    padding-top:5px;
+}
+
+.oferta-nombre{
+    font-size:12px;
+    font-weight:bold;
+    margin:3px 0;
+    text-align:center;
+}
+
+.oferta-precio{
+    font-size:15px;
+    font-weight:bold;
+    margin:3px 0;
+    text-align:center;
+}
+
+.oferta-detalles{
+    font-size:10px;
+    color:#555;
+    margin:3px 0 6px;
+    text-align:center;
+}
+
+
+/* =====================================================
+   BOTONES EDITAR / ELIMINAR
+===================================================== */
+
+.botones-oferta{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    gap:4px;
+}
+
+.btn-editar,
+.btn-eliminar{
+    border:none;
+    color:white;
+    padding:5px 7px;
+    border-radius:4px;
+    font-size:10px;
+    cursor:pointer;
+}
+
+.btn-editar{
+    background:#1976d2;
+}
+
+.btn-eliminar{
+    background:#d32f2f;
+}
+
+.btn-editar:hover,
+.btn-eliminar:hover{
+    opacity:.85;
+}
+
+
+/* =====================================================
+   VENTANA SUBIR / EDITAR
+===================================================== */
+
+.fondo-ventana{
+    display:none;
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background:rgba(0,0,0,.55);
+    justify-content:center;
+    align-items:center;
+    z-index:1000;
+}
+
+.ventana-subir{
+    width:280px;
+    background:white;
+    border-radius:10px;
+    padding:15px;
+    box-shadow:0 5px 20px rgba(0,0,0,.3);
+}
+
+.ventana-subir h2{
+    margin:0 0 12px;
+    text-align:center;
+    font-size:17px;
+}
+
+.campo{
+    margin-bottom:8px;
+}
+
+.campo label{
+    display:block;
+    font-size:11px;
+    font-weight:bold;
+    margin-bottom:3px;
+}
+
+.campo input{
+    width:100%;
+    padding:7px;
+    border:1px solid #ccc;
+    border-radius:5px;
+    font-size:11px;
+}
+
+.botones-ventana{
+    display:flex;
+    justify-content:center;
+    gap:7px;
+    margin-top:12px;
+}
+
+.btn-publicar,
+.btn-cerrar{
+    border:none;
+    padding:7px 12px;
+    border-radius:5px;
+    color:white;
+    font-size:11px;
+    cursor:pointer;
+}
+
+.btn-publicar{
+    background:#ec4a0a;
+}
+
+.btn-cerrar{
+    background:#777;
+}
+
+
+/* =====================================================
+   MENSAJE CUANDO NO HAY OFERTAS
+===================================================== */
+
+.sin-ofertas{
+    grid-column:1 / -1;
+    text-align:center;
+    color:#777;
+    font-size:13px;
+    padding:30px;
+}
+
+
+/* =====================================================
+   RESPONSIVE
+===================================================== */
+
+@media(max-width:750px){
+
+    .ofertas-grid{
+        grid-template-columns:repeat(2,160px);
+        column-gap:15px;
+        row-gap:20px;
+    }
+
+}
+
+@media(max-width:380px){
+
+    .ofertas-grid{
+        grid-template-columns:160px;
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     ENCABEZADO
+===================================================== -->
+
+<header>
+
+    OFERTAS
+
+</header>
+
+
+
+<!-- =====================================================
+     MENÚ
+===================================================== -->
+
+<div class="menu-bar">
+
+    <button
+        class="btn-menu"
+        onclick="abrirMenu()">
+
+        ☰ MENÚ
+
+    </button>
+
+
+    <div
+        id="menuContenido"
+        class="menu-contenido">
+
+        <button
+            onclick="abrirVentanaSubir(); cerrarMenu();">
+
+            📷 SUBIR FOTO
+
+        </button>
+
+
+        <button
+            onclick="volverAdmin()">
+
+            ⬅️ ATRÁS
+
+        </button>
+
+    </div>
+
+</div>
+
+
+
+<!-- =====================================================
+     OFERTAS
+===================================================== -->
+
+<div class="ofertas-container">
+
+    <div
+        id="ofertasGrid"
+        class="ofertas-grid">
+
+    </div>
+
+</div>
+
+
+
+<!-- =====================================================
+     VENTANA SUBIR / EDITAR
+===================================================== -->
+
+<div
+    id="ventanaSubir"
+    class="fondo-ventana">
+
+    <div class="ventana-subir">
+
+        <h2 id="tituloVentana">
+
+            SUBIR OFERTA
+
+        </h2>
+
+
+        <!-- NOMBRE -->
+
+        <div class="campo">
+
+            <label>
+
+                Nombre del producto
+
+            </label>
+
+            <input
+                type="text"
+                id="nombreOferta"
+                placeholder="Nombre">
+
+        </div>
+
+
+
+        <!-- IMAGEN -->
+
+        <div class="campo">
+
+            <label>
+
+                Imagen
+
+            </label>
+
+            <input
+                type="file"
+                id="imagenOferta"
+                accept="image/*">
+
+        </div>
+
+
+
+        <!-- TALLA -->
+
+        <div class="campo">
+
+            <label>
+
+                Talla
+
+            </label>
+
+            <input
+                type="text"
+                id="tallaOferta"
+                placeholder="Ej. S, M, L">
+
+        </div>
+
+
+
+        <!-- COLOR -->
+
+        <div class="campo">
+
+            <label>
+
+                Color
+
+            </label>
+
+            <input
+                type="text"
+                id="colorOferta"
+                placeholder="Color">
+
+        </div>
+
+
+
+        <!-- PRECIO -->
+
+        <div class="campo">
+
+            <label>
+
+                Precio
+
+            </label>
+
+            <input
+                type="number"
+                id="precioOferta"
+                placeholder="0.00"
+                step="0.01">
+
+        </div>
+
+
+
+        <!-- BOTONES -->
+
+        <div class="botones-ventana">
+
+            <button
+                class="btn-publicar"
+                onclick="publicarOferta()">
+
+                PUBLICAR
+
+            </button>
+
+
+            <button
+                class="btn-cerrar"
+                onclick="cerrarVentanaSubir()">
+
+                CERRAR
+
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<!-- =====================================================
+     SUPABASE
+===================================================== -->
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+
+
+<script>
+
+/* =====================================================
+   CONEXIÓN SUPABASE
+===================================================== */
+
+const SUPABASE_URL =
+    "https://yuivmqncvmsbtiigxsqt.supabase.co";
+
+
+const SUPABASE_KEY =
+    "sb_publishable_r1ZMaIIEVcAt26_P-FBu9Q_DUenqDH_";
+
+
+const supabaseClient =
+    supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_KEY
+    );
+
+
+
+/* =====================================================
+   VARIABLES
+===================================================== */
+
+let ofertas = [];
+
+
+
+/* =====================================================
+   CARGAR OFERTAS DESDE SUPABASE
+===================================================== */
+
+async function cargarOfertas(){
+
+    const contenedor =
+        document.getElementById(
+            "ofertasGrid"
+        );
+
+
+    contenedor.innerHTML = `
+
+        <div class="sin-ofertas">
+
+            Cargando ofertas...
+
+        </div>
+
+    `;
+
+
+    try{
+
+        const resultado =
+            await supabaseClient
+
+                .from("ofertas")
+
+                .select("*")
+
+                .eq(
+                    "activo",
+                    true
+                )
+
+                .order(
+                    "creado_en",
+                    {
+                        ascending:false
+                    }
+                );
+
+
+        const data =
+            resultado.data;
+
+
+        const error =
+            resultado.error;
+
+
+        if(error){
+
+            console.error(
+                "ERROR SUPABASE:",
+                error
+            );
+
+
+            contenedor.innerHTML = `
+
+                <div class="sin-ofertas">
+
+                    Error al cargar las ofertas.
+
+                </div>
+
+            `;
+
+
+            return;
+
+        }
+
+
+        ofertas =
+            Array.isArray(data)
+                ? data
+                : [];
+
+
+        mostrarOfertas();
+
+
+    }catch(error){
+
+        console.error(
+            "ERROR:",
+            error
+        );
+
+
+        contenedor.innerHTML = `
+
+            <div class="sin-ofertas">
+
+                No se pudieron cargar las ofertas.
+
+            </div>
+
+        `;
+
+    }
+
+}
+
+
+
+/* =====================================================
+   ABRIR / CERRAR MENÚ
+===================================================== */
+
+function abrirMenu(){
+
+    const menu =
+        document.getElementById(
+            "menuContenido"
+        );
+
+
+    if(
+        menu.style.display ===
+        "block"
+    ){
+
+        menu.style.display =
+            "none";
+
+    }else{
+
+        menu.style.display =
+            "block";
+
+    }
+
+}
+
+
+
+/* =====================================================
+   CERRAR MENÚ
+===================================================== */
+
+function cerrarMenu(){
+
+    document.getElementById(
+        "menuContenido"
+    ).style.display =
+        "none";
+
+}
+
+
+
+/* =====================================================
+   VOLVER AL ADMIN
+===================================================== */
+
+function volverAdmin(){
+
+    window.location.href =
+        "admin.html";
+
+}
+
+
+
+/* =====================================================
+   ABRIR VENTANA SUBIR
+===================================================== */
+
+function abrirVentanaSubir(){
+
+    limpiarFormulario();
+
+
+    document.getElementById(
+        "ventanaSubir"
+    ).style.display =
+        "flex";
+
+}
+
+
+
+/* =====================================================
+   CERRAR VENTANA
+===================================================== */
+
+function cerrarVentanaSubir(){
+
+    document.getElementById(
+        "ventanaSubir"
+    ).style.display =
+        "none";
+
+
+    limpiarFormulario();
+
+}
+
+
+
+/* =====================================================
+   PUBLICAR OFERTA
+===================================================== */
+
+async function publicarOferta(){
+
+    const nombre =
+        document.getElementById(
+            "nombreOferta"
+        ).value.trim();
+
+
+    const talla =
+        document.getElementById(
+            "tallaOferta"
+        ).value.trim();
+
+
+    const color =
+        document.getElementById(
+            "colorOferta"
+        ).value.trim();
+
+
+    const precioTexto =
+        document.getElementById(
+            "precioOferta"
+        ).value.trim();
+
+
+    const archivo =
+        document.getElementById(
+            "imagenOferta"
+        ).files[0];
+
+
+    /* =================================================
+       VALIDACIÓN
+    ================================================= */
+
+    if(
+        !nombre ||
+        !talla ||
+        !color ||
+        !precioTexto
+    ){
+
+        alert(
+            "Completa todos los campos."
+        );
+
+        return;
+
+    }
+
+
+    const precio =
+        Number(
+            precioTexto
+        );
+
+
+    if(
+        isNaN(precio) ||
+        precio <= 0
+    ){
+
+        alert(
+            "Ingresa un precio válido."
+        );
+
+        return;
+
+    }
+
+
+
+    /* =================================================
+       DETECTAR EDICIÓN
+    ================================================= */
+
+    const ventana =
+        document.getElementById(
+            "ventanaSubir"
+        );
+
+
+    const editando =
+        ventana.dataset.editando;
+
+
+
+    /* =================================================
+       SI ESTÁ EDITANDO
+    ================================================= */
+
+    if(editando){
+
+        await editarOfertaSupabase(
+            editando,
+            nombre,
+            talla,
+            color,
+            precio,
+            archivo
+        );
+
+        return;
+
+    }
+
+
+
+    /* =================================================
+       MÁXIMO 20 OFERTAS
+    ================================================= */
+
+    if(ofertas.length >= 20){
+
+        alert(
+            "Solo puedes publicar hasta 20 ofertas."
+        );
+
+        return;
+
+    }
+
+
+
+    /* =================================================
+       IMAGEN OBLIGATORIA
+    ================================================= */
+
+    if(!archivo){
+
+        alert(
+            "Selecciona una imagen."
+        );
+
+        return;
+
+    }
+
+
+
+    /* =================================================
+       LEER IMAGEN
+    ================================================= */
+
+    const lector =
+        new FileReader();
+
+
+    lector.onload =
+        async function(e){
+
+            const imagen =
+                e.target.result;
+
+
+            try{
+
+                const resultado =
+                    await supabaseClient
+
+                        .from("ofertas")
+
+                        .insert([
+
+                            {
+
+                                nombre:
+                                    nombre,
+
+                                imagen:
+                                    imagen,
+
+                                talla:
+                                    talla,
+
+                                color:
+                                    color,
+
+                                precio:
+                                    precio,
+
+                                activo:
+                                    true
+
+                            }
+
+                        ]);
+
+
+                const error =
+                    resultado.error;
+
+
+                if(error){
+
+                    console.error(
+                        "ERROR AL PUBLICAR:",
+                        error
+                    );
+
+
+                    alert(
+                        "No se pudo publicar la oferta.\n\n" +
+                        error.message
+                    );
+
+                    return;
+
+                }
+
+
+                alert(
+                    "Oferta publicada correctamente."
+                );
+
+
+                cerrarVentanaSubir();
+
+
+                await cargarOfertas();
+
+
+            }catch(error){
+
+                console.error(
+                    error
+                );
+
+
+                alert(
+                    "Ocurrió un error al publicar."
+                );
+
+            }
+
+        };
+
+
+    lector.readAsDataURL(
+        archivo
+    );
+
+}
+
+
+
+/* =====================================================
+   EDITAR OFERTA EN SUPABASE
+===================================================== */
+
+async function editarOfertaSupabase(
+    id,
+    nombre,
+    talla,
+    color,
+    precio,
+    archivo
+){
+
+    try{
+
+        const cambios = {
+
+            nombre:
+                nombre,
+
+            talla:
+                talla,
+
+            color:
+                color,
+
+            precio:
+                precio
+
+        };
+
+
+        /* =============================================
+           SI SE SELECCIONÓ NUEVA IMAGEN
+        ============================================= */
+
+        if(archivo){
+
+            const lector =
+                new FileReader();
+
+
+            lector.onload =
+                async function(e){
+
+                    cambios.imagen =
+                        e.target.result;
+
+
+                    await guardarEdicion(
+                        id,
+                        cambios
+                    );
+
+                };
+
+
+            lector.readAsDataURL(
+                archivo
+            );
+
+        }else{
+
+            await guardarEdicion(
+                id,
+                cambios
+            );
+
+        }
+
+
+    }catch(error){
+
+        console.error(
+            error
+        );
+
+
+        alert(
+            "Error al editar la oferta."
+        );
+
+    }
+
+}
+
+
+
+/* =====================================================
+   GUARDAR EDICIÓN
+===================================================== */
+
+async function guardarEdicion(
+    id,
+    cambios
+){
+
+    const resultado =
+        await supabaseClient
+
+            .from("ofertas")
+
+            .update(
+                cambios
+            )
+
+            .eq(
+                "id",
+                id
+            );
+
+
+    const error =
+        resultado.error;
+
+
+    if(error){
+
+        console.error(
+            "ERROR AL EDITAR:",
+            error
+        );
+
+
+        alert(
+            "No se pudo editar la oferta.\n\n" +
+            error.message
+        );
+
+        return;
+
+    }
+
+
+    alert(
+        "Oferta actualizada correctamente."
+    );
+
+
+    cerrarVentanaSubir();
+
+
+    await cargarOfertas();
+
+}
+
+
+
+/* =====================================================
+   MOSTRAR OFERTAS
+===================================================== */
+
+function mostrarOfertas(){
+
+    const contenedor =
+        document.getElementById(
+            "ofertasGrid"
+        );
+
+
+    contenedor.innerHTML =
+        "";
+
+
+
+    /* =================================================
+       NO HAY OFERTAS
+    ================================================= */
+
+    if(
+        !Array.isArray(ofertas) ||
+        ofertas.length === 0
+    ){
+
+        contenedor.innerHTML = `
+
+            <div class="sin-ofertas">
+
+                No hay ofertas publicadas.
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+
+    /* =================================================
+       CREAR TARJETAS
+    ================================================= */
+
+    ofertas.forEach(
+        function(oferta){
+
+            const tarjeta =
+                document.createElement(
+                    "div"
+                );
+
+
+            tarjeta.className =
+                "oferta-card";
+
+
+
+            /* =========================================
+               IMAGEN
+            ========================================= */
+
+            const imagen =
+                document.createElement(
+                    "img"
+                );
+
+
+            imagen.src =
+                oferta.imagen || "";
+
+
+            imagen.alt =
+                oferta.nombre ||
+                "Oferta";
+
+
+
+            /* =========================================
+               INFORMACIÓN
+            ========================================= */
+
+            const info =
+                document.createElement(
+                    "div"
+                );
+
+
+            info.className =
+                "oferta-info";
+
+
+
+            const nombre =
+                document.createElement(
+                    "div"
+                );
+
+
+            nombre.className =
+                "oferta-nombre";
+
+
+            nombre.textContent =
+                oferta.nombre || "";
+
+
+
+            const precio =
+                document.createElement(
+                    "div"
+                );
+
+
+            precio.className =
+                "oferta-precio";
+
+
+            precio.textContent =
+                "S/ " +
+                Number(
+                    oferta.precio || 0
+                ).toFixed(2);
+
+
+
+            const detalles =
+                document.createElement(
+                    "div"
+                );
+
+
+            detalles.className =
+                "oferta-detalles";
+
+
+            detalles.textContent =
+                "Talla: " +
+                (oferta.talla || "") +
+                " | Color: " +
+                (oferta.color || "");
+
+
+
+            /* =========================================
+               BOTONES
+            ========================================= */
+
+            const botones =
+                document.createElement(
+                    "div"
+                );
+
+
+            botones.className =
+                "botones-oferta";
+
+
+
+            const editar =
+                document.createElement(
+                    "button"
+                );
+
+
+            editar.className =
+                "btn-editar";
+
+
+            editar.textContent =
+                "✏️ EDITAR";
+
+
+            editar.onclick =
+                function(){
+
+                    editarOferta(
+                        oferta.id
+                    );
+
+                };
+
+
+
+            const eliminar =
+                document.createElement(
+                    "button"
+                );
+
+
+            eliminar.className =
+                "btn-eliminar";
+
+
+            eliminar.textContent =
+                "🗑️ ELIMINAR";
+
+
+            eliminar.onclick =
+                function(){
+
+                    eliminarOferta(
+                        oferta.id
+                    );
+
+                };
+
+
+
+            botones.appendChild(
+                editar
+            );
+
+
+            botones.appendChild(
+                eliminar
+            );
+
+
+
+            info.appendChild(
+                nombre
+            );
+
+
+            info.appendChild(
+                precio
+            );
+
+
+            info.appendChild(
+                detalles
+            );
+
+
+            info.appendChild(
+                botones
+            );
+
+
+
+            tarjeta.appendChild(
+                imagen
+            );
+
+
+            tarjeta.appendChild(
+                info
+            );
+
+
+            contenedor.appendChild(
+                tarjeta
+            );
+
+        }
+    );
+
+}
+
+
+
+/* =====================================================
+   ABRIR EDICIÓN
+===================================================== */
+
+function editarOferta(id){
+
+    const oferta =
+        ofertas.find(
+            function(item){
+
+                return String(
+                    item.id
+                ) === String(
+                    id
+                );
+
+            }
+        );
+
+
+    if(!oferta){
+
+        alert(
+            "No se encontró la oferta."
+        );
+
+        return;
+
+    }
+
+
+
+    document.getElementById(
+        "nombreOferta"
+    ).value =
+        oferta.nombre || "";
+
+
+
+    document.getElementById(
+        "tallaOferta"
+    ).value =
+        oferta.talla || "";
+
+
+
+    document.getElementById(
+        "colorOferta"
+    ).value =
+        oferta.color || "";
+
+
+
+    document.getElementById(
+        "precioOferta"
+    ).value =
+        oferta.precio || "";
+
+
+
+    document.getElementById(
+        "imagenOferta"
+    ).value =
+        "";
+
+
+
+    document.getElementById(
+        "ventanaSubir"
+    ).dataset.editando =
+        id;
+
+
+
+    document.getElementById(
+        "tituloVentana"
+    ).textContent =
+        "EDITAR OFERTA";
+
+
+
+    document.getElementById(
+        "ventanaSubir"
+    ).style.display =
+        "flex";
+
+}
+
+
+
+/* =====================================================
+   ELIMINAR OFERTA
+===================================================== */
+
+async function eliminarOferta(id){
+
+    const confirmar =
+        confirm(
+            "¿Quieres eliminar esta oferta?"
+        );
+
+
+    if(!confirmar){
+
+        return;
+
+    }
+
+
+    try{
+
+        const resultado =
+            await supabaseClient
+
+                .from("ofertas")
+
+                .delete()
+
+                .eq(
+                    "id",
+                    id
+                );
+
+
+        const error =
+            resultado.error;
+
+
+        if(error){
+
+            console.error(
+                "ERROR AL ELIMINAR:",
+                error
+            );
+
+
+            alert(
+                "No se pudo eliminar la oferta.\n\n" +
+                error.message
+            );
+
+            return;
+
+        }
+
+
+        alert(
+            "Oferta eliminada correctamente."
+        );
+
+
+        await cargarOfertas();
+
+
+    }catch(error){
+
+        console.error(
+            error
+        );
+
+
+        alert(
+            "Ocurrió un error al eliminar."
+        );
+
+    }
+
+}
+
+
+
+/* =====================================================
+   LIMPIAR FORMULARIO
+===================================================== */
+
+function limpiarFormulario(){
+
+    document.getElementById(
+        "nombreOferta"
+    ).value =
+        "";
+
+
+    document.getElementById(
+        "imagenOferta"
+    ).value =
+        "";
+
+
+    document.getElementById(
+        "tallaOferta"
+    ).value =
+        "";
+
+
+    document.getElementById(
+        "colorOferta"
+    ).value =
+        "";
+
+
+    document.getElementById(
+        "precioOferta"
+    ).value =
+        "";
+
+
+    const ventana =
+        document.getElementById(
+            "ventanaSubir"
+        );
+
+
+    delete ventana.dataset.editando;
+
+
+    document.getElementById(
+        "tituloVentana"
+    ).textContent =
+        "SUBIR OFERTA";
+
+}
+
+
+
+/* =====================================================
+   CERRAR CON ESCAPE
+===================================================== */
+
+document.addEventListener(
+    "keydown",
+    function(e){
+
+        if(e.key === "Escape"){
+
+            cerrarVentanaSubir();
+
+        }
+
+    }
+);
+
+
+
+/* =====================================================
+   INICIAR
+===================================================== */
+
+cargarOfertas();
+
+</script>
+
+</body>
+
+</html>
